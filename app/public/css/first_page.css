@@ -322,14 +322,18 @@
 
 
 /*------------------------------*/
-
+@media screen and (max-width:1400px) {
+  .paralax {
+    display: none;
+  }
+}
 .admin-panel{
         display: block;
     } 
 
 @media screen and (min-width:480px) {
     .admin-panel{
-        display: block !important;
+        display: none !important;
     } 
     .open-menu-list{
         display: none !important;
@@ -354,10 +358,12 @@
     }
     
     .header{
-        margin-top: 50px;
+        margin-top: 90px;
+        padding-bottom: 50px;
         position: relative;
         width: 100%;
         text-align: left;
+        overflow: hidden;
     }
     
     .header p span{
@@ -496,10 +502,10 @@
 
  .goods .good-line{
    display: inline-block;
-  width: 80%;
+  width: 60%;
   background-color: #40475a;
   height: 60px;
-  margin-bottom: 100px;
+  margin: 60px 0px;
   position: relative;
  }
   .goods .good-line span{
@@ -611,7 +617,7 @@
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 250px;
+    width: 200px;
   }
   .p1{
     top: 80%;
@@ -622,10 +628,10 @@
     right: 0%;
   }
   .p3{
-    top: 100%;
+    top: 130%;
   }
   .p4{
-    top: 150%;
+    top: 160%;
     left:auto;
     right: 0%;
   }

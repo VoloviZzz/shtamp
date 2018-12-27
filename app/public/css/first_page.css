@@ -575,7 +575,7 @@
     left: 20%;
     background-color: #00000063;
     color: #fff;
-    width: 25%;
+    width: 350px;
     height: 70%;
     z-index: 2;
     text-align: center;
@@ -622,10 +622,10 @@
     right: 0%;
   }
   .p3{
-    top: 150%;
+    top: 100%;
   }
   .p4{
-    top: 200%;
+    top: 150%;
     left:auto;
     right: 0%;
   }

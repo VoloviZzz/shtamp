@@ -1,0 +1,12 @@
+<%
+	var href = "/store-cat/";
+%>
+
+<% cats.forEach((cat, i) => { -%>
+	<li>
+		<div class="submenu-inner" style="text-align: left;">
+			<img src="<%= cat.img -%>" alt="Категория магазина" style="width: 30px; height: 30px;" />
+			<a href="<%=href%><%= cat.id -%>"><%= cat.title -%></a>
+		</div>
+	</li>
+<% }) -%>

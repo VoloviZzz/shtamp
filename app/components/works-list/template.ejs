@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/works-list.css">
+<section>
+	<% if(user.adminMode) { %>
+		<div class="admin-control-container">
+			<button class="btn js-works-add">Добавить</button>
+		</div>
+	<% } %>
+	<% works.forEach((partner) => { -%>
+		<% if(partner.publicate == '0' && user.adminMode == '0') return false; %>
+		<div class="partner-item">
+			<% if(user.adminMode) { %>
+				<div class="admin-control-container">
+					<button class="btn js-works-delete" data-id="<%= partner.id -%>">Удалить</button>
+					<% if(partner.publicate) { %>
+						<button class="btn js-works-update__publicate" data-value="0" data-id="<%= partner.id -%>">Снять с публикации</button>
+					<% } else { %>
+						<button class="btn js-works-update__publicate" data-value="1" data-id="<%= partner.id -%>">Опубликовать</button>
+					<% } %>
+				</div>
+			<% } %>
+			<% if(user.adminMode) { %>
+				<input type="text" class="input-text js-works-update" data-target="title" data-id="<%= partner.id -%>" value="<%= partner.title -%>">
+				<textarea name="partner-text" data-id="<%= partner.id -%>" data-target="text" class="input-text js-works-update"><%= partner.text -%></textarea>
+			<% } else { %> 
+				<h1 class="partner-item__title"><%= partner.title -%></h1>
+				<p><%- Helpers.replaceLineBreaks(partner.text) -%></p>
+			<% } %>
+		</div>
+	<% }) -%>
+</section>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/works-list.js" defer></script>
+<% } %>

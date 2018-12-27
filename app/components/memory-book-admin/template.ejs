@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="/css/memory_book.css">
+<link rel="stylesheet" href="/css/search-deads.css">
+<div id="general" class="menu-sections menu-sections__default">
+	<div id="general-deads-container">
+		<%- include('./items-list', {deads: deads, countDeads: countDeads, part: 0}) %>	
+	</div>
+	<%- pagination.render() -%>
+</div>
+<script src="/js/memory_book.js" defer></script>

@@ -1,0 +1,64 @@
+<div class="text-center block-name memory-book__title">
+	<h3>Фотографии</h3>
+</div>
+<div class="text-indent_p text-margin-bottom-p">
+	<% if(data.photos) { %>
+		<div class="baguetteBoxOne">
+			<% data.photos.map(p => { %>
+				<div class="js-memoryItem dead-view-memory-photos">
+					<% if(user.adminMode) { %>
+						<div class="admin-control-container">
+								<% if(user.adminMode) { %>
+								<div style="width: 100%; text-align: right">
+									<br>
+									<% if(p.state === 3) { %>
+										<button data-id="<%= p.id %>" data-target="state" data-table="photos" data-state="2" class="btn js-item-toggle-state">Снять с публикации</button>    
+									<% }
+									else if(p.state == 0 || p.state == 2) { %>
+										<button data-id="<%= p.id %>" data-target="state" data-table="photos" data-state="3" class="btn js-item-toggle-state">Опубликовать</button>
+										<button data-id="<%= p.id %>" data-target="state" data-table="photos" data-state="1" class="btn js-item-toggle-state">Отклонить</button>
+									<% } %>
+									<br>
+									<br>
+								</div>
+							<% } %>
+						</div>
+					<% } %>
+					<a href="<%= memoryBookPhotoPath -%><%= p.url -%>">
+						<img class="memory-photos--item" src="<%= memoryBookPhotoPath -%><%= p.url -%>" draggable="false">
+						<% if(p.state != '3' && p.state != '1') { %>
+							<p><strong>Находится на модерации</strong></p>
+						<% } else if (p.state == '1') { %>
+							<p>
+								<b>Фото отклонено. Причина: <%= p.reason -%></b>
+							</p>
+						<% } %>
+					</a>
+					<p class="js-memoryItem-text photo-comment"><%= p.comment -%></p>
+					<input value="<%= p.comment -%>" type="text" style="display: none" data-id="<%= p.id -%>" data-target="comment" data-table="photos" class="js-memoryItem-update input-text">
+					<small>Разместил: <%= p.client.name || '' -%> <%- p.author_id == user.id ? '<b>(Это вы)</b>' : '' -%>, <%= Helpers.formatDate(p.created, 'dd MMMM yyyy') -%></small>
+					<% if(p.author_id == user.id) { %>
+						<div>
+							<button class="btn js-show-edit-form">Редактировать</button>
+							<button data-id="<%= p.id %>" data-target="photos" data-creator="<%= p.author_id -%>" class="btn js-delete-btn">Удалить фото</button>
+						</div>
+					<% }%>
+				</div>
+			<% }) %>
+		</div>
+	<% } %>
+	<p>Если у Вас имеются какие-либо фотографии, связанные с умершим, Вы можете разместить их на этой страничке, чтобы их смогли увидеть все её посетители. Размещение фотографий абсолютно бесплатно и доступно всем зарегистрированным пользователям.</p>
+</div>
+<div class="form-add-memory">
+	<div class="form-title text-center">
+		<h1 id="form-title__text">Добавить фотографии</h1>
+	</div>
+	<div class="form-body">
+		<% if(!!user.id === true) { %>
+			<input type="file" id="js-uploadable-files" class="js-upload-file" data-id="<%= g.id -%>" name="person-photos" multiple>
+		<% } %>
+	</div>
+</div>
+<div>
+	<button class="btn action-btn <%= !!user.id ? "js-select-photos" : "btn-disabled" %>">Добавить фотографии</button>
+</div>

@@ -1,0 +1,44 @@
+<% var level = level|| 0;%>
+<ul class="section-menu">
+	<% for(let id in menuTree) { %>
+		<% var s = menuTree[id]%>
+		<% if(user.adminMode) { %>
+			<li class="section-menu-item section-menu-item-admin <%= route.url === s.href || route.active_menu_item == s.id ? "active" : "" -%>" data-href="<%= s.href -%>">
+				<div class="d-flex">
+					<a class="flex-grow-1 no-arrow" href="<%= s.href%>">
+						<span><%=s.title%></span>
+					</a>
+					<a class="dropdown-toggle no-arrow" id="generalMenuDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-2x fa-ellipsis-v"></i></a>
+					<div class="dropdown-menu" aria-labelledby="generalMenuDropdown">
+						<input class="form-control js-menuItem-edit dropdown-item mb-1" data-id="<%= s.id -%>" data-target="title" value="<%= s.title -%>">
+						<input class="form-control js-menuItem-edit dropdown-item mb-1" data-id="<%= s.id -%>" data-target="href" value="<%= s.href -%>">
+
+						<span title="Приоритет">П:</span>
+
+						<input type="text" class="form-control js-menuItem-edit"  data-id="<%= s.id -%>" data-target="priority" name="priority" value="<%= s.priority -%>">
+						<div class="dropdown-divider"></div>
+						
+						<button class="btn js-menuItem-delete dropdown-item mb-1" data-menu-id="<%= s.id %>">Удалить</button>
+						<% if(route.active_menu_item == s.id) { %>
+							<button class="btn js-route-toggleActiveMenuItem dropdown-item" data-route-id="<%= route.id -%>" data-menu-id="0" title="Сделать некактивным пункт меню для текущего маршрута">Неактивная для маршрута</button>
+						<% } else { %>
+							<button class="btn js-route-toggleActiveMenuItem dropdown-item" data-route-id="<%= route.id -%>" data-menu-id="<%= s.id %>" title="Сделать пункт меню активным для текущего маршрута">Активная для машрута</button>
+						<% } %>
+					</div>
+				</div>
+				<% if(!!menuTree[id]["childs"] === true) { %>
+					<%- include("./menu-list.ejs", {menuTree: menuTree[id]["childs"], level: level + 1}) %>
+				<% } %>
+			</li>
+		<% } else { %> 
+			<li class="section-menu-item section-menu-item-user <%= route.url === s.href || route.active_menu_item == s.id ? "active" : "" -%>" data-href="<%= s.href -%>">
+				<a href="<%= s.href %>" style="width: 100%; padding-left: <%= 20 * level -%>px">
+					<p><%= s.title -%></p>
+				</a>
+				<% if(!!menuTree[id]["childs"] === true) { %>
+					<%- include("./menu-list.ejs", {menuTree: menuTree[id]["childs"], level: level + 1}) %>
+				<% } %>
+			</li>
+		<% } %>
+	<% } %>
+</ul>

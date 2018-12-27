@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/css/memory_book.css">
+<link rel="stylesheet" href="/css/search-deads.css">
+<% if(user.adminMode) { %>
+	<span>Показывать только: </span>
+	<select class="js-fragment-update-settings" data-event="change" data-target="memoryTarget" data-fragment-id="<%= fragment.id -%>">
+		<% memoryTargetsList.forEach(({target, title}) => { -%>
+			<option <%= target == currentMemoryTarget ? 'selected' : '' -%> value="<%= target -%>"><%= title -%></option>
+		<% }) -%>
+	</select>
+<% } %>
+<div id="general" class="menu-sections menu-sections__default">
+	<div id="general-deads-container">
+		<%- include('./items-list', {deads: data.deads, countDeads: data.countDeads, part: 0}) %>	
+	</div>
+	<%- pagination.render() -%>
+</div>
+<script src="/js/memory_book.js" defer></script>

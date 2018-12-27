@@ -1,0 +1,58 @@
+<section>
+	<h2>Настройки e-mail модуля</h2>
+	<h3>Авторизация</h3>
+	<form method="POST" action="/api/adminEmail/auth">
+		<div class="form-group">
+			<span>Хост:</span>
+			<input class="form-control" type="text" name="host" value="<%= siteConfig.get('emailHost') -%>" required>
+		</div>
+		<div class="form-group">
+			<span>Порт:</span>
+			<input class="form-control" type="text" name="port" value="<%= siteConfig.get('emailPort') -%>" required>
+		</div>
+		<div class="form-group">
+			<span>Имя пользователя:</span>
+			<input class="form-control" type="text" name="user" value="<%= siteConfig.get('emailUser') -%>" required>
+		</div>
+		<div class="form-group">
+			<span>Пароль:</span>
+			<input class="form-control" type="text" name="pass" value="<%= siteConfig.get('emailPass') -%>" required>
+		</div>
+		<div class="form-group">
+			<button class="btn">Сохранить</button>
+		</div>
+	</form>
+</section>
+<section>
+	<h3>Настройка переменных</h3>
+	<span class="font-weight-bold">Подтверждение регистрации</span>
+	<form class="form-group" method="POST" action="/api/adminEmail/setVariable">
+		<span class="d-block">Тема письма:</span>
+		<small>*Обязательный параметр {{siteName}}</small>
+		<input class="form-control" type="text" name="value" value="<%= siteConfig.get('emailRegisterConfirmSubject') -%>">
+		<input type="hidden" name="target" value="emailRegisterConfirmSubject">
+		<button class="btn my-2">Сохранить</button>
+	</form>
+	<form class="form-group" method="POST" action="/api/adminEmail/setVariable">
+		<span class="d-block">Сообщение:</span>
+		<small>*Обязательный параметр {{link}}</small>
+		<textarea class="form-control" name="value"><%= siteConfig.get('emailRegisterConfirm') -%></textarea>
+		<input type="hidden" name="target" value="emailRegisterConfirm">
+		<button class="btn my-2">Сохранить</button>
+	</form>
+	<span class="d-block font-weight-bold">Восстановление пароля</span>
+	<form class="form-group" method="POST" action="/api/adminEmail/setVariable">
+		<span class="d-block">Тема письма:</span>
+		<small>*Обязательный параметр {{siteName}}</small>
+		<input class="form-control" type="text" name="value" value="<%= siteConfig.get('emailPasswordResetSubject') -%>">
+		<input type="hidden" name="target" value="emailPasswordResetSubject">
+		<button class="btn my-2">Сохранить</button>
+	</form>
+	<form class="form-group" method="POST" action="/api/adminEmail/setVariable">
+		<span class="d-block">Сообщение:</span>
+		<small>*Обязательный параметр {{password}}</small>
+		<textarea class="form-control" name="value"><%= siteConfig.get('emailPasswordReset') -%></textarea>
+		<input type="hidden" name="target" value="emailPasswordReset">
+		<button class="btn my-2">Сохранить</button>
+	</form>
+</section>

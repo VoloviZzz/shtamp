@@ -1,0 +1,45 @@
+.document-footer {
+    width: 100%;
+    min-height: 35px; // Высота
+    line-height: 35px; // Центрирование текста
+    z-index: 10000;
+    font-size: 15px;
+    flex: 0 0 auto;
+    @include bg-letaindex;
+
+    a {
+        color: $white;
+    }
+    
+    a:hover {
+        color: $link-hover-color;
+    }
+
+    .footer-row {
+        display: flex;
+        justify-content: space-between;
+
+        .social{
+            text-align: right;
+        }
+    }
+}
+
+@media (max-width: 768px){
+
+    .document-footer {
+
+        .footer-row {
+            flex-direction: column;
+    
+            .social {
+                text-align: center;
+                font-size: 27px;
+            }
+        }
+
+        div {
+            text-align: center;
+        }
+    }
+}

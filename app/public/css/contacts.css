@@ -1,0 +1,224 @@
+.contacts {
+    margin: 0 auto;
+    max-width: 1170px;
+}
+
+.mail-icon, .tel-icon {
+    padding-right: 10px;
+}
+
+.mails, .telephones, .bank-info, .feedback {
+    margin: 0 auto;
+    max-width: 920px;
+}
+
+.mail-item, .telephone-item, .departments__item {
+    margin-top: 10px;
+    min-width: -webkit-calc((100% / 3) - 20px);
+    min-width: calc((100% / 3) - 20px);
+    margin-right: 10px;
+}
+
+.mail-item:last-child, .telephone-item:last-child, .departments__item:last-child {
+    margin-right: 0;
+}
+
+/*==================================================*/
+.mails {
+    margin-top: 25px;
+    max-width: 920px;
+}
+
+.mails p {
+    text-indent: 0;
+}
+
+.mails__items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.mails__title {
+    margin-top: 3em;
+    margin-bottom: 2em;
+    text-align: center;
+    font-size: 20px;
+}
+
+.mail-item {
+    text-align: center;
+    width: 32%;
+}
+
+.mail-item__title {
+    font-size: 14px;
+    color: #616263;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.mail-item__adress-link {
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    font-size: 18px;
+    font-weight: 700;
+    text-indent: 0;
+    margin-top: .5em;
+    color: grey;
+}
+
+.mail-item__adress-link .fa {
+    color: #000;
+}
+
+.mail-item__adress-link span {
+    font-size: 1.25em;
+    color: #000;
+}
+
+/*==================================================*/
+.telephones {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.telephones__items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.telephone-item__title {
+    font-size: 10px;
+    color: #616263;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.telephone-item__tel-link {
+    display: inline-block;
+    border-bottom: 2px solid #000000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.telephones__departments-title {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.departments {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.departments__item {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.departments__title {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.departments__tel, .departments__mail {
+    margin-top: 5px;
+}
+
+.departments__mail a {
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+}
+
+.departments__mode {
+    margin-top: 15px;
+}
+
+/*======================================*/
+.adress, .adress__cart, .adress__gps-coordinates {
+    margin-top: 35px;
+}
+
+.adress__title, .gps-coordinates__title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.adress__item, .gps-coordinates__items {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.25em;
+}
+
+.gps-coordinates__items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gps-coordinates__item {
+    padding: 0 10px;
+}
+
+/*=========================================================*/
+.bank-info {
+    margin: 0 auto;
+    margin-top: 35px;
+    max-width: 500px;
+}
+
+.bank-info__titile {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.bank-info__requisites {
+    margin: 25px auto 0;
+}
+
+.requisites__item {
+    font-size: 1.25em;
+    text-align: center;
+}

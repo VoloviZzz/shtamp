@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/css/my-cabinet.css">
+<script src="/vendors/maskedinput/jquery.maskedinput.js" defer></script>
+<div class="my-wrapper">
+	<div class="my__item-wrapp general">
+		<form id="general-form" action="/api/my-cabinet/changeGeneral" class="form-info js-form-info js-general-form">
+			<span class="item__title">Основное</span>
+			<div class="my__item d-flex">
+				<div class="my__photo">
+					<img src="<%= Helpers.replaceImageIfNotExist(user.avatar) -%>" alt="Фото пользователя">
+					<label>
+						<span style="cursor: pointer" class="my__photo-download">Загрузить фото</span>
+						<input type="file" style="display: none" id="js-upload-avatar" data-id="<%= user.id -%>">
+					</label>
+				</div>
+				<div class="my__right">
+					<div class="input-group">
+						<label>
+							<span class="my-item__input-name">Фамилия:</span>
+							<input class="input-text js-input-text" name="surname" type="text" value="<%=user.surname%>">
+						</label>
+					</div>
+					<div class="input-group">
+						<label>
+							<span class="my-item__input-name">Имя:</span>
+							<input class="input-text js-input-text" name="firstname" type="text" value="<%=user.firstname%>">
+						</label>
+					</div>
+					<div class="input-group">
+						<label>
+							<span class="my-item__input-name">Отчество:</span>
+							<input class="input-text js-input-text" name="patronymic" type="text" value="<%=user.patronymic%>">
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="my__button-wrapp">
+				<button class="btn my__accept-button">Изменить</button>
+			</div>
+		</form>
+	</div>
+	<div class="my__item-wrapp personal">
+		<span class="item__title">Контактная информация</span>
+		<div class="my__item">
+			<form id="contact-form" action="/api/my-cabinet/changePhone" class="form-info js-form-info js-contact-form">
+				<div class="my__right">
+					<div class="input-group first-item">
+						<label>
+							<span class="my-item__input-name">Телефон:</span>
+							<input class="input-text js-input-text js-masked-phone" name="phone" type="text" value="<%= user.phone %>">
+						</label>
+					</div>
+				</div>
+				<div class="my__button-wrapp">
+					<button class="btn my__accept-button">Изменить</button>
+				</div>
+			</form>
+			<div class="my-2 d-none js-confirm-wrapper">
+				<form class="js-confirm-form">
+					<span>Код из смс:</span>
+					<input type="text" name="code" class="form-control">
+					<button class="btn w-100 my-2">Отправить</button>
+				</form>
+			</div>
+		</div>
+		<div class="my__item">
+			<form action="/api/my-cabinet/changePersonal" class="form-info js-form-info js-contact-form">
+				<div class="my__right">
+					<div class="input-group first-item">
+						<label>
+							<span class="my-item__input-name">Почта:</span>
+							<input class="input-text js-input-text" name="mail" type="text" value="<%= user.mail %>">
+						</label>
+					</div>
+				</div>
+				<div class="my__button-wrapp">
+					<button class="btn my__accept-button">Изменить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="my__item-wrapp security">
+		<form id="security-form" action="/api/my-cabinet/changeSecurity">
+			<span class="item__title">Безопасность</span>
+			<div class="my__item">
+				<div class="my__right">
+						<div class="input-group">
+							<label>
+								<span class="my-item__input-name">Старый пароль:</span>
+								<input class="input-text js-input-text" id="old-password" name="old-password" type="password">
+							</label>
+						</div>
+						<div class="input-group">
+							<label>
+								<span class="my-item__input-name">Новый пароль:</span>
+								<input class="input-text js-input-text" id="new-password" name="password" type="password">
+							</label>
+						</div>
+						<div class="input-group">
+							<label>
+								<span class="my-item__input-name">Повторить пароль:</span>
+								<input class="input-text js-input-text" id="check-password" name="check-password" type="password">
+							</label>
+						</div>
+				</div>
+			</div>
+			<div class="my__button-wrapp">
+				<button class="btn my__accept-button">Изменить</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="/js/my-cabinet.js" defer></script>

@@ -1,0 +1,5 @@
+@mixin bg-letaindex { /* Фон и цвет шрифта */
+    color: $white;
+    background-color: #262626;
+	background: linear-gradient(to bottom, #000000 0%, #636262 5%, #0f0f0f 51%, #080808 83%);
+}

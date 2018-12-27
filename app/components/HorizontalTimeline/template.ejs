@@ -1,0 +1,81 @@
+
+<link rel="stylesheet" href="/css/HorizontalTimeline.css">
+<hr>
+<div style="text-align: center;">
+  <div class="hidden-edit-block" style="display:none">
+    	<h2>Редактировать событие № <span></span></h2>
+      <br>
+    		<div class="input-group">
+    			<label>
+    				<span>Заголовок:</span>
+    				<input type="text" class="input-text edit-title" style="width: auto;">
+    			</label>
+    		</div>
+        <div class="input-group">
+    			<img onclick="$('#edit-img-input-file').click()" style="width: 300px;" src="" alt="Изображение события" class="edit-img-btn">
+          <input style="display:none" type="file" id="edit-img-input-file">
+    		</div>
+    		<div class="input-group">
+    			<label>
+    				<span>Описание:</span>
+    				<input type="text" class="input-text edit-desc" style="width: auto;">
+    			</label>
+    		</div>
+    		<div class="input-group">
+          <button class="btn save-edited-history"><i class="fa fa-edit"></i> Редактировать</button>
+    			<button class="btn close-edited-history"><i class="fa fa-remove"></i></button>
+    		</div>
+        <hr>
+        <br>
+  </div>
+</div>
+
+
+<section class="timeline">
+  <ol>
+		<%
+			history.forEach((o, i) => {
+			%>
+			<li>
+				<div class="timeline-block" id="history<%= o.id %>">
+					<% if(user.adminMode) { %>
+						<div class="control-block" data-id="<%= o.id %>">
+							<div class="btn btn-danger control remove"><i class="fa fa-remove"></i></div>
+							<div class="btn control edit"><i class="fa fa-edit"></i></div>
+							<div class="btn control left"><i class="fa fa-arrow-left"></i></div>
+							<div class="btn control right"><i class="fa fa-arrow-right"></i></div>
+						</div>
+						<% } %>
+            <img src="<%= o.img %>" alt="">
+					<time><%= o.title %></time>
+					<div class="timeline-desc"><%= o.desc %></div>
+				</div>
+			</li>
+		<% }); %>
+		<% if(user.adminMode) { %>
+			<li>
+				<div class="timeline-block add-new-event" data-admin="<%= user.adminMode %>" style="cursor: pointer; text-align: center;">
+					<i class="fa fa-plus"></i>
+				</div>
+			</li>
+		<% } %>
+    <li></li>
+  </ol>
+
+  <div class="arrows">
+    <button class="btn arrow arrow__prev" >
+      <i class="fa fa-arrow-left"></i>
+    </button>
+    <button class="btn arrow arrow__next">
+      <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+</section>
+
+
+
+
+<script src="/js/HorizontalTimeline.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/HorizontalTimeline.js" defer></script>
+<% } %>

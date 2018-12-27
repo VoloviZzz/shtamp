@@ -1,0 +1,28 @@
+.btn {
+    background-color: #363636;
+    border: none;
+    color: $white;
+    padding: 7px 10px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.15s;
+}
+
+.btn:hover {
+    color: $white;
+    background-color: #6d96a0;
+}
+
+.btn-disabled, .btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.btn-disabled:hover {
+    background-color: #363636 !important;
+}
+
+.bg-delete {
+    background-color: #8c0000;
+}

@@ -1,0 +1,5 @@
+CREATE TABLE `test_routes`.`callbacks` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `manager_id` INT UNSIGNED NULL DEFAULT NULL COMMENT 'кто ответил на звонок' , `recipient_id` INT UNSIGNED NULL DEFAULT NULL COMMENT 'для кого предназначается звонок' , `client_number` VARCHAR(20) NOT NULL COMMENT 'номер телефона клиента' , `status` TINYINT NOT NULL DEFAULT '1' COMMENT 'статус обратного звонка: 1 - новый, 2 - обработан' , `completed` TIMESTAMP NULL DEFAULT NULL COMMENT 'время завершения обратного звонка' , `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'когда был создан' , PRIMARY KEY (`id`), INDEX (`manager_id`), INDEX (`recipient_id`)) ENGINE = InnoDB;
+
+INSERT INTO `components` (`id`, `title`, `ctrl`, `block_id`, `static`, `once`, `styles`, `scripts`, `default_config`, `created`) VALUES (NULL, 'Список обратных звонков', 'callbacks-list', '2', '0', '0', NULL, NULL, NULL, CURRENT_TIMESTAMP);
+
+INSERT INTO `components` (`id`, `title`, `ctrl`, `block_id`, `static`, `once`, `styles`, `scripts`, `default_config`, `created`) VALUES (NULL, 'Форма обратного звонка', 'callback-form', '2', '0', '0', NULL, NULL, NULL, CURRENT_TIMESTAMP);

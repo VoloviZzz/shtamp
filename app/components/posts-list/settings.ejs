@@ -1,0 +1,22 @@
+<% if(user.adminMode) { %>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label>Тип публикации:</label>
+			<select class="js-change-fragment-target form-control" data-fragment-id="<%= fragment.id -%>" name="target-post">
+				<option value="">Не выбрано</option>
+				<% for (let target of postTargets ) { %>
+					<option value="<%= target.id -%>"><%= target.title -%></option>
+				<% } %>
+			</select>
+		</div>
+		<div class="form-group col-md-6">
+			<label>Cоздать новый тип публикаций:</label>
+			<input type="text" data-fragment-id="<%= fragment.id -%>" class="js-post-target-input form-control mb-2">
+			<button class="btn js-add-post-target">Добавить</button>
+		</div>
+	</div>
+
+	<script src="/admins/js/posts-list.js" defer></script>
+<% } else { %>
+	<h2>Ведётся настройка</h2>
+<% } %>

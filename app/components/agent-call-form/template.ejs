@@ -1,0 +1,39 @@
+<style>
+	.agent-call-form {
+		margin: 1em auto;
+		padding: 1em 0 1em 0;
+		background: #eaeaea;
+	}
+	.agent-call-form-wrapper {
+		text-align: center;
+		margin: 1em 0 1em 0;
+	}
+	.agent-call-form input, .agent-call-form button {
+		font-size: 1.5em;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.agent-call-form input {
+		line-height: 2;
+		border: 1px solid #000;
+		width: 20em;
+		max-width: 96%;
+		text-align: center;
+	}
+	.agent-call-form button {
+		line-height: 1.5;
+		border-radius: 0;
+	}
+</style>
+<div class="agent-call-form">
+	<h2 class="text-center">Заказать обратный звонок агента</h2>
+	<div class="agent-call-form-wrapper">
+		<form class="js-agent-call-form">
+			<input type="text" class="agent-call-input" placeholder="Введите номер телефона" />
+			<input type="hidden" name="targetId" value="<%= agentId -%>">
+			<button class="btn agent-call-btn"><span class="fa fa-phone"></span> Заказать звонок</button>
+		</form>
+	</div>
+	<p class="text-center">Введите Ваш номер телефона и нажмите кнопку «Заказать звонок» - агент перезвонит Вам через пару минут</p>
+</div>
+<script defer type="text/javascript" src="/js/agent-call-form.js" defer></script>

@@ -1,0 +1,23 @@
+@import 'utility/module'; // Подключаем утилиты (переменные, миксины)
+//@import '../vendors/bootstrap/scss/bootstrap'; // Подключаем bootstrap
+
+@import '../vendors/bootstrap/scss/bootstrap-reboot'; // Подключаем bootstrap
+@import '../vendors/bootstrap/scss/bootstrap-grid'; // Подключаем bootstrap сетку
+@import '../vendors/bootstrap/scss/nav'; // Подключаем nav
+//@import '../vendors/bootstrap/scss/navbar'; // Подключаем navbar
+@import '../vendors/bootstrap/scss/transitions'; //
+@import '../vendors/bootstrap/scss/dropdown'; // Подключаем dropdown
+@import '../vendors/bootstrap/scss/modal'; // Подключаем модальное окно
+@import '../vendors/bootstrap/scss/forms'; // Подключаем формы
+@import '../vendors/bootstrap/scss/buttons'; // Подключаем кнопки
+@import '../vendors/bootstrap/scss/input-group'; //
+@import '../vendors/bootstrap/scss/button-group'; //
+/*@import '../vendors/bootstrap/scss/card';*/
+@import '../vendors/bootstrap/scss/tables';
+
+@import '../vendors/bootstrap/scss/utilities'; // Подключаем утилиты
+
+@import 'base/module'; // Подключаем базовые стили (html, body)
+
+@import 'components/module'; // Подключаем компонеты
+@import 'layout/module'; // Подключаем шаблоны

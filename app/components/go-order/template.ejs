@@ -1,0 +1,275 @@
+<%
+	var inputDisabled = !!user.id === true ? `disabled` : ``;
+-%>
+<link rel="stylesheet" href="/css/go-order.css">
+<nav class="order-steps">
+	<ul class="js-basket-nav basket-nav">
+		<li data-target="order" class="basket-nav__el current">
+			<span>Контактные данные</span>
+		</li>
+		<li data-target="delivery" class="basket-nav__el link-disable">
+			<span>Доставка</span>
+		</li>
+		<li data-target="payment" class="basket-nav__el link-disable">
+			<span>Способ оплаты</span>
+		</li>
+		<li data-target="verify" class="basket-nav__el link-disable">
+			<span>Подтверждение заказа</span>
+		</li>
+	</ul>
+</nav>
+<div data-target="section-order">
+	<div class="basket-content">
+		<div class="basket-contacts__form">
+			<div class="basket-contacts__form-notify">
+				<p class="basket-contacts__form-notify-text">
+					Заполните контактные данные или
+					<a class="basket-contacts__form-notify-link" href="/login">авторизуйтесь</a>
+				</p>
+			</div>
+			<div class="lk__form">
+				<label class="label label--complex">
+					<span class="label__inside">
+						<span class="label__text">Фамилия
+							<strong>*</strong>
+						</span>
+						<input class="js-order-data input input--simple required" value="<%= !!orderData.surname ? orderData.surname : '' %>" type="text" maxlength="30" name="surname" required <%= inputDisabled -%>>
+					</span>
+				</label>
+				<label class="label label--complex">
+					<span class="label__inside">
+						<span class="label__text">Имя
+							<strong>*</strong>
+						</span>
+						<input class="js-order-data input input--simple required" value="<%= !!orderData.firstname ? orderData.firstname : '' %>" type="text" maxlength="30" name="firstname" required <%= inputDisabled -%>>
+					</span>
+				</label>
+				<label class="label label--complex label--middle">
+					<span class="label__inside">
+						<span class="label__text">Отчество</span>
+						<input class="js-order-data input input--simple" type="text" value="<%= !!orderData.patronymic ? orderData.patronymic : '' %>" maxlength="30" name="patronymic" <%= inputDisabled -%>>
+					</span>
+				</label>
+				<label class="label label--complex">
+					<span class="label__inside">
+						<span class="label__text">Электронная почта</span>
+						<input class="js-order-data input input--simple" value="<%= !!orderData.mail ? orderData.mail : '' %>" type="email" maxlength="80" name="mail" <%= inputDisabled -%>>
+					</span>
+				</label>
+				<label class="label label--complex">
+					<span class="label__inside">
+						<span class="label__text">Телефон
+							<strong>*</strong>
+						</span>
+						<input class="js-order-data input input--simple required" value="<%= !!orderData.phone ? orderData.phone : '' %>" type="text" maxlength="255" name="phone" required <%= inputDisabled -%>>
+					</span>
+				</label>
+				<label style="display: none" class="js-confirm-phone label label--complex">
+					<span class="label__inside">
+						<span class="label__text">Подтверждение телефона
+							<strong>*</strong>
+						</span>
+						<input id="js-confirm-phone-input" class="input input--simple required" value="" type="text" maxlength="255" name="confirm_phone" required <%= inputDisabled -%>>
+						<button id="js-confirm-phone-button" class="btn">Подтвердить</button>
+					</span>
+				</label>
+				<small class="required-explanation">
+					Обязательные поля отмечены звездочкой
+					<strong>*</strong>
+				</small>
+				<div class="basket-total">
+					<div class="basket-total__sum">
+						Итоговая стоимость:
+						<span class="basket-total__sum-value basket-total__sum-value--rub"><%=Helpers.formatPrice(cart.totalPrice)%></span>
+						<small>руб.</small>
+					</div>
+				</div>
+				<button class="js-go-delivery basket-total__next order-disabled">Выбрать способ доставки</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-target="section-delivery" style="display: none">
+	<div class="top-line">
+		<h3>Выберите способ доставки</h3>
+	</div>
+	<div class="basket-content">
+		<div class="basket-tabs">
+			<input type="radio" class="js-input-tabs input-tabs" data-value="1" id="del_label1" name="ak" checked/>
+			<label for="del_label1" class="delivery-label">Самовывоз</label>
+			<div class="history-wrapper">
+				<div class="map-wrap">
+					<div class="delivery__content grid__item one-half">
+						<div class="delivery-contacts">
+							<span class="delivery-contacts-title">Адрес пункта выдачи</span>
+							<span class="delivery-contacts-text delivert-contacts-adress">
+								<a href="https://yandex.ru/maps/235/magnitogorsk/?text=%D0%A3%D0%BB%D0%B8%D1%86%D0%B0%20%D1%87%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%2090%2C%20%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA&mode=search&sll=32.097703%2C54.772879&sspn=0.019484%2C0.006426&ll=59.075117%2C53.388033&z=16&ol=biz&oid=1012164418">
+									ул. Чайковского, д. 90, Магнитогорк, 455016
+								</a>
+							</span>
+							<span class="delivery-contacts-text delivert-contacts-phone">(3519) 48-85-80</span>
+							<span class="delivery-contacts-text delivert-contacts-mail">
+								<a href="mailto:kpru@yandex.ru">kpru@yandex.ru</a>
+							</span>
+						</div>
+					</div>
+					<div class="delivery-price">
+						<span class="delivery-price-titile">Стоимость доставки</span>
+						<span class="delivery-price-value">бесплатно</span>
+					</div>
+					<div class="map">
+						<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A68b976a3c3c8c759764cd337ec75de811379a8a4b1a2e7b11eeaf1079b67004f&amp;width=500&amp;height=300&amp;lang=ru_RU&amp;scroll=true"></script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="basket-content--shadow"></div>
+	<div class="basket-total-wrap">
+		<div class="basket-total">
+			<button data-href="section-order" data-current="section-delivery" class="js-go-back basket-total__prev">Назад к контактным данным</button>
+			<div class="basket-total__sum">
+				Итоговая стоимость:
+				<span class="basket-total__sum-value basket-total__sum-value--rub"><%=Helpers.formatPrice(cart.totalPrice)%></span>
+				<small>руб.</small>
+			</div>
+			<button class="js-go-payment basket-total__next">Выбрать способ оплаты</button>
+		</div>
+	</div>
+</div>
+<div data-target="section-payment" style="display: none">
+	<div class="basket-content">
+		<form action method="post" class="grid form-payment page-form" id="payment_form">
+			<label class="js-payment-item grid__item one-quarter current">
+				<input data-case="1" type="radio" name="payment_type" class="js-input-payment input-payment input-payment-cash" checked>
+				<div class="payment-method">
+					<div class="payment-method-img"></div>
+					<span class="payment-method-name">Наличными или картой на месте выдачи</span>
+				</div>
+			</label>
+		</form>
+		<hr>
+	</div>
+	<div class="basket-total-wrap">
+		<div class="basket-total">
+			<button data-href="section-delivery" data-current="section-payment" class="js-go-back basket-total__prev">Назад к выбору доставки</button>
+			<div class="basket-total__sum">
+				Итоговая стоимость:
+				<span class="basket-total__sum-value basket-total__sum-value--rub"><%=Helpers.formatPrice(cart.totalPrice)%></span>
+				<small>руб.</small>
+			</div>
+			<button class="js-go-verify basket-total__next">Подтверждение заказа</button>
+		</div>
+	</div>
+</div>
+<div data-target="section-verify" style="display: none">
+	<div class="lk-item__block lk-item__basket basket-content grid--center">
+		<div class="lk-item__title top-line">
+			<em>Заказ №395690</em>
+		</div>
+		<div class="basket-list-wrap">
+			<ul class="basket-list">
+				<% var totalPrice = 0; %>
+				<% Object.keys(cart.goods).map(key => { %>
+					<% var g = goodsList[key] %>
+					<% var cartItem = cart.goods[key] %>
+					<% totalPrice += +g.price * cartItem.countInShopCart; %>
+					<li data-id="<%=g.id%>" class="js-goods-item basket-list__item">
+						<div class="basket-list__item-img">
+							<div>
+								<img src="<%= Helpers.replaceImageIfNotExist(`${g.photo_path}/preview/${g.photo_name}`) -%>" alt="Гроб Элитный">
+							</div>
+						</div>
+						<div class="basket-list__item-info">
+							<table class="basket-list__item-info__params basket-table">
+								<tbody>
+									<tr class="basket-table__caption">
+										<th class="basket-table__name">
+											<div><span>Название</span></div>
+										</th>
+										<th class="basket-table__counter">
+											<div><span>Количество</span></div>
+										</th>
+										<th class="basket-table__price">
+											<div><span>Стоимость</span></div>
+										</th>
+									</tr>
+									<tr class="order-table__hr">
+										<td class="order-table__hr-small" colspan="5">
+											<div class="hr"></div>
+										</td>
+									</tr>
+									<tr class="basket-table__value">
+										<td class="basket-table__name">
+											<div>
+												<a href="/product/<%= g.id -%>">
+													<span><%=g.title%></span>
+												</a>
+											</div>
+										</td>
+										<td class="basket-table__counter">
+											<div><span data-id="<%=g.id%>" class="js-count-goods"><%= cartItem.countInShopCart -%> шт.</span></div>
+										</td>
+										<td class="basket-table__price">
+											<div><span><%=Helpers.formatPrice(g.price * cartItem.countInShopCart)%> руб.</span></div>
+										</td>
+									</tr>
+									<tr class="order-table__hr">
+										<td class="order-table__hr-small" colspan="5">
+											<div class="hr"></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</li>
+				<% }) %>
+			</ul>
+		</div> 
+		<div class="lk-item__title top-line line-bef">
+			<h3>Доставка</h3>
+			<div data-delivery-method="1">
+				<em>Самовывоз</em>
+				<div class="two-thirds lk-item__block__content">
+					<div class="delivery__content grid__item one-half">
+						<div class="delivery-contacts">
+							<span class="delivery-contacts-title">Адрес пункта выдачи</span>
+							<span class="delivery-contacts-text delivert-contacts-adress">
+								<a href="https://yandex.ru/maps/235/magnitogorsk/?text=%D0%A3%D0%BB%D0%B8%D1%86%D0%B0%20%D1%87%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%2090%2C%20%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA&mode=search&sll=32.097703%2C54.772879&sspn=0.019484%2C0.006426&ll=59.075117%2C53.388033&z=16&ol=biz&oid=1012164418">
+									ул. Чайковского, д. 90, Магнитогорк, 455016
+								</a>
+							</span>
+							<span class="delivery-contacts-text delivert-contacts-phone">(3519) 48-85-80</span>
+							<span class="delivery-contacts-text delivert-contacts-mail">
+								<a href="mailto:kpru@yandex.ru">kpru@yandex.ru</a>
+							</span>
+						</div>
+					</div>
+					<div class="delivery-price">
+						<span class="delivery-price-titile">Стоимость доставки</span>
+						<span class="delivery-price-value">бесплатно</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="lk__form form form--variant">
+		<label class="label label--complex">
+			При переходе к выбору способа оплаты заказа вы подтверждаете согласие с условиями
+			<a href="#">генерального соглашения</a>
+		</label>
+	</div>
+	<div class="basket-total-wrap">
+		<div class="basket-total">
+			<button data-href="section-payment" data-current="section-verify" class="js-go-back basket-total__prev">Назад к подтверждению</button>
+			<div class="basket-total__sum">
+				Итоговая стоимость:
+				<span class="basket-total__sum-value basket-total__sum-value--rub"><%=Helpers.formatPrice(cart.totalPrice)%></span>
+				<small>руб.</small>
+			</div>
+			<button href="#" id="js-payment-add" class="basket-total__next">Готово</button>
+		</div>
+	</div>
+</div>
+<script src="/vendors/maskedinput/jquery.maskedinput.js" defer></script>
+<script src="/js/order.js" defer></script>

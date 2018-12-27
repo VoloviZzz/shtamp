@@ -1,0 +1,1 @@
+ALTER TABLE `goods_pos` ADD `float_price` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Плавающая цена?' AFTER `price`, ADD `contract_price` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Договорная цена?' AFTER `float_price`;

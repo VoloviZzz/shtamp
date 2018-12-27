@@ -1,0 +1,5 @@
+<% if(user.adminMode) { %>
+	<div data-fragment-id="<%= fragment.id -%>" class="js-ace-editor" style="min-height: 300px; width: 100%"><%= value -%></div>
+<% } else { %>
+	<%- value -%>
+<% } %>

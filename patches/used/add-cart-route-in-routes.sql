@@ -1,0 +1,1 @@
+INSERT INTO `routes` (`id`, `title`, `url`, `template_id`, `menu_id`, `show_title`, `use_component_title`, `access`, `dynamic`, `required`, `edit_access`, `delete_access`, `seo_keywords`, `seo_description`, `created`, `updated`) VALUES (NULL, 'Корзина', '/cart', '2', NULL, '1', '0', '1', '0', '1', '1', '1', NULL, NULL, CURRENT_TIMESTAMP, NULL);

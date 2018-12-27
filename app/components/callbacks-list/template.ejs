@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/css/c_tabs.css">
+<section>
+	<div class="tabs-wrapper">
+		<ul class="tabs-titles-wrap">
+			<li class="tab active tab-all">Новые</li>
+			<li class="tab tab-all">Завершенные</li>
+		</ul>
+		<div class="tabs-content-wrap">
+			<div class="tab-content active">
+				<% callbacks.forEach((callback) => { -%>
+					<% if(callback.status != '1') return false; %>
+					<%- include('./callback-item.ejs', {callback} ) -%>
+				<% }) -%>
+			</div>
+			<div class="tab-content">
+				<% callbacks.forEach((callback) => { -%>
+					<% if(callback.status != '2') return false; %>
+					<%- include('./callback-item.ejs', {callback} ) -%>
+				<% }) -%>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="/admins/js/callbacks-list.js" defer></script>

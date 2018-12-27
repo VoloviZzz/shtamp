@@ -1,0 +1,1 @@
+ALTER TABLE `goods_cats` ADD `public` BOOLEAN NULL DEFAULT FALSE AFTER `level`;

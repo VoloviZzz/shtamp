@@ -1,0 +1,2 @@
+ALTER TABLE `shops_list` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Новый магазин';
+ALTER TABLE `shops_list` CHANGE `schedule` `schedule` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '{\"1\":[\"08:00\",\"17:00\"],\"2\":[\"09:00\",\"17:00\"],\"3\":[\"09:00\",\"17:00\"],\"4\":[\"09:00\",\"17:00\"],\"5\":[\"09:00\",\"17:00\"],\"6\":[\"09:00\",\"17:00\"],\"7\":[\"09:00\",\"17:00\"]}' COMMENT 'График работы';

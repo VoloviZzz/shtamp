@@ -1,0 +1,234 @@
+<input type="hidden" id="js-shop-cat-id" value="<%= position.cat_id -%>">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<% if(user.adminMode) { %>
+				<div class="d-flex w-100 mb-1">
+					<input class="js-good-edit form-control text-center" data-target="title" data-id="<%= position.id -%>" type="text" name="good_title" value="<%= position.title -%>">
+				</div>
+			<% } -%>
+			<% if(user.admin && position.connect_id) { -%>
+				<div class="w-100">
+					<h2>(Товар является выгруженным)</h2>
+				</div>
+			<% } %>
+			<div class="w-100">
+				<% for(const id of Object.keys(breadcrumbNavigation)) { %>
+					<a href="/store-cat/<%= id -%>">/ <%= breadcrumbNavigation[id] %></a>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="baguetteBox" style="width: 90%">
+				<div class="js-photos-slider flexslider">
+					<ul class="slides">
+						<% if(goodsPhotos.length > 0) { %>
+							<% goodsPhotos.forEach((photo) => { %>
+								<li>
+									<% if(user.adminMode) { %>
+										<div style="position: absolute;">
+											<button class="btn js-goodsPhoto-delete" data-id="<%= photo.id -%>">Удалить</button>
+											<% if(position.main_photo !== photo.id) { %>
+												<button class="btn js-goodsPhoto-setMainPhoto" data-position-id="<%= position.id -%>" data-id="<%= photo.id -%>">Сделать фото основным</button>
+											<% } %>
+										</div>
+									<% } %>
+									<a href="<%= Helpers.replaceImageIfNotExist(`${photo.path}/origin/${photo.name}`) %>">
+										<img src="<%= Helpers.replaceImageIfNotExist(`${photo.path}/prod/${photo.name}`) %>">
+									</a>
+								</li>
+							<% }) %>
+						<% } else { %>
+							<li>
+								<a href="<%= Helpers.replaceImageIfNotExist(`${position.photo_path}/preview/${position.photo_name}`) %>">
+									<img src="<%= Helpers.replaceImageIfNotExist(`${position.photo_path}/preview/${position.photo_name}`) %>">
+								</a>
+							</li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+			<% if(user.adminMode) { %>
+				<span>Загрузить фото: </span>
+				<input multiple id="uploadable-files" data-id="<%= position.id -%>" type="file">
+			<% } %>			
+		</div>
+		<div class="col-6">
+			<div>
+				<% if(position.count > 0) { %>
+					<div class="mb-2" style="text-transform: uppercase; font-weight: bold; color: #396204;">Есть в наличии</div>
+				<% }
+				else { %>
+					<div class="mb-2" style="text-transform: uppercase; font-weight: bold; color: #396204;">Нет в наличии</div>
+				<% } %>
+			</div>
+			<div>
+				<% if(user.adminMode) { %>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Количество:</label>
+							<input class="js-good-edit form-control" data-id="<%= position.id -%>" data-target="count"  type="number" min="0" name="good_count" value="<%= position.count -%>">
+						</div>
+						<div class="form-group col-md-6">
+							<label>Цена:</label>
+							<input class="form-control js-good-edit" data-id="<%=position.id-%>" data-target="price" type="number" min="1" name="good_price" value="<%=position.price -%>">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-check form-check-inline">
+							<input type="radio" data-target="default" id="editGoodFormRadio1" data-id="<%= position.id -%>" class="form-check-input js-change-goodsPosition-priceType" name="position-price-type" checked>
+							<label class="form-check-label" for="editGoodFormRadio1">
+								Фиксированная цена
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="radio" data-target="float_price" id="editGoodFormRadio2" data-id="<%= position.id -%>" class="form-check-input js-change-goodsPosition-priceType" name="position-price-type" <%= position.float_price ? 'checked' : '' -%>>
+							<label class="form-check-label" for="editGoodFormRadio2">
+								Плавающая цена
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="radio" data-target="contract_price" id="editGoodFormRadio3" data-id="<%= position.id -%>" class="form-check-input js-change-goodsPosition-priceType" name="position-price-type" <%= position.contract_price ? 'checked' : '' -%>>
+							<label class="form-check-label" for="editGoodFormRadio3">
+								Договорная цена
+							</label>
+						</div>
+					</div>
+				<% } %>
+				<div class="row">
+					<div class="col-md-6 text-center pt-3">
+						<% if(!user.adminMode) { %>
+							<span style="font-weight: bold">Цена:</span>
+							<% if(position.float_price) { %>
+									<span style="font-weight: bold">От</span>
+									<span style="font-weight: bold"><%= Helpers.formatPrice(position.price) %> руб.</span>
+							<% } else if(position.contract_price) { %>
+									<span style="font-weight: bold">Договорная</span>
+							<% } else { %>
+									<span style="font-weight: bold"><%= Helpers.formatPrice(position.price) %> руб.</span>
+							<% } %>
+						<% } %>
+					</div>
+					<div class="col-md-6">
+						<% if(siteConfig.get("showCart") === "1") { %>
+							<% if(position.count > 0) { %>
+								<button id="js-goodsView-add-to-cart" data-id="<%=position.id%>" class="good-price__buy mt-2">
+									<span class="add-to-cart-stick">Добавить в корзину</span>
+									<em class="added-to-cart">Добавлено</em>
+								</button>
+							<% }
+							else { %>
+								<button class="good-price__buy disabled mb-2 mt-2" disabled>Товара нет в наличии</button>
+							<% } %>
+						<% } %>
+					</div>
+				</div>
+			</div>
+			<div class="form-group mt-1">
+				<% if(user.adminMode) { %>
+					<textarea class="js-good-edit w-100" data-target="description" data-id="<%=position.id -%>" name="good_description" rows="3"><%= position.description -%></textarea>
+				<% } else { %>
+					<%- Helpers.replaceLineBreaks(position.description || 'Описание отсутствует') %>
+				<% } %>
+			</div>
+			<div>
+				<h2>Детали</h2>
+				<% if(goodsPropsBindValues.length < 1) { %>
+					<p>Детали не указаны</p>
+				<% } %>
+				<table class="table">
+					<% var goodsPropsBindValues = goodsPropsBindValues || []; %>
+					<% goodsPropsBindValues.map(p => { %>
+						<tr class="js-paramBindValue-item">
+							<td><%= p.prop_title -%></td>
+							<td><%= p.prop_value_title -%></td>
+							<% if(user.adminMode) { %>
+								<td>
+									<button class="btn btn-sm js-paramsBindValues-delete" data-id="<%=p.id-%>" type="button" name="button">Удалить</button>
+								</td>
+							<% } %>
+						</tr>
+					<% }) %>
+					<% if(user.adminMode) { %>
+						<tr>
+							<td colspan="3">
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<select data-id="<%=position.id-%>" class="form-control js-params-select" name="">
+											<option value="0">Не выбрано</option>
+											<% var goodsProps = goodsProps || [] %>
+											<% goodsProps.map(p => { %>
+												<option value="<%=p.id-%>"><%=p.title-%></option>
+											<% }) %>
+										</select>
+									</div>
+									<div class="form-group col-md-6">
+										<select data-good="<%=position.id-%>" disabled class="form-control js-params-values-select" name="">
+											<option value="0">Не выбрано</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<% } %>
+				</table>
+				<% if(user.adminMode) { -%>
+					<div class="js-form-add-params form-add-params">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<form class="js-props-values-add">
+											<div class="form-row">
+												<div class="form-group col-md-6">
+													<label>Параметр:</label>
+													<select data-id="<%= position.id -%>" class="form-control" name="prop-id">
+														<option value="0" disabled selected>Не выбрано</option>
+														<% var goodsProps = goodsProps || []; %>
+														<% goodsProps.map(p => { %>
+															<option value="<%= p.id -%>"><%= p.title -%></option>
+														<% }) %>
+													</select>
+												</div>
+												<div class="form-group col">
+													<label>Значение</label>
+													<input type="text" class="form-control" name="param_value_title">
+												</div>
+												<div class="form-group d-flex align-items-end">
+													<button class="btn">Добавить</button>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="js-form-add-params form-add-params">
+						<table class="table">
+							<tr>
+								<td>
+									<form class="js-props-add">
+										<div class="form-row">
+											<div class="form-group col-4">
+												<span class="align-middle">Добавить параметр:</span>
+											</div>
+											<div class="form-group col">
+												<input id="js-props-title" type="text" class="form-control" name="param-title">
+											</div>
+											<div class="form-group">
+												<button class="btn">Добавить</button>
+											</div>
+										</div>
+									</form>
+								</td>
+							</tr>
+						</table>
+					</div>
+				<% } -%>
+			</div>
+		</div>
+	</div>
+</div>

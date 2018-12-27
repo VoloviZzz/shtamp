@@ -1,0 +1,15 @@
+<div class="callback-item">
+	<div class="callback-info">
+		<p>Номер телефона клиента: <%= callback.client_number -%></p>
+		<p>Получен: <%= Helpers.formatDate(callback.created, 'dd.MM.yyyy в hh:mm') -%></p>
+		<% if(callback.manager_id) { %>
+			<p>Ответил на звонок: <%= callback.manager_name -%></p>
+		<% } %>
+	</div>
+	<div>
+		<button class="btn js-callback-delete" data-id="<%= callback.id -%>">Удалить</button>
+		<% if(callback.status == '1') { %>
+			<button class="btn js-callback-changeStatus" data-value="2" data-id="<%= callback.id -%>">Принять в работу</button>
+		<% } %>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<form class="text-margin-bottom" action="/api/routes-targets/add" method="post">
+	<button class="btn">Добавить target_type</button>
+</form>
+<% routesTargets.forEach(target => { %>
+	<div class="text-margin-bottom">
+		<% if(user.adminMode) { %>
+			<span><%= target.id -%> - <%= target.title -%></span>
+			<div class="form-group">
+				<div>
+					<span>Заголовок</span>
+				</div>
+				<input class="padding-10px js-routeTarget-update" data-id="<%= target.id -%>" data-target="title" type="text" value="<%= target.title -%>">
+			</div>
+			<div class="form-group">
+				<div>
+					<span>Используемая таблица</span>
+				</div>
+				<input type="text" class="padding-10px js-routeTarget-update" data-id="<%= target.id -%>" data-target="used_table" value="<%= target.used_table -%>">
+			</div>
+			<div class="form-group">
+				<div>
+					<span>Название переменной для использования в коде (необязательное)</span>
+				</div>
+				<input type="text" class="padding-10px js-routeTarget-update" data-id="<%= target.id -%>" data-target="code" value="<%= target.code -%>">
+			</div>
+			<div class="form-group">
+				<div>
+					<span>target_id для объектов таблицы (если есть)</span>
+				</div>
+				<input type="text" class="padding-10px js-routeTarget-update" data-id="<%= target.id -%>" data-target="object_target_id" value="<%= target.object_target_id -%>">
+			</div>
+			<div class="form-group">
+				<div>
+					<span>Ссылка на страницу объекта</span>
+				</div>
+				<input type="text" class="padding-10px js-routeTarget-update" data-id="<%= target.id -%>" data-target="url_to_object" value="<%= target.url_to_object -%>">
+			</div>
+		<% } else { %>
+			<span><%= target.title + ' ' + target.id %></span>
+		<% } %>
+		<% if(user.adminMode) { %>
+			<button class="btn bg-delete js-routesTarget-delete" data-id="<%= target.id %>">Удалить</button>
+		<% } %>
+	</div>
+<% }) %>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/routesTargets.js" defer></script>
+<% } %>

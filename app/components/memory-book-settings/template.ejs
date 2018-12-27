@@ -1,0 +1,19 @@
+<section>
+	<h1>Настройки книги памяти</h1>
+	<div class="form-group">
+		<form action="/api/memory-book-settings/setValue" method="post">
+			<span>API книги памяти:</span>
+			<input type="text" class="form-control" name="value" value="<%= siteConfig.get('memoryBookApiUrl') -%>">
+			<input type="hidden" name="target" value="memoryBookApiUrl">
+			<button class="btn my-2">Сохранить</button>
+		</form>
+	</div>
+	<div class="form-group">
+		<form action="/api/memory-book-settings/setValue" method="post">
+			<span>Сервер для медиафайлов:</span>
+			<input type="text" class="form-control" name="value" value="<%= siteConfig.get('memoryBookMediaServer') -%>">
+			<input type="hidden" name="target" value="memoryBookMediaServer">
+			<button class="btn my-2">Сохранить</button>
+		</form>
+	</div>
+</section>

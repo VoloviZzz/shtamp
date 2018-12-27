@@ -1,0 +1,61 @@
+<div class="text-center block-name memory-book__title">
+	<h3>Некрологи</h3>
+</div>
+<div class="text-indent_p text-margin-bottom-p">
+	<% if(data.necs) { %>
+		<% data.necs.map(n => { %>
+			<div class="js-memoryItem biography-text">
+				<div class="biography-author">
+					<p>Автор: <%= `${n.author || "Неизвестно"}` %></p>
+				</div>
+				<% if(user.adminMode) { %>
+					<div style="width: 100%; text-align: right">
+						<br>
+						<% if(n.state === 3) { %>
+							<button data-id="<%=n.id%>" data-target="state" data-table="necrologues" data-state="2" class="btn js-item-toggle-state">Снять с публикации</button>    
+						<% }
+						else if(n.state == 0 || n.state == 2) { %>
+							<button data-id="<%=n.id%>" data-target="state" data-table="necrologues" data-state="3" class="btn js-item-toggle-state">Опубликовать</button>
+							<button data-id="<%=n.id%>" data-target="state" data-table="necrologues" data-state="1" class="btn js-item-toggle-state">Отклонить</button>
+						<% } %>
+						<br>
+						<br>
+					</div>
+				<% } %>
+				<% if(n.state == 0 || n.state == 2) { %>
+					<p><b>Находится на модерации</b></p>
+				<% } %>
+				<div class="js-memoryItem-text">
+					<%- Helpers.replaceLineBreaks(n.text) %>
+				</div>
+				<textarea style="display: none" data-id="<%= n.id -%>" data-target="text" data-table="necrologues" class="js-memoryItem-update input-text"><%- n.text -%></textarea>
+				<% if(n.creator == user.id) { %>
+					<div class="text-right">
+						<button class="btn js-show-edit-form">Редактировать</button>
+						<button data-id="<%=n.id%>" data-target="necrologues" data-creator="<%= n.creator -%>" class="btn js-delete-btn">Удалить некролог</button>
+						<br>
+						<br>
+					</div>
+				<% }%>
+				<% if(n.state == "1" ) { %>
+					<p><b>Некролог отклонён. Причина: <%=n.reason%></b></p>
+				<% } %>
+			</div>
+		<% }) %>
+	<% } %>
+	<p>Некролог - небольшой мемориальный материал, как правило содержащий в себе информацию об умершем и соболезнования родным и близким усопшего. Кроме того некролог может содержать описание жизнедеятельности покойного, его заслуги перед обществом, причины смерти. Вы можете разместить некролог на этой странице, нажав кнопку "Разместить некролог".</p>
+</div>
+<div class="form-add-memory js-form-add-necrologue">
+	<div class="form-title text-center">
+		<h1 id="form-title__text">Добавить некролог</h1>
+	</div>
+	<div class="form-body">
+		<textarea class="js-necrologue-text" style="min-width: 100%; max-width: 100%; min-height: 250px" cols="30" rows="10"></textarea>
+		<div>
+			<button data-id="<%= g.id %>" class="btn js-send-necrologue form-send-btn">Отправить</button>
+		</div>
+	</div>
+</div>
+<div>
+	<button class="btn action-btn <%= !!user.id ? "js-add-necrologue" : "btn-disabled" %>">Добавить некролог</button>
+</div>

@@ -1,0 +1,12 @@
+<div class="section-title">
+	<% if(user.adminMode) { %>
+		<input type="text" value="<%= title || '' -%>" class="input-text js-pageTitle-edit" data-fragment-id="<%= fragment.id -%>">
+	<% } else { %>
+		<h3 class="fs-regular text-center">
+			<%= title || '' -%> -%>
+		</h3>
+	<% } %>
+</div>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/page-title.js" defer></script>
+<% } %>

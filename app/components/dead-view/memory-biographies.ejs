@@ -1,0 +1,66 @@
+<div class="text-center block-name memory-book__title">
+	<h3>Биографии</h3>
+</div>
+<div class="text-left text-indent_p text-margin-bottom-p">
+	<% if(data.bio) { %>
+		<% data.bio.map(b => { %>
+			<div class="js-memoryItem biography-text">
+				<div class="biography-author">
+					<p>Автор: <%= `${b.author || "Неизвестно"}` %></p>
+				</div>
+				<% if(user.adminMode) { %>
+					<div style="width: 100%; text-align: right">
+						<br>
+						<% if(b.state === 3) { %>
+							<button data-id="<%=b.id%>" data-target="state" data-table="biographies" data-state="2" class="btn js-item-toggle-state">Снять с публикации</button>    
+						<% }
+						else if(b.state == 0 || b.state == 2) { %>
+							<button data-id="<%=b.id%>" data-target="state" data-table="biographies" data-state="3" class="btn js-item-toggle-state">Опубликовать</button>
+							<button data-id="<%=b.id%>" data-target="state" data-table="biographies" data-state="1" class="btn js-item-toggle-state">Отклонить</button>
+						<% } %>
+						<br>
+						<br>
+					</div>
+				<% } %>
+				<% if(b.state == 0 || b.state == 2) { %>
+					<p><b>Находится на модерации</b></p>
+				<% } %>
+				<div class="js-memoryItem-text">
+					<%- Helpers.replaceLineBreaks(b.text) %>
+				</div>
+				<textarea style="display: none" data-id="<%= b.id -%>" data-target="text" data-table="biographies" class="js-memoryItem-update input-text"><%- b.text -%></textarea>
+				<% if(b.creator == user.id) { %>
+					<div class="text-right">
+						<button class="btn js-show-edit-form">Редактировать</button>
+						<button data-id="<%=b.id%>" data-target="biographies" data-creator="<%= b.creator -%>" class="btn js-delete-btn">Удалить биографию</button>
+						<br>
+						<br>
+					</div>
+				<% }%>
+				<% if(b.state == "1" ) { %>
+					<p><b>Биография отклонена. Причина: <%=b.reason%></b></p>
+				<% } %>
+			</div>
+		<% }) %>
+	<% } %>
+	<p>Биография - (жизнеописание) — описание жизни человека, сделанное другими людьми или им самим (автобиография). Биография воссоздаёт историю человека в связи с общественной действительностью, культурой и бытом его времени.</p>
+	<p>Написать и разместить биографию на страничке умершего может любой зарегистрированный пользователь сайта. Размещение биографий абсолютно бесплатно, размещенные материалы после проверки модератором сайта становятся доступными для просмотра всем пользователям, посещающим страничку умершего.</p>
+</div>
+<div class="form-add-memory js-form-add-biography" style="display: none">
+	<div class="form-title text-center">
+		<h1 id="form-title__text">Добавить биографию</h1>
+	</div>
+	<div class="form-body">
+		<textarea class="js-biography-text" style="min-width: 100%; max-width: 100%; min-height: 250px" cols="30" rows="10"></textarea>
+		<div>
+			<button data-id="<%= g.id %>" class="btn js-send-biography form-send-btn">Отправить</button>
+		</div>
+	</div>
+</div>
+<div>
+	<% if(!!user.id === false) { %>
+		<button class="btn action-btn btn-disabled">Добавить биографию</button>
+	<% } else { %>
+		<button class="btn action-btn js-add-biographie">Добавить биографию</button>
+	<% } %>
+</div>

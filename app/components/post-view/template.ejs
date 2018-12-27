@@ -1,0 +1,140 @@
+<style>
+	.similar-posts .posts {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.similar-posts .post {
+		max-width: 280px;
+		margin-right: 10px;
+		margin-bottom: 20px;
+		display: flex;
+	}
+
+	.similar-posts .post:hover {
+		cursor: pointer;
+	}
+
+	.similar-posts .post .post-img-top {
+        max-width: 280px;
+		max-height: 280px;
+		margin-bottom: 5px;
+	}
+
+	.similar-posts .post .post-title {
+		font-size: 16px;
+		word-wrap: break-word;
+	}
+
+</style>
+
+<div class="section-title" style="display: flex; flex-flow: row wrap; align-items: center;">
+	<a href="<%= fragment.settings.listUrl ? fragment.settings.listUrl : '#' -%>" style="text-decoration: underline;">Вернуться к списку</a>
+	<h3 class="fs-regular text-center" style="margin: auto;"><%= post.title -%></h3>
+</div>
+<div id="postId" >
+	<%= post.id -%>
+</div>
+<% if(user.adminMode) { %>
+	<div class="form-group">
+		<label>Адрес списка публикаций</label>
+		<input class="js-fragment-update-settings form-control" data-event="input" data-target="listUrl" data-fragment-id="<%= fragment.id -%>" data-reload="false" type="text" value="<%= fragment.settings.listUrl -%>">
+	</div>
+	<div class="form-group">
+		<label>Отображать похожие посты:</label>
+		<% if(fragment.settings.showSimilarPosts == '1') { %>
+			<input type="checkbox" class="js-fragment-update-settings" data-event="change" data-target="showSimilarPosts" data-fragment-id="<%= fragment.id -%>" data-reload="true" checked value="0">
+		<% } else { %>
+			<input type="checkbox" class="js-fragment-update-settings" data-event="change" data-target="showSimilarPosts" data-fragment-id="<%= fragment.id -%>" data-reload="true" value="1">
+		<% } %>
+	</div>
+	<div class="form-group">
+		<span>Отображать случайные похожие посты:</span>
+		<% if(fragment.settings.randomSimilarPosts == '1') { %>
+			<input type="checkbox" class="js-fragment-update-settings" data-event="change" data-target="randomSimilarPosts" data-fragment-id="<%= fragment.id -%>" data-reload="true" checked value="0">
+		<% } else { %>
+			<input type="checkbox" class="js-fragment-update-settings" data-event="change" data-target="randomSimilarPosts" data-fragment-id="<%= fragment.id -%>" data-reload="true" value="1">
+		<% } %>
+	</div>
+	<% if(fragment.settings.showSimilarPosts == '1') { %>
+		<div class="form-group">
+			<span>Количество похожих постов:</span>
+			<input type="text" class="js-fragment-update-settings" data-event="change" data-target="countSimilarposts" data-fragment-id="<%= fragment.id -%>" value="<%= fragment.settings.countSimilarposts -%>">
+		</div>
+	<% } %>
+<% } %>
+<div>
+	<% if(user.adminMode) { %>
+		<div class="form-row">
+			<div class="form-group col-lg-12 col-xl-6">
+				<label>Установить алиас для поста</label>
+				<select class="form-control js-post-update" data-reload="true" data-target="alias_id" data-id="<%= post.id -%>">
+					<option value="0">Не выбрано</option>
+					<% aliases.forEach(alias => { %>
+						<option <%= post.alias_id == alias.id ? 'selected' : '' -%> value="<%= alias.id -%>"><%= alias.alias -%></option>
+					<% }) %>
+				</select>
+			</div>
+			<div class="form-group col-lg-12 col-xl-6">
+				<label>Категория</label>
+				<select class="form-control js-post-update" data-reload="true" data-target="cat" data-id="<%= post.id -%>">
+					<option value="0">Не выбрано</option>
+					<% postCategories.forEach((category) => { -%>
+						<% let selected = post.cat == category.id ? 'selected' : '' -%>
+						<option value="<%= category.id -%>" <%= selected -%>><%= category.title -%></option>
+					<% }) -%>
+				</select>
+			</div>
+		</div>
+		<% if(post.public) { %>
+			<button data-id="<%= post.id -%>" data-value="0" class="btn news-publicate js-post-togglePublication">Снять с публикации</button>
+		<% } else { %>
+			<button data-id="<%= post.id -%>" data-value="1" class="btn news-publicate js-post-togglePublication">Публиковать</button>
+		<% } %>
+		<label class="btn mt-2 news-change-photo">
+			<input type="file" class="js-post-upload-mainphoto" data-id="<%= post.id -%>" id="news-upload-mainphoto" style="display: none">
+			<span>Изменить фото</span>
+		</label>
+		<button data-id="<%= post.id -%>" class="btn news-delete js-post-delete">Удалить</button>
+		<textarea data-target="text" data-id="<%= post.id -%>" class="js-post-update js-ckeditor-edit"><%- post.text -%></textarea>
+	<% } else { %>
+		<%- post.text -%>
+		<% if(post.source_link) { %>
+			<a href="<%= post.source_link -%>" style="text-decoration: underline"><b>Ссылка на источник</b></a>
+		<% } %>
+		<div class="text-right text-muted">
+			<span>Опубликовано <%= Helpers.formatDate(post.published, 'dd MMMM yyyy в hh:mm') -%></span>
+		</div>
+	<% } %>
+</div>
+
+<section class="similar-posts">
+	<h3>Похожие посты</h3>
+	<% if(user.adminMode) {%>
+		<div class="radio similarView">
+		  <label><input class="input-radio" data-similar="show" type="radio" name="similarView" <%if(post.show_similar == 1){%> checked <%}%>>Отображать</label>
+		</div>
+		<div class="radio similarView">
+		  <label><input class="input-radio" data-similar="hide" type="radio" name="similarView" <%if(post.show_similar == 0){%> checked <%}%>>Не отображать</label>
+		</div>
+		<div <%if(post.show_similar == 0){%> style="display:none" <%}%> class="radio similar">
+		  <label><input class="input-radio" data-similar="random" type="radio" name="similar" <%if(post.random_similar == 1){%> checked <%}%>>Случайные похожие</label>
+		</div>
+		<div <%if(post.show_similar == 0){%> style="display:none" <%}%> class="radio similar">
+		  <label><input class="input-radio" data-similar="ids" type="radio" name="similar" <%if(post.random_similar == 0){%> checked <%}%>>Указать идентификаторы</label>
+		</div>
+		<input type="text" <%if(post.random_similar == 1){%> style="display:none" <%}%> class="similar-input js-post-update form-control" value="<%= post.similar_posts_id -%>" data-reload="false" data-target="similar_posts_id" data-id="<%= post.id -%>">
+	<% } %>
+	<ul <% if(post.random_similar == 1){ %> style="display:none" <%}%> class="similar_posts">
+		<% similarPosts.forEach((post) => { -%>
+			<li>
+				<img src="<%= post.main_photo -%>" alt="">
+				<a href="<%= post.id -%>"><%= post.title -%></a>
+			</li>
+		<% }) -%>
+	</ul>
+</section>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/posts-list.js" defer></script>
+<% } %>

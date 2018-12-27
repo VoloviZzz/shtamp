@@ -1,0 +1,45 @@
+<section>
+	<h2>Настройки смс модуля</h2>
+	<h3>Авторизация</h3>
+	<form class="js-adminSms-authForm">
+		<div>
+			<span>Логин:</span>
+			<input type="text" class="form-control" name="login" value="<%= smsAuthLogin -%>">
+		</div>
+		<div>
+			<span>Пароль:</span>
+			<input type="text" class="form-control" name="password" value="<%= smsAuthPassword -%>">
+		</div>
+		<div>
+			<span>Пароль в зашифрованном виде:</span>
+			<% if(!!smsAuthHashed == true) { %>
+				<input type="checkbox" name="hashed" checked>
+			<% } else { %>
+				<input type="checkbox" name="hashed">
+			<% } %>
+		</div>
+		<div>
+			<button class="btn">Сохранить</button>
+		</div>
+	</form>
+</section>
+<section>
+	<h3>Настройка переменных</h3>
+	<form class="js-adminSms-addVariables" data-target="smsTemplatePhoneConfirm">
+		<span>Подтверждение номера телефона:</span>
+		<br>
+		<small>В шаблоне должен присутствовать обязательный параметр {{code}}</small>
+		<textarea name="value" name="value" class="form-control" placeholder="шаблон сообщения..."><%= smsTemplatePhoneConfirm -%></textarea>
+		<button class="btn my-2">Сохранить</button>
+	</form>
+	<form class="js-adminSms-addVariables" data-target="smsTemplateOrderComplete" >
+		<span>Заказ успешно оформлен:</span>
+		<br>
+		<small>В шаблоне должен присутствовать обязательный параметр {{order_id}}</small>
+		<textarea name="value" class="form-control" placeholder="шаблон сообщения..."><%= smsTemplateOrderComplete -%></textarea>
+		<button class="btn my-2">Сохранить</button>
+	</form>
+</section>
+<% if(user.admin) { %>
+	<script src="/admins/js/admin-sms.js" defer></script>
+<% } %>

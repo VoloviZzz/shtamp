@@ -1,0 +1,190 @@
+/*body {
+    min-height: 100%;
+}*/
+
+/*.document-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}*/
+
+.login-wrapper {
+    background-color: #fff;
+    width: 100%;
+}
+
+.login-body__agreement {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row;
+        -ms-flex-flow: row;
+            flex-flow: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+}
+
+.login-body__register-button {
+    width: 100%;
+}
+
+@media (min-width: 767px) {
+    .login-wrapper {
+        margin: auto;
+        width: 400px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: 1px #c3c3c3 solid;
+    }
+
+    .login-body__agreement {
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+    }
+}
+
+.login-body__input-group:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.login-body__register-button {
+    padding: 13px;
+}
+
+.login-body__input {
+    padding: 12px 12px;
+    width: 100%;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-transition: border-color .2s;
+    -o-transition: border-color .2s;
+    transition: border-color .2s;
+    position: relative;
+    border: 1px solid #c0c0c0;
+}
+
+.login-body__input-group.required:before {
+    content: "*";
+    position: absolute;
+    right: -10px;
+    color: red;
+}
+
+.login-body__input-group {
+    position: relative;
+}
+
+.login-body__input:focus {
+    border-color: #ef6c35;
+}
+
+.login-title {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row nowrap;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 17px 15px;
+    border-bottom: 1px #c3c3c3 solid;
+    /* height: 40px; */
+}
+
+.login-title__item {
+    position: relative;
+    margin: auto 68px;
+}
+
+.login-title__item:before {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    height: 1px;
+    background-color: #000;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.login-title__item.item__login[data-select=true]:before {
+    right: 0%;
+    width: 100%;
+}
+
+.login-title__item.item__login[data-select=false]:before {
+    right: 0%;
+    width: 0%;
+}
+
+.login-title__item.item__register[data-select=true]:before {
+    left: 0%;
+    width: 100%;
+}
+
+.login-title__item.item__register[data-select=false]:before {
+    left: 0%;
+    width: 0%;
+}
+
+.login-title__item a {
+    display: block;
+    padding: 0px 0px;
+}
+
+.login-body {
+    padding: 30px 70px 30px;
+    display: none;
+}
+
+.login-agreement__right {
+    padding-left: 10px;
+}
+
+.login-title[data-active=auth] ~ .login-auth {
+    display: block;
+}
+
+.login-title[data-active=reg] ~ .login-reg {
+    display: block;
+}
+
+.login-title__item[data-select=true] {
+    font-weight: 400;
+}
+
+.check-phone-group {
+    display: none;
+}
+
+.check-phone-group__show {
+    display: block;
+}
+
+.register-next__hidden {
+    display: none;
+}
+
+.confirm-button__show {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .login-body {
+        padding: 30px 30px 30px;
+    }
+}

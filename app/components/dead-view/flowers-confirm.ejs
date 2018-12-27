@@ -1,0 +1,54 @@
+<a href="javascript:void(0);" onclick="flowersList();">Вернуться к выбору продукции</a>
+<div class="pl_header" id="sel_prod">Подтвердите заказ</div>
+<table style="width:100%;font-weight:normal;">
+	<tr>
+		<td width="45%">
+			<div class="pl_header">Выбранный продукт</div>
+		</td>
+		<td>	
+		</td>
+		<td width="45%">
+			<div class="pl_header">Место возложения</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<ul class="flowers" style="text-align:center;">
+				<li style="background:url(<%= flowersUrl + flowers.photo -%>) ;margin: 1em 0 2em 0; position: relative; width: 66%;">
+					<div style="position:absolute; width:100%; left:0; bottom:-1.75em; text-align:center;">
+						<a href="javascript:void(0);"><%= flowers['gp_name'] -%> - #<%= flowers['id'] -%></a>
+					</div>
+					<b style="position:absolute;top:.5em;right:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;"><%= flowers.pos_price -%> руб.</b>
+					<b style="position:absolute;bottom:.5em;left:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;">В наличии <%= count -%> шт.</b>
+				</li>
+			</ul>
+		</td>
+		<td>
+			<input value="1" id="count" type="number" min="1" max="<%= count -%>" style="text-align: center; font-size: 1.2em;" oninput="changeCount(this);" autofocus/>
+		</td>
+		<td>
+			<ul class="flowers" style="text-align:center;">
+				<li style="background:url(<%= imagesPath + dead.rel['photo_prod'] -%>); margin: 1em 0 2em 0; position: relative; width: 66%;">
+					<div style="position: absolute; width:100%; left:0; bottom:-2.5em; text-align:center; white-space:nowrap;">
+						<a href="javascript:void(0);">кл. <%= dead['cemetery_name'] -%>, уч-к #<%= dead['place_id'] -%><br /> умерший(ая): <%= dead['dead_name'] -%></a>
+					</div>
+				</li>
+			</ul>
+		</td>
+	</tr>
+</table>
+<br />
+<h3 id="all_sum">Общая стоимость заказа - <i id="sum" data-count="<%= count -%>" data-price="<%= flowers['pos_price'] -%>"><%= +flowers['pos_price'] + 200 -%> рублей</i></h3>
+<div class="pl_button" style="width:auto;" data-id="<%= flowers['id'] -%>" onclick="createFlowerAssign(this);" data-pers=<%= dead['id'] -%>>
+	<table>
+		<tr>
+			<th rowspan="2" style="background:url(/img/yeah.png);width: 100px !important;height: 100px;background-size: contain;background-repeat: no-repeat;"></th>
+			<td class="pl_button_title">Оформить заказ</td>
+		</tr>
+		<tr>
+			<td>
+				<i style="margin:1em auto;">Нажмите для оформления заказа</i>
+			</td>
+		</tr>
+	</table>
+</div>

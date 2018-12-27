@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/css/order-complete.css">
+<section class="general-info">
+	<h1 class="general-info__title">Поздравляем! Вы успешно оформили заказ</h1>
+	<div class="general-info__wrapper-info">
+		<h2 class="general-info__order-number">Заказ <span><%= order.id -%></span></h2>
+		<h2 class="general-info__order-total">Сумма заказа <span><%= Helpers.formatPrice(order.price) -%> р.</span></h2>
+	</div>
+</section>
+<section class="goods-info">
+	<table class="orders-table">
+		<thead>
+			<th>Товары</th>
+			<th>Количество</th>
+			<th>Стоимость</th>
+		</thead>
+		<tbody>
+			<% orderGoods.forEach((goods) => { %>
+				<tr>
+					<td><%= goods.goods_title -%></td>
+					<td><%= goods.count -%></td>
+					<td><%= Helpers.formatPrice(goods.price) -%></td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="goods-info__btn-wrapper">
+		<button class="goods-info__btn-back btn">Продолжить покупки</button>
+	</div>
+</section>

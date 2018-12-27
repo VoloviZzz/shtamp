@@ -1,0 +1,30 @@
+<a href="javascript:void(0);" onclick="flowersList();">Вернуться к списку цветочной продукции</a>
+<div class="pl_header" id="sel_prod">Выбранный продукт</div>
+<ul class="flowers" style="text-align:center;">
+	<li style="background:url(<%= flowersUrl + flowers['photo'] -%>); margin: 1em 0 2em 0; position: relative;">
+		<div style="position: absolute; width: 100%; left: 0; bottom: -1.75em; text-align: center;">
+			<a href="javascript:void(0);"><%= flowers['name'] -%></a>
+		</div>
+		<b style="position:absolute;top:.5em;right:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;"><%= flowers['r_price'] -%> руб.</b>
+		<b style="position:absolute;bottom:.5em;left:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;">В наличии <%= flowers.count - count_reserv -%> шт.</b>
+	</li>
+</ul>
+<div class="pl_header">Выберите исполнение</div>
+<div style="text-indent:2em;">
+	<p>Каждый тип цветов и венков может быть исполнен во многих различных вариантах. Для Вашего удобства мы фотографируем все эти исполнения, что позволяет Вам заказать именно тот продукт, который изображен на картинке. <strong>Все исполнения продаются по одинаковой цене.</strong></p>
+	<p>Выберите исполнение из предложенных ниже вариантов.</p>
+</div>
+<ul class="flowers">
+
+	<% for (var id in flowers.mods) { %>
+		<% var m = flowers['mods'][id]; %>
+
+		<li style="background:url(<%= flowersUrl + m['photo'] -%>); margin: 1em 0 2em 0; position: relative;">
+			<div style="position:absolute;width:100%;left:0;bottom:-2.5em;text-align:center;">
+				<a href="javascript:void(0);">код исполнения: #<%= m.id -%><br />в наличии - <%= m.free_count -%>  шт.</a>
+			</div>
+			<b style="position:absolute;top:.5em;right:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;cursor:pointer;" onclick="flowerConfirm(<%= m.id -%>, <%= m.free_count -%>);">Выбрать</b>
+		</li>
+	<% } %>
+	
+</ul>

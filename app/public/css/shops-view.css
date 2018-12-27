@@ -1,0 +1,20 @@
+.shops-page__shops-top-left .photo {
+    display: inline-block;
+}
+
+.shops-page__shops-top-left, .shops-page__shops-bottom-left {
+    -webkit-box-flex: 3;
+    -webkit-flex: 3;
+        -ms-flex: 3;
+            flex: 3;
+    min-width: 300px;
+}
+
+.shop-img img {
+    max-height: 250px;
+}
+
+.shop-img {
+    width: 100%;
+    text-align: center;
+}

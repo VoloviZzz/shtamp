@@ -1,0 +1,240 @@
+<link rel="stylesheet" href="/css/shops-view.css">
+<link rel="stylesheet" href="/vendors/leaflet/dist/leaflet.css">
+
+<a style="font-size: 22px;" href="<%= fragment.settings.listUrl ? fragment.settings.listUrl : '#' -%>"><i class="fa fa-chevron-left">Вернуться к списку</i></a>
+<div class="section-title text-center mb-3">
+	<span><%= shop.title -%></span>
+</div>
+
+<% if(user.adminMode) { %>
+	<div class="form-group">
+		<label>Адрес списка публикаций</label>
+		<input class="js-fragment-update-settings form-control" data-event="input" data-target="listUrl" data-fragment-id="<%= fragment.id -%>" data-reload="false" type="text" value="<%= fragment.settings.listUrl -%>">
+	</div>
+<% } %>
+
+<input type="hidden" id="js-shop-id" value="<%= shop.id -%>">
+<div class="shops-page__shops-top-left shop-img">
+	<% photos.forEach((photo) => { -%>
+		<div class="photo">
+			<% if(user.adminMode) { %>
+				<div class="admin-control-container">
+					<button class="btn js-photo-delete" data-id="<%= photo.id -%>">Удалить</button>
+					<button class="btn js-shopPhoto-setMainPhoto" data-id="<%= shop.id -%>" data-photo-id="<%= photo.id -%>">Сделать главным фото</button>
+				</div>
+			<% } %>
+			<img class="setResponsiveHeight" src="<%= Helpers.replaceImageIfNotExist(`${photo.path}/prod/${photo.name}`) -%>" alt="Фото магазина">
+		</div>
+	<% }) -%>
+</div>
+
+<% if(user.adminMode) { %>
+	<div class="form-group">
+		<select class="form-control js-shop-update" data-target="alias_id" data-id="<%= shop.id -%>">
+			<option value="0">Не выбрано</option>
+			<% aliases.forEach(alias => { %>
+				<option <%= shop.alias_id == alias.id ? 'selected' : '' -%> value="<%= alias.id -%>"><%= alias.alias -%></option>
+			<% }) %>
+		</select>
+		<label class="btn mt-1">
+			Добавить фото
+			<input class="js-shopPhoto-add" multiple type="file" style="display: none">
+		</label>
+		<span style="display: none" id="js-photos-load-message">Идёт загрузка фото. Подождите</span>
+	</div>
+
+	<div class="form-group">
+		<label>Заголовок</label>
+		<input class="form-control js-shopTitle-update" type="text" value="<%= shop.title -%>">
+	</div>
+<% } %>
+
+<% if(user.adminMode) { %>
+	<textarea class="input-text js-ckeditor-edit js-shopText-update"><%- shop.text -%></textarea>
+<% } else { %>
+	<div><%- Helpers.replaceLineBreaks(shop.text) -%></div>
+<% } %>
+
+<div class="text-center mb-2" style="font-size: 24px">Контактная информация</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-6">
+		<ul class="d-flex flex-column">
+			<% if(user.adminMode) { %>
+				<label>Номер телефона</label>
+				<input class="form-control js-shopPhone-update" type="text" value="<%= shop.phones.join(',') -%>">
+			<% } else { %>
+				<% shop.phones.forEach((phone, index) => { %>
+					<li class="text-center mb-2">
+						<i style="font-size: 22px; color: steelblue;" class="fa fa-phone"></i>
+						<span style="font-size: 22px"><%= phone -%></span>
+					</li>
+				<% }) %>
+			<% } %>
+			<li class="text-center mb-2">
+				<% if(user.adminMode) { %>
+					<label>Адрес</label>
+					<input class="form-control js-shopAddress-update" type="text" value="<%= shop.address -%>">
+				<% }
+				else { %>
+					<% if(shop.address) { %>
+						<i style="font-size: 22px; color: steelblue;" class="fa fa-map-marker"></i>
+						<span style="font-size: 22px"><%= shop.address -%></span>
+					<% } %>
+				<% } %>
+			</li>
+		</ul>
+		<table class="text-center">
+			<caption>График работы</caption>
+			<tbody>
+				<tr>
+					<td>Понедельник</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="1" data-target="from"  <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['1'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="1" data-target="to"  <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['1'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Вторник</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="2" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['2'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="2" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['2'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Среда</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="3" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['3'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="3" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['3'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Четверг</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="4" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['4'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="4" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['4'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Пятница</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="5" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['5'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="5" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['5'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Суббота</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="6" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['6'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="6" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['6'][1] -%>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Воскресенье</td>
+					<td>
+						С
+						<span class="js-shopSchedule-edit" data-schedule-day="7" data-target="from" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['7'][0] -%>
+						</span>
+						до
+						<span class="js-shopSchedule-edit" data-schedule-day="7" data-target="to" <%= user.adminMode ? `contenteditable` : '' -%>>
+							<%= shop.schedule['7'][1] -%>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>			
+		</div>
+		<div class="col-xl-6">
+			<% if(user.adminMode) { %>
+				<div class="form-group">
+					<label>Координаты</label>
+					<input type="text" class="form-control js-shopCoords-update mb-1" value="<%= shop.coords -%>" placeholder="Координаты на карте">
+				</div>
+			<% } %>
+			<div id="map" data-admin="<%= user.adminMode %>" data-center="<%= shop.coords -%>" style="z-index: 0; min-width: 300px; min-height: 300px; max-width: 100%; max-height: 100%"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="/vendors/leaflet/dist/leaflet.js"></script>
+<script type="text/javascript" src="/vendors/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/shops-view.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/shops-view.js" defer></script>
+<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- _________________ -->

@@ -1,0 +1,16 @@
+.partner-item:not(:first-child) {
+    margin-top: 15px;
+}
+
+.partner-item {
+    border: 1px #c3c3c3 solid;
+    padding-bottom: 15px;
+}
+
+.partner-item__title {
+    text-align: center;
+    background: #eaeaea;
+    border: 1px #c3c3c3 solid;
+    padding: 7px;
+    margin-bottom: 15px;
+}

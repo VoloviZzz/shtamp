@@ -1,0 +1,52 @@
+
+<link rel="stylesheet" href="/css/code-editor.css">
+<h1>Редактор компонента</h1>
+
+<div class="code-editor" data-component="<%= component.ctrl %>">
+	<div class="show-editor javascript">
+		<%# <span1>sJS</span1> %>
+		<div class="js-ace-editor s-javascript" data-lang = 'javascript'><% if(index){%><%= index -%><%}%></div>
+	</div>
+	<div class="show-editor models">
+		<%# <span1>ejs</span1> %>
+		<div class="js-ace-editor ejs" data-lang = 'ejs'><% if(template){%><%= template -%><%}%></div>
+	</div>
+	<div style="display:none" class="show-editor ejs">
+		<%# <span1>CSS</span1> %>
+		<div class="js-ace-editor css" data-lang = 'css'><% if(css){%><%= css -%><%}%></div>
+	</div>
+	<div style="display:none" class="show-editor css">
+		<%# <span1>cJS</span1> %>
+		<div class="js-ace-editor c-javascript" data-lang = 'javascript'><% if(js){%><%= js -%><%}%></div>
+	</div>
+	<div class="show-editor dir">
+		<div class="directory">
+		<% files.forEach(function (val) { %>
+			<div class="file">
+				<%= val %>
+			</div>
+		<% }) %>
+		<div class="file btn btn-block addNewFile">
+			<i class="fa fa-plus"></i>
+		</div>
+		</div>
+	</div>
+	<div style="display:none" class="show-editor dir">
+		<div class="directory">
+			<div class="file"><%= component.ctrl %>.js</div>
+			<div class="file"><%= component.ctrl %>.css</div>
+		<div class="file btn btn-block addNewFile">
+			<i class="fa fa-plus"></i>
+		</div>
+		</div>
+	</div>
+	<div class="show-line-editors btn btn-block"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
+	<!-- <div class="save-editors btn btn-block"><i class="fa fa-arrow-down"></i></div> -->
+</div>
+
+
+
+<script src="/js/code-editor.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/code-editor.js" defer></script>
+<% } %>

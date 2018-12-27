@@ -1,0 +1,85 @@
+<style>
+	.content-section {
+		border: 1px #c3c3c3 solid;
+		margin-bottom: 20px;
+		padding: 10px;
+	}
+</style>
+<section class="content-section">
+	<h1>Подключенные CRM</h1>
+	<% if(connectedCRM.length < 1) { %>
+		<p>Нет подключенных CRM</p>
+	<% } %>
+	<div>
+		<% connectedCRM.forEach(crm => { -%>
+			<div>
+				<% if(user.adminMode) { %>
+					<input type="text" class="form-control js-crm-change" data-id="<%= crm.id -%>" data-target="title" placeholder="Заголовок CRM" value="<%= crm.title -%>">
+				<% } else { %>
+					<span class="d-block font-weight-bold"><%= crm.title -%></span>
+				<% } %>
+				<%= crm.host -%>:<%= crm.port -%>; token: <%= crm.token -%>
+			</div>
+		<% }) -%>
+	</div>
+</section>
+<section class="content-section">
+	<h1>Подключить CRM</h1>
+	<form id="js-crm-add">
+		<div class="input-group">
+			<label>
+				<span class="d-block">Хост:</span>
+				<small class="d-block">Указывать в формате: ${PROTOCOL}://${HOST}</small>
+				<input type="text" name="host" required>
+			</label>
+		</div>
+		<div class="input-group">
+			<label>
+				<span class="d-block">Порт:</span>
+				<input type="text" name="port" value="80" required>
+			</label>
+		</div>
+		<div class="input-group">
+			<button class="btn">Подключить</button>
+		</div>
+	</form>
+</section>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		$('#js-crm-add').on('submit', function (e) {
+			var form = this;
+			var host = form.elements.host.value.trim();
+			var port = form.elements.port.value.trim();
+
+			$.post('/api/unloading/addConnection', { host: host, port: port }).done(function (result) {
+				if (result.status !== 'ok') {
+					return alert(result.message);
+				}
+
+				location.reload();
+			});
+
+			return false;
+		})
+
+		$('.js-crm-change').on('change', function (e) {
+			var $this = $(this);
+			var target = $this.data('target');
+			var value = $this.val().trim();
+			var id = $this.data('id');
+
+			var postData = {
+				[target]: value,
+				id: id
+			};
+
+			$.post('/api/unloading/updateConnection', postData).done(function (result) {
+				if (result.status !== 'ok') {
+					return alert(result.message);
+				}
+
+				alert('Успешно изменено')
+			});
+		})
+	});
+</script>

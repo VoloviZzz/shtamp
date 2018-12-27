@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/css/cart.css">
+<div class="js-goods-container">
+    <% if(!!cart === true && Object.keys(cart.goods).length > 0) { %>
+    <div class="form-group text-right">
+        <button class="btn js-clear-cart">Очистить корзину</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Стоимость</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align: middle;">
+                <% var totalPrice = 0; %>
+                <% Object.keys(cart.goods).map(key => { %>
+                <% var g = goodsList[key] %>
+                <% var cartItem = cart.goods[key] %>
+                <% totalPrice += +g.price * cartItem.countInShopCart; %>
+                <tr class="js-goods-item" style="margin: 0 auto">
+                    <td>
+                        <div style="width: 200px; height: 130px;">
+                            <img width="100%" height="100%" src="<%= Helpers.replaceImageIfNotExist(`${g.photo_path}/preview/${g.photo_name}`) -%>" alt="Гроб Элитный">
+                        </div>
+                    </td>
+                    <td>
+                        <a href="/product/<%= g.id -%>">
+                            <span><%=g.title%></span>
+                        </a>
+                    </td>
+                    <td class="basket-table-counter" style="min-width: 120px">
+                        <button data-vector="-1" data-good-id="<%= g.id -%>" class="js-goods-count-edit basket-table-counter__btn basket-table-counter__btn-minus"></button>
+                        <div>
+                            <span data-id="<%=g.id%>" class="js-count-goods"><%= cartItem.countInShopCart -%> шт.</span>
+                        </div>
+                        <button data-vector="1" data-good-id="<%= g.id -%>" class="js-goods-count-edit basket-table-counter__btn basket-table-counter__btn-plus"></button>
+                    </td>
+                    <td style="min-width: 120px">
+                        <div><%=Helpers.formatPrice(g.price * cartItem.countInShopCart)%> руб.</div>
+                    </td>
+                    <td style="border: none">
+                        <div>
+                            <a href="#" data-id="<%= g.id -%>" class="btn btn-sm js-item-remove">Убрать из корзины</a>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 text-center">
+                Итоговая стоимость:
+                <span id="js-total-price" class="basket-total__sum-value basket-total__sum-value--rub"><%=Helpers.formatPrice(totalPrice)%></span>
+                <small>руб.</small>
+            </div>
+            <div class="col-6 text-right">
+                <a href="/order" class="btn mb-2">Оформить заказ</a>
+            </div>
+        </div>
+    </div>
+    <% } else { %>
+        <h2 class="text-center">Сейчас в корзине ничего нет</h2>
+    <% } %>
+</div>
+<script src="/js/cart.js" defer></script>

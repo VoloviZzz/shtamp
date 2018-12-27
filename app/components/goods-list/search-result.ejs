@@ -1,0 +1,67 @@
+<section>
+	<h1 class="text-center">Категории</h1>
+	<div class="container-fluid">
+		<div class="row d-inline-flex">
+			<% if(cats.length < 1) { %>
+				<p class="text-center">Категорий не найдено</p>
+			<% } %>
+			<% cats.forEach((cat, index) => { %>
+				<div class="col-lg-3 col-md-12 p-2">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="card-title text-center" style="min-height: 50px">
+								<b><%= cat.title %></b>
+							</div>
+							<div>
+								<a href="/shop-categories/<%= cat.id -%>">
+									<img class="card-img-top" src="<%= Helpers.replaceImageIfNotExist(cat.img) %>" alt="Категория">
+								</a>
+							</div>
+							<div>
+								<a href="/shop-categories/<%= cat.id -%>" class="btn w-100 text-center">Перейти</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+</section>
+
+<section>
+	<h1 class="text-center">Товары/услуги</h1>
+	<div class="container-fluid">
+		<div class="row d-inline-flex">
+			<% if(poses.length < 1) { %>
+				<p class="text-center">Товаров или услуг не найдено</p>
+			<% } %>
+			<% poses.forEach((p, i) => { %>
+				<div class="col-lg-3 col-md-12 p-2">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="card-title text-center" style="min-height: 50px">
+								<b><%= p.title %></b>
+							</div>
+							<div class="mb-2">
+								<a href="/product/<%= p.id -%>">
+									<img class="card-img-top" src="<%= Helpers.replaceImageIfNotExist(`${p.photo_path}/preview/${p.photo_name}`) %>" alt="Товары">
+								</a>
+							</div>
+							<div class="d-flex justify-content-between align-items-center">
+								<% if(p.float_price) { %>
+									<span style="text-transform: none;">От</span>
+									<span><b><%= Helpers.formatPrice(p.price) %> руб.</b></span>
+								<% } else if(p.contract_price) { %>
+									<span style="text-transform: none;">Договорная</span>
+								<% } else { %>
+									<span><b><%= Helpers.formatPrice(p.price) %> руб.</b></span>
+								<% } %>
+								<a href="/product/<%= p.id -%>" class="btn text-right">Открыть</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+</section>

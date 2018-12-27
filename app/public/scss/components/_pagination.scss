@@ -1,0 +1,20 @@
+.pagination {
+	text-align: center;
+}
+
+.pagination__to-begin.pagination__action-link {
+	margin-right: 10px;
+}
+
+.pagination__to-end.pagination__action-link {
+	margin-left: 10px;
+}
+
+.pagination-item {
+	margin: 0 5px;
+}
+
+.pagination-item.pagination-item__active {
+	font-weight: 400;
+	text-decoration: underline;
+}

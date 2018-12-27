@@ -1,0 +1,78 @@
+<div class="memory-book__item search-result__item">
+	<div class="memory-book__photo-container">
+		<img 
+			class="memory-book__photo <%= g.photo_orientation == 6 ? 'img90' : '' %>" 
+			src="<%= imagesPath + g.main_photo %>" 
+		/>
+	</div>
+	<div class="place__pairs">
+		<div class="place__pair place__title">
+			<div>
+				<h1 class="fs-regular dead-name noinit"><%= `${g.surname || ''} ${g.firstname || ''} ${g.patronymic || ''}` %></h1>
+			</div>
+			<div>
+				<span class="fs-regular"><%= `${g.born_day || ''}.${g.born_month || ''}.${g.born_year || ''} - ${g.die_day || ''}.${g.die_month || ''}.${g.die_year || ''}` %></span>
+			</div>
+		</div>
+		<div class="place__info">
+			<div class="place__pair place-general">
+				<div>
+					<span class="place__info-name">Кладбище:</span>
+					<span>
+						<a href="/cemeteries/<%=g.cemetery%>"><%=g.cemetery_name || '' -%></a>
+					</span>
+				</div>
+				<div>
+					<span class="place__info-name">Квартал:</span>
+					<span><%= g.area ? g.area_name : 'без квартала' -%></span>
+				</div>
+				<% if (g.place) { %>
+					<div>
+						<span class="place__info-name">Участок:</span>
+						<span><a href="/place/<%=g.place%>"><%= g.dead_code -%>-<%= g.place -%></a></span>
+					</div>
+				<% } else { %>
+					<div>
+						<b>Одиночное захоронение</b>
+					</div>
+				<% } %>
+			</div>								
+			<div class="place__buttons">
+				<div>
+					<a href="/person/<%= g.dead_id %>" class="btn">Открыть</a>
+				</div>
+				<% if (g.place) { %>
+					<div>
+						<a href="/place/<%= g.place %>" class="btn">Страница участка</a>
+					</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<% if(g.biographies.length > 0) { %>
+		<div style="width: 100%">
+			<h1>Биографии</h1>
+		</div>
+		<% g.biographies.forEach((item) => { -%>
+			<p><%= Helpers.trimByWords(item.text, 150) -%></p>
+		<% }) -%>
+	<% } %>
+	
+	<% if(g.necrologues.length > 0) { %>
+		<div style="width: 100%">
+			<h1>Некрологи</h1>
+		</div>
+		<% g.necrologues.forEach((item) => { -%>
+			<p><%= Helpers.trimByWords(item.text, 150) -%></p>
+		<% }) -%>
+	<% } %>
+
+	<% if(g.photos.length > 0) { %>
+		<div style="width: 100%">
+			<h1>Фото</h1>
+		</div>
+		<% g.photos.forEach((item) => { -%>
+			<p><%= item.url -%></p>
+		<% }) -%>
+	<% } %>
+</div>

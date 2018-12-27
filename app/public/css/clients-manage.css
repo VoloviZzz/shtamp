@@ -1,0 +1,48 @@
+#period-settigs {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.period-settings__item {
+    margin: 0 20px;
+}
+
+.client-card {
+    margin-bottom: 15px;
+    border: 1px solid #c3c3c3;
+    padding: 7px;
+}
+
+.client-card__title {
+    text-align: center
+}
+
+.clients-search {
+    margin-bottom: 21px;
+    border-bottom: 1px #c3c3c3 solid;
+    padding-bottom: 21px;
+}
+
+.clients-search__input {
+    width: 100%;
+    padding: 15px;
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-transition: .3s all;
+    -o-transition: .3s all;
+    transition: .3s all;
+}
+
+.clients-search__input:focus {
+    border-color: #696969;;
+}

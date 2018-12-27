@@ -1,0 +1,1 @@
+ALTER TABLE `routes_aliases` ADD `main` BOOLEAN NOT NULL DEFAULT FALSE AFTER `alias`;

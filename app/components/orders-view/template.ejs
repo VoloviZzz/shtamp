@@ -1,0 +1,22 @@
+<div>
+	<% if(user.admin) { %>
+		<% if(order.status == '1') { %>
+			<button class="btn js-change-order-status" data-hash="<%= order.hash %>" value="2">Отправить в работу</button>
+		<% } else if(order.status == '2') { %>
+			<button class="btn js-change-order-status" data-hash="<%= order.hash %>" value="3">Завершить</button>
+		<% } %>
+
+		<% if(!!order.manager_id === false) { %>
+			<button class="btn js-set-order-manager">Начать работу с клиентом</button>
+		<% } %>
+	<% } %>
+</div>
+<%= order.id %>
+<% order.goods.forEach((goodsItem) => { %>
+	<div>
+		<%= goodsItem.goods_title -%>
+	</div>
+<% }) %>
+<% if(user.admin) { %>
+	<script src="/admins//js/orders-view.js" defer></script>
+<% } %>

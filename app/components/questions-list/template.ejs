@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/questions-list.css">
+<% if(user.adminMode) { %>
+	<div class="form-row">
+		<div class="form-group col-lg-12 col-xl-6">
+			<label>Выбор target отзывов:</label>
+			<select class="form-control js-fragment-update-settings" data-event="change" data-fragment-id="<%= fragment.id -%>" data-target="target">
+				<option value="">Не выбрано</option>
+				<% targets.forEach((target) => { -%>
+					<option <%= target.id == fragment.settings.target ? "selected" : "" -%> value="<%= target.id -%>"><%= target.title -%></option>
+				<% }) -%>
+			</select>
+		</div>
+		<div class="form-group col-lg-12 col-xl-6">
+			<label>Добавить target:</label>
+			<form id="js-add-question-target" data-fragment-id="<%= fragment.id -%>">
+				<input class="form-control" type="text" name="title">
+				<button class="btn mt-1">Добавить</button>
+			</form>
+		</div>
+		
+		<div class="form-group col-lg-12">
+			<% if(fragment.settings.target) { %>
+				<label>Добавить категорию:</label>
+				<form class="js-questionCategories-add" method="POST">
+					<input class="form-control" type="text" name="category">
+					<input type="hidden" name="target_id" value="<%= fragment.settings.target -%>">
+				</form>
+			<% } else { %>
+				<span class="font-weight-bold">Категории могут добавляться только, если указан target вопросов</span>
+			<% } -%>
+		</div>
+
+	</div>
+
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true"><b>Опубликованные</b> (<%= questions.length -%>)</a>
+			<a class="nav-item nav-link" id="nav-unpublished-tab" data-toggle="tab" href="#nav-unpublished" role="tab" aria-controls="nav-unpublished" aria-selected="false"><b>Неопубликованные</b> (<%= questionsNotPublished.length -%>)</a>
+		</div>
+	</nav>
+<% } %>
+<div class="tab-content" id="nav-tabContent">
+	<div class="tab-pane show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+		<% cats.map(c => { %>
+			<% if(c.questions.length < 1) return false; %>
+			<div class="d-flex justify-content-between">
+				<h3 class="mt-2"><%= c.title %> (<%= c.questions.length -%>)</h3>
+				<% if(user.adminMode && c.id) { %>
+					<button class="btn bg-delete js-questionCategories-delete mt-2 mb-2" data-title="<%= c.title -%>" data-id="<%= c.id -%>">Удалить категорию</button>
+				<% } %>
+			</div>
+			<%- include("./question-list", { questions : c.questions, catsArray }) -%>	
+		<% }); %>
+	</div>
+	<% if(user.adminMode) { %>
+		<div class="tab-pane not-modered-reviews" id="nav-unpublished" role="tabpanel" aria-labelledby="nav-unpublished-tab">
+			<%- include("./question-list", { questions: questionsNotPublished }) -%>
+		</div>
+	<% } %>
+</div>
+
+<div class="form-group">
+	<h3>Ваш вопрос</h3>
+	<textarea class="form-control add-text add-question-text mb-2" rows="3" id="questionText"></textarea>
+	<input type="hidden" id="js-question-target" value="<%= fragment.settings.target -%>">
+    <button class="btn add-button add-question-button">Добавить</button>
+</div>
+
+<script src="/js/questions-list.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/questions-list.js" defer></script>
+<% } %>

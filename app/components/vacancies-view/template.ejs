@@ -1,0 +1,52 @@
+<!--<link rel="stylesheet" href="/css/vacancies-view.css">-->
+<input type="hidden" id="js-vacancies-id" value="<%= vacancy.id -%>">
+<div class="section-title" style="display: flex; flex-flow: row wrap; align-items: center;">
+	<a href="<%= fragment.settings.rootUrl -%>" style="text-decoration: underline;">Вернуться к списку</a>
+	<span class="text-center" style="margin: auto;"><%= vacancy.title -%></span>
+</div>
+<div>
+	<% if(user.adminMode) { %>
+		<div class="form-group">
+			<label>URL для списка</label>
+			<input type="text" class="form-control js-fragment-update-settings" data-target="rootUrl" data-fragment-id="<%= fragment.id -%>" value="<%= fragment.settings.rootUrl -%>">
+		</div>
+		<div class="form-group">
+			<label>Заголовок</label>
+			<input data-id="<%= vacancy.id %>" type="text" class="form-control js-vacancies-title-update mb-2" value="<%= vacancy.title %>">
+			<button data-id="<%= vacancy.id %>" class="btn bg-delete js-vacancies-delete">Удалить</button>
+			<% if (vacancy.published) { %>
+				<button value="0" data-id="<%= vacancy.id %>" class="btn js-vacancies-toggle-public">Снять с публикации</button>
+			<% } else { %>
+				<button value="1" data-id="<%= vacancy.id %>" class="btn js-vacancies-toggle-public">Опубликовать</button>
+			<% } %>
+		</div>
+		<div class="form-group">
+			<textarea class="js-vacanciesText-update js-ckeditor-edit"><%- vacancy.text %></textarea>
+		</div>
+	<% } else { %>
+		<div class="d-flex flex-column mt-2">
+			<div class="d-flex">
+				<div class="pr-3">
+					<img src="https://placehold.it/150x150" width="150" height="150">
+				</div>
+				<div>
+					<p style="font-size: 16px">Сфера деятельности:</p>
+					<p style="font-size: 16px">График работы:</p>
+					<p style="font-size: 16px">Опыт работы:</p>
+				</div>
+			</div>
+			<div class="d-flex">
+				<div><%- vacancy.text -%></div>
+			</div>
+			<% if(vacancy.published_time) { %>
+				<div class="text-right">
+					Опубликовано: <%= Helpers.formatDate(vacancy.published_time, 'dd MMMM yyyy, hh:mm') -%>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>
+
+<% if(user.adminMode) { %>
+	<script src="/admins/js/vacancies-list.js" defer></script>
+<% } %>

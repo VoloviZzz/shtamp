@@ -1,0 +1,14 @@
+<% if (part == 0) { %>
+	<div class="text-center">Найдено результатов: <b class="search-results-count"><%= countDeads %></b></div><br />
+<% } %>
+
+<% if(deads.length > 0) { %>
+	<% deads.map(g => { %>
+		<% g.rel = g.rel || {} %>
+		<%- include('memory-book__item', { g }) %>
+	<% }); %>
+<% }
+else { %>
+	<h3>Ничего не найдено</h3>
+	<p>Проверьте правильность набранной строки и повторите поиск</p>
+<% } %>

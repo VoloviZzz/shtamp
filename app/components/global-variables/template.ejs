@@ -1,0 +1,43 @@
+<section style="margin-bottom: 20px">
+	<button class="btn js-add-variable">Добавить новую переменную</button>
+</section>
+<section>
+	<% settings.forEach((s) => { %>
+		<div class="form-group border p-2">
+			<% if(user.adminMode) { %>
+				<div>
+					<span>Заголовок:</span>
+					<input class="js-globalVariable-update" data-id="<%= s.id -%>" data-target="title" type="text" value="<%= s.title -%>">
+				</div>
+			<% } else { %>
+				<p><%= s.title -%></p>
+			<% } %>
+			<% if(user.adminMode) { %>
+				<span>Название переменной:</span>
+				<input class="js-globalVariable-update" data-id="<%= s.id -%>" data-target="target" type="text" value="<%= s.target -%>">
+			<% } else { %>
+				<span><b><%= s.target -%></b>: </span>
+			<% } %>
+			<% if(user.adminMode) { %>
+				<span>Значение:</span>
+				<input id="js-globalVariable-value-title" class="js-globalVariable-update" data-id="<%= s.id -%>" data-target="value" type="text" value="<%= s.value -%>">
+				<span>или фото:</span>
+				<input type="file" name="upload" class="js-globalVariable-image-upload">
+			<% } else { %>
+				<span><%= s.value -%></span>
+			<% } %>
+			<button class="btn js-variable-delete" data-id="<%= s.id -%>">X</button>
+		</div>
+	<% }) %>
+</section>
+<section>
+	<p>Возможные переменные:</p>
+	<ul>
+		<li>siteLogo - Логотип сайта в шапке</li>
+		<li>footerText - текст в футере</li>
+		<li>appendTitle - постоянная часть в мета-тэге title</li>
+		<li>favicon - favicon сайта</li>
+		<li>showCart - скрыть/показать регистрацию (0/1)</li>
+	</ul>
+</section>
+<script src="/admins/js/globalConfig.js" defer></script>

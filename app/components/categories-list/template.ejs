@@ -1,0 +1,476 @@
+<link rel="stylesheet" href="/assets/css/demo.css" />
+<link rel="stylesheet" href="/assets/css/flickity.css" />
+<link rel="stylesheet" href="/assets/css/component.css" />
+<script src="/assets/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="/assets/css/categories-list.css">
+
+<div id="item-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="background-color: #2A2B30">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<% if(user.adminMode) { %>
+				<button type="button" style="position: absolute; right: 4%;" class="close edit-item"><i class="fa fa-edit"></i></button>
+				<%}%>
+				<h4 class="modal-title" id="add-cat-modalLabel">Форма товара</h4>
+			</div>
+			<div class="media">
+				<div class="modal-body">
+						<div class="row">
+							<div class="col-md-3 view photo">
+								<section class="grid_modal grid--loading">
+									<img class="grid__loader" src="img/grid.svg" width="60" alt="Loader image" />
+									<div class="grid__sizer" style="width: 100% !important"></div>
+									<div class="grid__item" style="width: 100% !important; display: none">
+										<div class="slider_m"></div>
+										<button class="action action--button action--buy" onclick="$('.modalToCart').click();"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+									</div>
+								</section>
+							</div>
+							<div style="display:none" class=" edit col-md-3">
+								<div class="photo__edit">
+									<input type="file" style="display: none" id="photo__edit" multiple>
+									<div class="photo__edit_item">
+										<img src="img/picture.png">
+										<div onclick="$('#photo__edit').click();" class="add_photo__edit_item"><i class="fa fa-plus"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="row">
+									<div class="col-md-12 ">
+										<h1 class="view title">Название товара</h1>
+										<div class="col-md-3">
+											<input type="text" style="display:none; height: 80px; font-size: 20px;" class="form-control edit title">
+										</div>
+									</div>
+									<div class="col-md-11 ">
+										<h3 class="view brand">Название бренда</h3>
+										<div class="col-md-3">
+											<input type="text" style="display:none" class="form-control edit brand">
+										</div>
+									</div>
+									<div class="col-md-1 text-right">
+										<h4>цена</h4>
+									</div>
+									<div class="col-md-12 text-right">
+										<div class="row">
+												<div class="col-md-10">
+											</div>
+											<div class="col-md-2">
+												<input type="number" style="display:none; height: 80px; font-size: 20px;" class="form-control edit price">
+											</div>
+											<div class="col-md-12 text-right">
+												<h1 class="view price">9000 р</h1>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<h4 class="view">описание:</h4>
+									</div>
+									<div class="col-md-12"><hr></div>
+
+									<div class="col-md-12 view desc"></div>
+									<div class="col-md-12 ">
+										<textarea class="desc edit form-control ckeditor" id="editor1" style="display:none"></textarea>
+									</div>
+									<div class="col-md-12"><br><hr><br></div>
+									<div style="display:none" class="col-md-12">
+
+									</div>
+									<div class="col-md-12"><br><hr><br></div>
+
+									<div class="col-md-12 buttons text-center btn-group-lg">
+										<div class="btn btn-success modalToCart" onclick="addToCart(this)"><i class="fa fa-shopping-cart"></i> В Корзину</div>
+										<div class="btn btn-success">Купить сейчас</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="add-cat-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content" style=" background-color: #2A2B30">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="add-cat-modalLabel">Добавить</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="container-fluid bd-example-row">
+	          <div class="row">
+							<div class="col-md-4">
+								<div style="width:100%" class="btn btn-info open_category_cats">
+									<i class="fa fa-arrow-down"></i> Категория
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div style="width:100%" data-elem="item" class="btn btn-info add-elem add-item">
+									<i class="fa fa-plus"></i> Товар
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div style="width:100%" class="btn btn-info show-ways">
+									<i class="fa fa-arrow-down"></i> Теги
+								</div>
+							</div>
+	          </div>
+						<div class="row">
+							<div class="col-md-12 edit-row edit-cat">
+								<h4>Редактировать Категорию</h4>
+								<div class="btn btn-info btn-block add-cat">
+									<i class="fa fa-plus"></i> Категория
+								</div>
+								<div class="category_list">
+									<%
+									if (category) {
+										category.forEach(elem => {
+												%>
+												<div style="display:flex">
+													<input type="text" data-id="<%=elem.id%>" value="<%=elem.title%>" placeholder="Имя категории" class="save-edited-cat form-control">
+													<div data-id="<%=elem.id%>" class="btn btn-danger remove_cat">
+														<i class="fa fa-remove"></i>
+													</div>
+												</div>
+												<%
+										});
+									}
+									%>
+								</div>
+							</div>
+							<div class="col-md-12 edit-row edit-item">
+								<br>
+								<h4>Редактировать Товар</h4>
+								<hr>
+								<br>
+								<input type="text" placeholder="Название товара" class="editing-item title form-control">
+								<br>
+								<input type="text" placeholder="Название бренда" class="editing-item brand form-control">
+								<br>
+								<input type="number" placeholder="цена" class="editing-item price form-control">
+								<br>
+								<textarea placeholder="Описание товара" class="editing-item desc form-control" rows="3" cols="80"></textarea>
+								<br>
+								<div class="tag-adding-block form-control">
+									<div class="tag-added-hint-block editing-item">
+										<input type="text" placeholder="Начните вводить тег..." class="editing-item" id="search_tag">
+									</div>
+								</div>
+								<br>
+								<div class="tag-adding-block-with-hint"></div>
+								<br>
+								<div class="category-selector">
+									<input type="text" placeholder="Категория" id="search_category" class="editing-item category form-control">
+									<div class="category-hint"></div>
+								</div>
+								<br>
+								<div class="photos_array editing-item">
+									<input type="file" style="display: none" id="photos_array" multiple>
+									<div class="photos_array_item">
+										<img src="img/picture.png">
+										<div onclick="addphoto()" class="add_photos_array_item"><i class="fa fa-plus"></i></div>
+									</div>
+								</div>
+								<br>
+								<div class="btn btn-block btn-info save-editing-item">
+									<i class="fa fa-floppy-o"></i> Сохранить товар
+								</div>
+							</div>
+							<div class="col-md-12 edit-row select-way">
+								<br>
+								<hr>
+								<h4>Теги</h4>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="btn btn-sucess add_group"><i class="fa fa-plus"></i> Группа</div>
+										<div style="width:100%" class="group_list">
+
+											<%
+											groups.forEach(group => {
+												%>
+												<div data-id="<%=group.id%>" class="group">
+												<span data-id="<%=group.id%>" class="remove_group">
+													<i class="fa fa-remove"></i>
+												</span>
+													<span data-id="<%=group.id%>" oncontextmenu="edit_group(this); return false;">
+														<%=group.title%>
+													</span>
+													<div class="tags_with_group">
+													<%
+													tags.forEach(tag => {
+														if (tag.group_id == group.id) {
+															%>
+															<div style="display: inline-flex; width: 100%;">
+																<div data-id="<%=tag.id%>" class="tag" oncontextmenu="return false;"><%=tag.title%></div>
+																<div data-id="<%=tag.id%>" class="btn btn-danger remove_tag">
+																	<i class="fa fa-remove"></i>
+																</div>
+															</div>
+															<%
+														}
+													});
+													%>
+													</div>
+												</div>
+												<%
+											});
+											%>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="btn btn-sucess add_tag"><i class="fa fa-plus"></i> Тег</div>
+										<div style="width:100%" class="tag_list">
+										<%
+										tags.forEach(tag => {
+											if (tag.group_id == null) {
+												%>
+												<div style="display: inline-flex; width: 100%;">
+													<div data-id="<%=tag.id%>" class="tag" oncontextmenu="return false;"><%=tag.title%></div>
+													<div data-id="<%=tag.id%>" class="btn btn-danger remove_tag">
+														<i class="fa fa-remove"></i>
+													</div>
+												</div>
+												<%
+											}
+										});
+										%>
+										</div>
+									</div>
+									<div class="col-md-12 edit-tag hidden">
+										<input type="text" placeholder="Тег" class="save-edited-tag form-control">
+									</div>
+								</div>
+							</div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<div id="cart-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg"
+	<%# style="position: absolute;top: 40%;left: 50%;transform: translate(-50%,-50%);width:100%" %>
+	>
+		<div class="modal-content" style="background-color: #2A2B30">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="add-cat-modalLabel">Форма товара</h4>
+			</div>
+			<div class="media">
+				<div class="modal-body">
+						<div class="row">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="bar">
+	<div class="filter">
+		<span class="filter__label">Категории: </span>
+		<button class="action filter__item filter__item--selected" data-filter="*">Всё</button>
+		<%
+		function cyrill_to_latin(text){
+			if (text[0] != '/') {
+				// text = '/'+text;
+			}
+			var arrru = ['Я','я','Ю','ю','Ч','ч','Ш','ш','Щ','щ','Ж','ж','А','а','Б','б','В','в','Г','г','Д','д','Е','е','Ё','ё','З','з','И','и','Й','й','К','к','Л','л','М','м','Н','н', 'О','о','П','п','Р','р','С','с','Т','т','У','у','Ф','ф','Х','х','Ц','ц','Ы','ы','Ь','ь','Ъ','ъ','Э','э','"','\'','  ',' '];
+			var arren = ['Ya','ya','Yu','yu','Ch','ch','Sh','sh','Sh','sh','Zh','zh','A','a','B','b','V','v','G','g','D','d','E','e','E','e','Z','z','I','i','J','j','K','k','L','l','M','m','N','n', 'O','o','P','p','R','r','S','s','T','t','U','u','F','f','H','h','C','c','Y','y','','','','','E', 'e','','',' ','-'];
+			for(var i=0; i<arrru.length; i++){
+				var reg = new RegExp(arrru[i], "g");
+				text = text.replace(reg, arren[i]);
+		    }
+			return text;
+		}
+		%>
+		<%
+		category.forEach(function (elem, index) {
+			if (index == 5) {
+				%>
+				<span style="cursor:pointer" class="open__filters more">Ещё...</span>
+				<%
+			}
+			if (index > 4) {
+				%>
+				<button style="display:none" class="action after5 filter__item" data-filter=".<%=cyrill_to_latin(elem.title)%>"><i class="fa fa-jacket"></i><span class="action__text"><%= elem.title %></span></button>
+				<%
+			}else {
+				%>
+				<button class="action filter__item" data-filter=".<%=cyrill_to_latin(elem.title)%>"><i class="fa fa-jacket"></i><span class="action__text"><%= elem.title %></span></button>
+				<%
+			}
+		});
+		%>
+	</div>
+	<br>
+	<div class="filter">
+		<span class="filter__label">Группы Тегов</span>
+		<button style="display:none" class="action filter__item filter__item--selected" data-filter="*">Все</button>
+		<div style="width:98%; overflow-x: auto" class="group_list_scroll">
+			<div style="display: -webkit-inline-box;" class="group_list">
+				<%
+				groups.forEach(group => {
+					%>
+					<div data-id="<%=group.id%>" class="group_fliter">
+						<span data-id="<%=group.id%>" oncontextmenu="edit_group(this); return false;">
+							<%=group.title.trim()%>
+						</span>
+						<div class="tags_with_group">
+						<%
+						tags.forEach(tag => {
+							if (tag.group_id == group.id) {
+								%>
+								<div>
+									<div data-id="<%=tag.id%>" class="tag_fliter" oncontextmenu="return false;"><%=tag.title.trim()%></div>
+								</div>
+								<%
+							}
+						});
+						%>
+						</div>
+					</div>
+					<%
+				});
+				%>
+			</div>
+		</div>
+	</div>
+	<div style="display: flex;" class="filter_group">
+				<div class="filter">
+					<%
+					var max_price = 0;
+					if (item.length > 0) {
+						item.forEach(elem => {
+							if (elem.price > max_price) {
+								max_price = elem.price;
+							}
+						});
+					}
+					%>
+					<span class="filter__label">Цена</span>
+					<button style="display:none" class="action filter__item filter__item--selected" data-filter="*">Все</button>
+					<div class="range-slider">
+						<span style="display: flex;">
+					    <input type="number" value="0" min="0" max="<%=max_price%>"/>	<div class="space"></div> <input type="number" value="<%=max_price%>" min="0" max="<%=max_price%>"/>
+						</span>
+					  <input value="0" min="0" max="<%=max_price%>" step="1" type="range"/>
+					  <input value="<%=max_price%>" min="0" max="<%=max_price%>" step="1" type="range"/>
+					  <svg width="100%" height="24">
+					    <line x1="4" y1="0" x2="300" y2="0" stroke="#444" stroke-width="12" stroke-dasharray="1 28"></line>
+					  </svg>
+					</div>
+				</div>
+				<div class="filter">
+					<span class="filter__label">Исключить Теги</span>
+					<button style="display:none" class="action filter__item filter__item--selected" data-filter="*">Все</button>
+
+					<div class="toggle toggle_filter"><span></span></div>
+				</div>
+				<div class="filter">
+					<span class="filter__label">Сортировка</span>
+					<button style="display:none" class="action filter__item filter__item--selected" data-filter="*">Все</button>
+					<br>
+					<div class="btn btn-info sort asc">
+						<i class="fa fa-sort-amount-asc"></i>
+					</div>
+					<div class="btn btn-info sort desc">
+						<i class="fa fa-sort-amount-desc"></i>
+					</div>
+				</div>
+	</div>
+	<br>
+	<button class="cart" data-toggle="modal" data-target="#cart-modal">
+		<i class="cart__icon fa fa-shopping-cart"></i>
+		<span class="text-hidden">Shopping cart</span>
+		<span class="cart__count">0</span>
+	</button>
+	<button style="right: 70px;" class="cart open_filters_arrow open__filters">
+		<i class="cart__icon fa fa-arrow-up"></i>
+	</button>
+	<% if(user.adminMode) { %>
+		<button class="add-category" data-toggle="modal" data-target="#add-cat-modal">
+			<i class="cart__icon fa fa-plus"></i>
+			<span class="text-hidden">Add category</span>
+		</button>
+	<% } %>
+</div>
+
+<div class="view">
+	<div class="search">
+		<div class="row text-center" style="width: 100%;">
+			<div class="col-md-1">
+
+			</div>
+		  <div class="col-lg-10">
+		    <div class="input-group">
+		      <span class="input-group-btn">
+		        <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+		      </span>
+		      <input type="text" class="form-control search-showed-items" placeholder="Search for...">
+		    </div>
+		  </div>
+		</div>
+		<br>
+	</div>
+	<section class="grid grid--loading" >
+		<img class="grid__loader" src="img/grid.svg" width="60" alt="Loader image" />
+		<%
+		if (item.length > 0) {
+			item.forEach(elem => {
+				if (elem.category != 1) {
+				var classes = cyrill_to_latin(elem.category_title)+' ';
+				if (elem.tag_array != '[]') {
+					JSON.parse(elem.tag_array).forEach(tag_id => {
+						if (tags.length > 0) {
+							tags.forEach(tag => {
+								if (tag.id == tag_id) {
+									classes += cyrill_to_latin(tag.title) + ' ';
+								}
+							});
+						}
+					});
+				}
+			}
+				%>
+				<div class="grid__sizer"></div>
+				<div class="grid__item <%= classes %> <%=elem.price%>" data-id="<%=elem.id%>" data-toggle="modal" data-target="#item-modal">
+					<div class="slider">
+					<%
+					JSON.parse(elem.photos_array).forEach(photo => {
+						%>
+						<div class="slider__item"><img src="<%= photo %>"/></div>
+						<%
+					});
+					%>
+					</div>
+					<div class="meta">
+						<h3 class="meta__title"><%=elem.title%></h3>
+						<span class="meta__brand"><%=elem.brand%></span>
+						<span class="meta__price"><%=elem.price%>₽</span>
+					</div>
+					<button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+				</div>
+				<%
+			});
+		}else {
+			%>
+			<h4>Товаров ещё нет</h4>
+			<%
+		}
+		%>
+	</section>
+</div>
+<script src="/assets/js/isotope.pkgd.min.js" defer></script>
+<script src="/assets/js/flickity.pkgd.min.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/assets/admins/js/categories-list.js" defer></script>
+<% } %>

@@ -1,0 +1,176 @@
+2018-12-19 17:23:18: Error: ER_ACCESS_DENIED_ERROR: Access denied for user 'root'@'localhost' (using password: YES)
+    at Handshake.Sequence._packetToError (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Handshake.js:124:18)
+    at Protocol._parsePacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:502:10)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    --------------------
+    at Protocol._enqueue (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at Connection.connect (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:118:18)
+    at Promise (/home/jesus/freelance/engine/app/libs/db.js:16:13)
+    at new Promise (<anonymous>)
+    at Object.exports.connect (/home/jesus/freelance/engine/app/libs/db.js:10:25)
+    at Object.<anonymous> (/home/jesus/freelance/engine/app/app.js:75:4)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+
+2018-12-19 17:23:31: Error: ER_ACCESS_DENIED_ERROR: Access denied for user 'root'@'localhost' (using password: YES)
+    at Handshake.Sequence._packetToError (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Handshake.js:124:18)
+    at Protocol._parsePacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:502:10)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    --------------------
+    at Protocol._enqueue (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at Connection.connect (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:118:18)
+    at Promise (/home/jesus/freelance/engine/app/libs/db.js:16:13)
+    at new Promise (<anonymous>)
+    at Object.exports.connect (/home/jesus/freelance/engine/app/libs/db.js:10:25)
+    at Object.<anonymous> (/home/jesus/freelance/engine/app/app.js:75:4)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+
+2018-12-19 17:23:47: Error: ER_BAD_DB_ERROR: Unknown database 'deUro'
+    at Handshake.Sequence._packetToError (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/sequences/Handshake.js:124:18)
+    at Protocol._parsePacket (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:502:10)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    --------------------
+    at Protocol._enqueue (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/home/jesus/freelance/engine/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at Connection.connect (/home/jesus/freelance/engine/node_modules/mysql/lib/Connection.js:118:18)
+    at Promise (/home/jesus/freelance/engine/app/libs/db.js:16:13)
+    at new Promise (<anonymous>)
+    at Object.exports.connect (/home/jesus/freelance/engine/app/libs/db.js:10:25)
+    at Object.<anonymous> (/home/jesus/freelance/engine/app/app.js:75:4)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+
+2018-12-19 23:31:26: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:31:49: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:31:50: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:31:58: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:32:05: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:32:14: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:14: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:27: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:28: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:28: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:29: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:30: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:34:40: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-19 23:35:30: TypeError: Cannot read property 'childs' of undefined
+    at unflatten (/home/jesus/freelance/engine2/app/libs/header-nav.js:67:51)
+    at getHeaderNav.then (/home/jesus/freelance/engine2/app/libs/header-nav.js:28:11)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+
+2018-12-26 07:08:18: Error: ER_BAD_DB_ERROR: Unknown database 'shtamp'
+    at Handshake.Sequence._packetToError (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Handshake.ErrorPacket (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/sequences/Handshake.js:124:18)
+    at Protocol._parsePacket (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/home/jesus/freelance/shtamp/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/home/jesus/freelance/shtamp/node_modules/mysql/lib/Connection.js:502:10)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    --------------------
+    at Protocol._enqueue (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Protocol.handshake (/home/jesus/freelance/shtamp/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+    at Connection.connect (/home/jesus/freelance/shtamp/node_modules/mysql/lib/Connection.js:118:18)
+    at Promise (/home/jesus/freelance/shtamp/app/libs/db.js:16:13)
+    at new Promise (<anonymous>)
+    at Object.exports.connect (/home/jesus/freelance/shtamp/app/libs/db.js:10:25)
+    at Object.<anonymous> (/home/jesus/freelance/shtamp/app/app.js:75:4)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+

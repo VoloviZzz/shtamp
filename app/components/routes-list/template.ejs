@@ -1,0 +1,302 @@
+<link rel="stylesheet" href="/css/admin.css">
+<div>
+	<div class="d-flex justify-content-between mb-2">
+		<h1>Список маршрутов</h1>
+		<button class="btn js-routes-list-showAddForm">Добавить</button>
+	</div>
+	<form id="js-routes-list-addForm" class="js-routes-list-add-route" action="/api/routes/add" method="POST">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="addFormInputUrl">URL маршрута:</label>
+				<input name="url" type="text" class="form-control" id="addFormInputUrl" aria-describedby="urlHelp" placeholder="Введите url" value="/" required>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="addFormInputTitle">Заголовок маршрута:</label>
+				<input name="title" type="text" class="form-control" id="addFormInputTitle" aria-describedby="titleHelp" placeholder="Введите заголовок маршрута" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="template_id">Шаблон страницы:</label>
+			<select class="form-control" name="template_id">
+				<% templatesList.forEach((t) => { %>
+					<option value="<%= t.id -%>"><%= t.title -%></option>
+				<% }) %>
+			</select>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-6">
+					<h3>Тип</h3>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="dynamic" id="addFormInputDynamicRadio2" value="0" checked>
+						<label class="form-check-label" for="addFormInputDynamicRadio2">
+							Статический
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="dynamic" id="addFormInputDynamicRadio1" value="1">
+						<label class="form-check-label" for="addFormInputDynamicRadio1">
+							Динамический
+						</label>
+					</div>
+					</div>
+				<div class="col-6">
+					<h3>Доступ</h3>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="access" id="addFormInputAccessRadio1" value="1" checked>
+						<label class="form-check-label" for="addFormInputAccessRadio1">
+							Публичный
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="access" id="addFormInputAccessRadio2" value="2">
+						<label class="form-check-label" for="addFormInputAccessRadio2">
+							Только авторизованным
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="access" id="addFormInputAccessRadio3" value="3">
+						<label class="form-check-label" for="addFormInputAccessRadio3">
+							Только администратору
+						</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<h3>Разрешить поисковое индексирование</h3>
+					<div class="form-check form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="allow_index" value="0" checked>
+							Нет
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="allow_index" value="1">
+							Да
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h3>SEO установки</h3>
+		<div class="form-group">
+			<label for="addFormInputTextarea1">Ключевые слова (meta-keywords):</label>
+			<textarea class="form-control" id="addFormInputTextarea1" rows="3" name="seo_keywords"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="addFormInputTextarea2">Ключевые слова (meta-description):</label>
+			<textarea class="form-control" id="addFormInputTextarea2" rows="3" name="seo_description"></textarea>
+		</div>
+		<div class="mb-2">
+			<button type="submit" class="btn">Добавить</button>
+		</div>
+	</form>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Наименование</th>
+				<th scope="col">URL</th>
+				<th scope="col">Шаблон</th>
+				<th scope="col" style="text-align: right; padding-right: 90px">Действия</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% routesList.map((r) => { %>
+			<tr>
+				<td class="tbody-p"><a href="<%= r.url -%>"><%= r.title -%></a></td>
+				<td class="tbody-p"><a href="<%= r.url -%>"><%= r.url -%></a></td>
+				<td class="tbody-p">
+					<% templatesList.forEach((t) => { 
+						if (t.id == r.template_id) {
+							%><%=t.title%><%
+							return;
+						}
+					}) %>
+				</td>
+				<td style="text-align: right">
+					<button class="js-delete-route route-item__admin-btn btn" data-route-id="<%= r.id -%>">Удалить</button>
+					<button class="js-show-edit-route-form route-item__admin-btn btn" data-route-id="<%= r.id -%>" data-toggle="modal" data-target="#editModal<%= r.id -%>">Редактировать</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" data-route-id="<%= r.id -%>" style="border: none; padding: 0px; margin: 0;">
+					<div class="modal fade" id="editModal<%= r.id -%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h2 class="modal-title" id="exampleModalLongTitle">Изменить маршрут</h2>
+								</div>
+								<div class="modal-body">
+									<form class="js-routes-list-upd-route" action="/api/routes/upd" method="POST">
+
+										<div class="form-row">
+											<div class="form-group col-md-6">
+												<label for="editFormInputUrl">URL маршрута:</label>
+												<input name="url" type="text" value="<%=r.url-%>" class="form-control" id="editFormInputUrl" aria-describedby="urlHelp" placeholder="Введите url" required>
+											</div>
+											<div class="form-group col-md-6">
+												<label for="editFormInputTitle">Заголовок маршрута:</label>
+												<input name="title" type="text" value="<%=r.title-%>" class="form-control" id="editFormInputTitle" aria-describedby="titleHelp" placeholder="Введите заголовок маршрута" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="template_id">Шаблон страницы:</label>
+											<select class="form-control" name="template_id">
+												<% templatesList.forEach((t) => { %>
+													<option value="<%= t.id -%>" <%= r.template_id == t.id ? 'selected' : '' %> ><%= t.title -%></option>
+												<% }) %>
+											</select>	
+										</div>
+										<div class="form-group">
+											<label for="target_id">Классификация страницы</label>
+											<select name="target_id" class="form-control">
+												<option value="0">Не выбрано</option>
+												<% targets.forEach((t) => { %>
+													<option value="<%= t.id -%>" <%= r.target_id == t.id ? 'selected' : '' %> ><%= t.title -%></option>
+												<% }) %>
+											</select>
+										</div>
+										<div class="form-group">
+											<h3>Доступ</h3>
+											<div class="row">
+												<div class="col-6">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="access" id="editFormInputAccessRadio1" value="1" <%= r.access == 1 ? 'checked' : ''-%>>
+														<label class="form-check-label" for="editFormInputAccessRadio1">
+															Публичный
+														</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="access" id="editFormInputAccessRadio2" value="2" <%= r.access == 2 ? 'checked' : ''-%>>
+														<label class="form-check-label" for="editFormInputAccessRadio2">
+															Только авторизованным
+														</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="access" id="editFormInputAccessRadio3" value="3" <%= r.access == 3 ? 'checked' : ''-%>>
+														<label class="form-check-label" for="editFormInputAccessRadio3">
+															Только администратору
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<h3>Отображать тайтл на странице</h3>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="show_title" id="editFormInputAccessRadio4" value="1" <%= r.show_title == '1' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="editFormInputAccessRadio4">
+													Да
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="show_title" id="editFormInputAccessRadio5" value="0" <%= r.show_title == '0' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="editFormInputAccessRadio5">
+													Нет
+												</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<h3>Использовать заголовок компонента</h3>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="use_component_title" id="editFormInputAccessRadio6" value="1" <%= r.use_component_title == '1' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="editFormInputAccessRadio6">
+													Да
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="use_component_title" id="editFormInputAccessRadio7" value="0" <%= r.use_component_title == '0' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="editFormInputAccessRadio7">
+													Нет
+												</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<h3>Разрешить поисковое индексирование</h3>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="allow_index" id="allowIndexOn" value="1" <%= r.allow_index == '1' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="allowIndexOn">
+													Да
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="allow_index" id="allowIndexOff" value="0" <%= r.allow_index == '0' ? 'checked' : ''-%>>
+												<label class="form-check-label" for="allowIndexOff">
+													Нет
+												</label>
+											</div>
+										</div>
+										<% if(user.root) { %>
+											<div class="form-group">
+												<h3>Разрешить редактирование</h3>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="edit_access" id="editFormInputAccessRadio8" value="0" <%= r.edit_access == "0" ? 'checked' : ''-%>>
+													<label class="form-check-label" for="editFormInputAccessRadio8">
+														Да
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="edit_access" id="editFormInputAccessRadio9" value="1" <%= r.edit_access == "1" ? 'checked' : ''-%>>
+													<label class="form-check-label" for="editFormInputAccessRadio9">
+														Нет
+													</label>
+												</div>								
+											</div>
+											<div class="form-group">
+												<h3>Разрешить удаление</h3>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="delete_access" id="editFormInputAccessRadio10" value="0" <%= r.edit_access == "0" ? 'checked' : ''-%>>
+													<label class="form-check-label" for="editFormInputAccessRadio10">
+														Да
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="delete_access" id="editFormInputAccessRadio11" value="1" <%= r.edit_access == "1" ? 'checked' : ''-%>>
+													<label class="form-check-label" for="editFormInputAccessRadio11">
+														Нет
+													</label>
+												</div>								
+											</div>
+										<% } %>
+										<h3>SEO установки</h3>
+										<div class="form-group">
+											<label for="editFormInputTextarea1">Ключевые слова (meta-keywords):</label>
+											<textarea class="form-control" id="editFormInputTextarea1" rows="3" name="seo_keywords"><%= r.seo_keywords%></textarea>
+										</div>
+										<div class="form-group">
+											<label for="editFormInputTextarea2">Ключевые слова (meta-description):</label>
+											<textarea class="form-control" id="editFormInputTextarea2" rows="3" name="seo_description"><%= r.seo_description%></textarea>
+										</div>
+										<input type="hidden" name="id" value="<%=r.id-%>">
+
+										<div class="text-right">
+											<button type="submit" class="btn">Сохранить</button>
+										</div>
+									</form>
+									<div class="form-group">
+										<span>Фрагменты на странице:</span>
+										<% if(fragmentsByRoute[r.id]) fragmentsByRoute[r.id].forEach(fragment => { -%>
+											<div class="form-group js-routeFragment-item">
+												<span><%= fragment.id -%> - <%= fragment.component_title -%></span>
+												<button class="btn bg-delete js-routeFragments-delete" data-id="<%= fragment.id -%>">Удалить</button>
+												<% if(fragment.published == '0') { %>
+													<button class="btn js-routeFragments-togglePublished" value="1" data-id="<%= fragment.id -%>">Опубликовать</button>
+												<% } else { %>
+													<button class="btn js-routeFragments-togglePublished" value="0" data-id="<%= fragment.id -%>">Снять с публикации</button>
+												<% } %>
+											</div>
+										<% }) %>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		<% }) %>
+		</tbody>
+	</table>
+</div>

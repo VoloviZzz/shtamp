@@ -1,0 +1,35 @@
+<% if(user.adminMode) { %>
+	<div>
+		<span>Координаты центра:</span>
+		<input type="text" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="center" data-event="change" value="<%= fragment.settings.center %>">
+	</div>
+	<div>
+		<span>Масштаб карты:</span>
+		<input type="text" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="zoom" data-event="change" value="<%= fragment.settings.zoom %>">
+	</div>
+<% } %>
+<div id="map-<%= fragment.id -%>" style="width: 100%; height: 400px"></div>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript" defer></script>
+<script type="text/javascript">
+
+	document.addEventListener("DOMContentLoaded", function (e) {
+		// Функция ymaps.ready() будет вызвана, когда
+		// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+		ymaps.ready(init);
+
+		function init() {
+			// Создание карты.    
+			var myMap = new ymaps.Map("map-<%= fragment.id -%>", {
+				// Координаты центра карты.
+				// Порядок по умолчнию: «широта, долгота».
+				// Чтобы не определять координаты центра карты вручную,
+				// воспользуйтесь инструментом Определение координат.
+				center: [<%= fragment.settings.center[0] -%>, <%= fragment.settings.center[1] -%>],
+				// Уровень масштабирования. Допустимые значения:
+				// от 0 (весь мир) до 19.
+				zoom: <%= fragment.settings.zoom -%>
+			});
+		}
+	});
+
+</script>

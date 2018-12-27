@@ -1,0 +1,38 @@
+.basket-table-counter {
+    display: flex;
+    align-items: center;
+    min-width: 100px;
+    font-size: 15px;
+    line-height: 21px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+.basket-table-counter__btn {
+    width: 25px;
+    height: 1.5em;
+    background-color: transparent;
+    border: 1px solid #BDB3B3;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.basket-table-counter__btn-minus {
+    margin-right: 5px;
+}
+
+.basket-table-counter__btn-minus:after {
+    content: "-";
+    font-size: 17px;
+    line-height: 1em;
+}
+
+.basket-table-counter__btn-plus {
+    margin-left: 5px;
+}
+
+.basket-table-counter__btn-plus:after {
+    content: "+";
+    font-size: 13px;
+    line-height: 1em;
+}

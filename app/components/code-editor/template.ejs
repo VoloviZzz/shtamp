@@ -1,0 +1,63 @@
+
+<link rel="stylesheet" href="/css/code-editor.css">
+<h1>Редактор компонента</h1>
+
+<div class="code-editor" data-component="<%= component.ctrl %>">
+	<div class="show-editor">
+		<span1>Select File</span1>
+		<div style="display: none" class="js-ace-editor" data-path="components/<%= component.ctrl %>/template.ejs" data-lang = "ejs"><%= template %></div>
+		<div class="js-ace-editor" data-path="components/<%= component.ctrl %>/index.js" data-lang = "js"><%= index %></div>
+	</div>
+	<div class="file-list">
+		<div class="directory">┏<span>api</span> </div>
+		<div data-path="api/" style="text-align: center" class="api addFile hidden"><i class="fa fa-plus"></i></div>
+		<% api.forEach(function (val) { %>
+			<div data-path="api/" class="directory edit-file api hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory">┣<span>components</span></div>
+		<div class="directory components hidden">┣──<span><%= component.ctrl %></span></div>
+		<div data-path="components/<%= component.ctrl %>/" style="text-align: center" class=" <%= component.ctrl %> addFile hidden"><i class="fa fa-plus"></i></div>
+		<% filesComponents.forEach(function (val) { %>
+			<div data-path="components/<%= component.ctrl %>/" class="directory edit-file <%= component.ctrl %> hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory">┣<span>models</span></div>
+		<div data-path="models/" style="text-align: center" class=" models addFile hidden"><i class="fa fa-plus"></i></div>
+		<% models.forEach(function (val) { %>
+			<div data-path="models/" class="directory edit-file models hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory">┗<span>public</span></div>
+		<div class="directory public hidden">┣──<span>admins</span></div>
+		<div class="directory admins hidden">┣────<span>anmins_css</span></div>
+		<div data-path="public/admins/css/" style="text-align: center" class=" anmins_css addFile hidden"><i class="fa fa-plus"></i></div>
+		<% adminsCSS.forEach(function (val) { %>
+			<div data-path="public/admins/css/" class="directory edit-file anmins_css hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory admins hidden">┗────<span>anmins_js</span></div>
+		<div data-path="public/admins/js/" style="text-align: center" class=" anmins_js addFile hidden"><i class="fa fa-plus"></i></div>
+		<% adminsJS.forEach(function (val) { %>
+			<div data-path="public/admins/js/" class="directory edit-file anmins_js hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory public hidden">┣──<span>public_css</span></div>
+		<div data-path="public/css/" style="text-align: center" class=" public_css addFile hidden"><i class="fa fa-plus"></i></div>
+		<% publicCSS.forEach(function (val) { %>
+			<div data-path="public/css/" class="directory edit-file public_css hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+		<div class="directory public hidden">┗──<span>public_js</span></div>
+		<div data-path="public/js/" style="text-align: center" class=" public_js addFile hidden"><i class="fa fa-plus"></i></div>
+		<% publicJS.forEach(function (val) { %>
+			<div data-path="public/js/" class="directory edit-file public_js hidden">┣──────<span><%= val %></span></div>
+		<% }) %>
+	</div>
+	<div class="seleced-editors">
+		<div data-path="components/<%= component.ctrl %>/template.ejs" class="file">template.ejs</div>
+		<div data-path="components/<%= component.ctrl %>/index.js" class="file open">index.js</div>
+	</div>
+
+</div>
+
+
+
+<script src="/js/code-editor.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/code-editor.js" defer></script>
+<% } %>

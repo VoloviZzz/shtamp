@@ -1,0 +1,334 @@
+<% var place = data.place;
+var number = String(place.id);
+	
+while (number.length < 6) number = "0" + number;
+place.number = number; %>
+<link rel="stylesheet" href="/vendors/baguettebox.js/dist/baguetteBox.min.css">
+<link rel="stylesheet" href="/vendors/flexSlider/flexslider.css">
+<link rel="stylesheet" href="/css/cemeteries-place.css">
+<div class="personaly-wrapper">
+	<div class="place-left">
+		<section>
+			<div class="block-name">
+				<h3>Фотографии участка</h3>
+			</div>
+			
+			<% if (place.surveys) { %>
+				<div class="flexslider">
+					<ul class="slides">
+		
+					<% for (sid in place.surveys) {
+						var survey = place.surveys[sid];
+						for (pid in survey.rels) {
+							var photo = survey.rels[pid]; %>
+							
+							<li class="baguetteBoxOne">
+								<a href="<%=imagesPath + photo.photo_prod%>">
+									<img src="<%=imagesPath + photo.photo_prod%>"
+										<% if (photo.orientation == 6) { %>
+												class="img90"
+										<% } %>
+										
+									/>
+								</a>
+							</li>
+						<% }
+					} %>
+					</ul>
+				</div>
+			<% } else { %>
+				Фотографии отсутствуют
+			<% } %>
+		</section>
+	</div>
+	<div class="body-info place-right">
+		<section>
+			<div class="text-center block-name">
+				<h3>Информация о захоронении</h3>
+			</div>
+			<table class="attributes-table">
+				<tbody>
+					<tr>
+						<td class="info-name-wrapp">
+							<span class="info-name">Кладбище</span>
+						</td>
+						<td><%= place.cemetery_name %></td>
+					</tr>
+					<tr>
+						<td class="info-name-wrapp">
+							<span class="info-name">Квартал</span>
+						</td>
+						<td>
+							<% if (place.area) { %>
+								<%= place.area_name %>
+							<% } else { %>
+								без квартала
+							<% } %>
+						</td>
+					</tr>
+					<tr>
+						<td class="info-name-wrapp">
+							<span class="info-name">Участок</span>
+						</td>
+						<td>&66-3435-<%= place.number %></td>
+					</tr>
+					<tr>
+						<td class="info-name-wrapp">
+							<span class="info-name">Число персоналий</span>
+						</td>
+						<td><%= place.graves.total %></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<section class="action-block">
+			<div class="block-name">
+				<h3>Персоналии</h3>
+			</div>
+			<div class="block-body personaly">
+				<div style="overflow-x:auto">
+					<% if (place.graves.total > 0) { %>
+						<table class="personaly-table">
+							<tbody>
+								<% for (id in place.graves.list) {
+									var grave = place.graves.list[id];
+									grave.rel = !!grave.rel === true ? grave.rel : {}; %>
+									<tr>
+										<td>
+											<div class="personaly-img-wrapp">
+												<img src="<%=imagesPath + grave.rel.photo_preview%>"
+													<% if (grave.rel.orientation == 6) { %>
+														 class="img90"
+													<% } %>
+												 />
+											</div>
+										</td>
+										<td>
+											<div>
+												<div>
+													<h3><%=grave.surname%></h3>
+												</div>
+												<div>
+													<span><%=grave.firstname%> <%=grave.patronymic%></span>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div>
+												<span><%=grave.born_day%>.<%=grave.born_month%>.<%=grave.born_year%> - <%=grave.die_day%>.<%=grave.die_month%>.<%=grave.die_year%></span>
+											</div>
+										</td>
+										<td>
+											<div>
+												<a href="/person/<%=grave.id%>" class="btn">Открыть</a>
+											</div>
+										</td>
+									</tr>
+								<% } %>
+							</tbody>
+						</table>
+					<% } %>	
+				</div>
+			</div>
+		</section>
+		<section class="action-block" style="display: none;">
+			<div class="block-name">
+				<h3>Действия</h3>
+			</div>
+			<div>
+				<button class="btn action-btn">Показать на карте</button>
+			</div>
+			<div>
+				<button class="btn action-btn">Добавить участок в посещаемые</button>
+			</div>
+			<div>
+				<button class="btn action-btn">Сообщить об ошибке</button>
+			</div>
+			<div>
+				<button class="btn action-btn">Добавить в посещаемые</button>
+			</div>
+		</section>
+		<section class="action-block" style="display: none;">
+			<div class="block-name">
+				<h3>Дополнительные услуги</h3>
+			</div>
+			<div>
+				<button class="btn action-btn">Заказать уборку</button>
+			</div>
+			<div>
+				<button class="btn action-btn">Заказать плитку</button>
+			</div>
+			<div>
+				<button class="btn action-btn">Заказать ограду</button>
+			</div>
+		</section>
+		<section class="action-block" style="display:none;">
+			<div class="block-name">
+				<h3>Справочная информация</h3>
+			</div>
+			<div class="block-body">
+				<div>
+					<span>Дата первого захоронения:</span>
+					<span>Неизвестно</span>
+				</div>
+				<div>
+					<span>Дата последнего захоронения:</span>
+					<span>Неизвестно</span>
+				</div>
+				<div>
+					<span>Дата последнего обновления:</span>
+					<span>Неизвестно</span>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+<div>
+	<a name="coord"></a>
+	<section>
+		<div class="block-name">
+			<h3>Расположение участка</h3>
+		</div>
+		<div id="map" style="width:100%; height:350px; border: 1px solid #000;"></div>
+		<div id="place-data" style="display:none;"><%= JSON.stringify(place) %></div>
+	</section>
+</div>
+<script>
+	window.onload = () => {
+		setTimeout(() => {
+		
+			var roadsTypes = {
+				0 : {name : 'пешеходная без покрытия', strokeColor : 'blue', strokeWeight : 1, },
+				1 : {name : 'пешеходная с покрытием', strokeColor : 'blue', strokeWeight : 2, },
+				10 : {name : 'автомобильная без покрытия', strokeColor : 'green', strokeWeight : 3, },
+				11 : {name : 'автомобильная с покрытием', strokeColor : 'green', strokeWeight : 5, },
+			};
+		
+			$('#map').height(350);
+			var 
+				place = JSON.parse($('#place-data').text()),
+				cemetery = place.cemeteryData,
+				point = place.mainphoto,
+				center = cemetery.center.split(','),
+				map = new google.maps.Map(
+					$('#map')[0],
+					{
+						zoom: 16,
+						center: {lat: Number(center[0]), lng: Number(center[1])}
+					}
+				);
+			if (cemetery.outline) {
+				cemetery.outline = JSON.parse(cemetery.outline);
+				cemetery.outline.forEach(part => {
+					var coord = [];
+					part.forEach(point => {
+						coord.push(new google.maps.LatLng(point[0], point[1]));
+					});
+					var polygon = new google.maps.Polygon({
+						paths : coord,
+						strokeColor : 'red',
+						fillColor : '#fff',
+						strokeWeight : 2,
+					});
+					polygon.setMap(map);
+				});
+			}
+			if (cemetery.roads) {
+				for (id in cemetery.roads) {
+					var road = cemetery.roads[id],
+						points = JSON.parse(road.points),
+						path = [];
+					points.forEach(p => {
+						path.push({ lat : p[0], lng : p[1] });
+					});
+					
+					var line = new google.maps.Polyline({
+						path: path,
+						geodesic: true,
+						strokeColor: roadsTypes[road.type].strokeColor,
+						strokeOpacity: 1.0,
+						strokeWeight: roadsTypes[road.type].strokeWeight,
+						zIndex: 100,
+					});
+
+					line.setMap(map);
+				}
+			}
+			
+				if (cemetery.areas) {
+					for (id in cemetery.areas) {
+						var area = cemetery.areas[id],
+							outline = JSON.parse(area.outline),
+							coord = [],
+							center = area.center ? area.center.split(',') : false;
+						outline.forEach(point => {
+							var p = new google.maps.LatLng(point[0], point[1]);
+								coord.push(p);
+						});
+						var polygon = new google.maps.Polygon({
+                            paths : coord,
+							strokeColor : 'rgba(128,128,128,0.2)',
+							fillColor : 'grey',
+							strokeWeight : 10,
+							zIndex : 50,
+                        });
+                        polygon.setMap(map);
+
+						if (center) {
+							new MapLabel({
+								text: area.name,
+								position: new google.maps.LatLng(center[0], center[1]),
+								map: map,
+								fontSize: 16,
+								minZoom : 15,
+								maxZoom : 17,
+							});
+							new MapLabel({
+								text: area.name,
+								position: new google.maps.LatLng(center[0], center[1]),
+								map: map,
+								fontSize: 24,
+								minZoom : 18,
+							});
+						}
+					}
+				}
+				
+				if (cemetery.entrances) {
+					var entrs = JSON.parse(cemetery.entrances);
+					entrs.forEach(e => {
+						var coord = e.coord.split(',');
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(parseFloat(coord[0]), parseFloat(coord[1])),
+							map : map,
+							icon : '/img/map_icons/entry' + e.type + '.png',
+							title : e.name,
+						});
+					});
+				}
+			
+			
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(point.latitude, point.longitude),
+				map: map,
+			});
+			
+			var contentString = '<h1 class="text-center">Участок &66-3435-' + place.number + '</h1><h4 class="text-center">' + point.latitude.toFixed(6) + ',' + point.longitude.toFixed(6) + '</h4>';
+
+	        var infowindow = new google.maps.InfoWindow({
+	          content: contentString,
+	          maxWidth: 200
+	        });
+			
+			// marker.addListener('click', function() {
+				infowindow.open(map, marker);
+	        // });
+			
+		}, 500);
+	};
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwz7Whv_9Vs1rF3lPqyLsRlxarfSiFs8g"></script>
+<script src="/js/maplabel.js" defer></script>
+<script src="/vendors/flexSlider/jquery.flexslider.js" defer></script>
+<script src="/vendors/baguettebox.js/dist/baguetteBox.min.js" defer></script>
+<script src="/js/cemeteries-place.js" defer></script>

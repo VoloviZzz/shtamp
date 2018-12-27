@@ -1,0 +1,74 @@
+<% if(user.adminMode) { %>
+	<% if(route.aliasId || URIparams.length > 0) { %>
+	<div>
+		<h2>Добавить алиас</h2>
+		<form method="POST" class="js-routesAliases-add">
+			<div class="form-row">
+				<div class="form-group col-xl-6">
+					<label>Алиас<small> (должен начинаться со слеша. Пример: /example)</small></label>
+					<input class="form-control text-to-translit" type="text">
+				</div>
+				<div class="form-group col-xl-1.5" style="padding-top: 32px;">
+					<div class="btn translit"><i class="fa fa-repeat"></i>onvert</div>
+				</div>
+				<div class="form-group col-xl-4" style="padding-top: 32px;">
+					<input disabled class="form-control alias" type="text" name="alias">
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn">Добавить</button>
+			</div>
+			<input type="hidden" name="routeId" value="<%= route.id %>">
+			<input type="hidden" name="params" value="<%= URIparams %>">
+		</form>
+	</div>
+	<div>
+		<h2>Добавить мета-тэги</h2>
+		<form class="js-metaManage-add" method="POST" action="/api/metaManage/add">
+			<input type="hidden" name="route_id" value="<%= route.id %>">
+			<div class="form-group">
+				<h3>Для чего добавить:</h3>
+				<% if(route.aliasId) { %>
+					<input type="hidden" name="alias_id" value="<%= route.aliasId %>">
+					<div class="form-check form-check-inline">
+						<input type="radio" class="form-check-input js-metaManage-showParams" name="category" value="alias">
+						<label class="form-check-label">
+							Для алиаса
+						</label>
+					</div>
+				<% } %>
+				<% if(URIparams.length > 0 ) { %>
+					<input type="hidden" name="target_id" value="<%= targetId %>">
+					<input type="hidden" name="target_type" value="<%= route.target_id %>">
+					<div class="form-check form-check-inline">
+						<input type="radio" class="form-check-input js-metaManage-showParams" name="category" value="target">
+						<label class="form-check-label">
+							Для позиции
+						</label>
+					</div>
+				<% } %>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Ключевые слова (meta-title):</label>
+					<textarea class="form-control" type="text" name="title"><%= route.meta.title || route.title -%></textarea>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Ключевые слова (meta-description):</label>
+					<textarea class="form-control" name="description"><%= route.meta.description || route.seo_description -%></textarea>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Ключевые слова (meta-keywords):</label>
+					<textarea class="form-control" type="text" name="keywords"><%= route.meta.keywords || route.seo_keywords -%></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn">Сохранить</button>
+			</div>
+		</form>
+	</div>
+	<script src="/admins/js/meta-manage.js" defer></script>
+	<% } else { %>
+		<p>Для статических маршрутов значения устанавливаются в панели у администратора</p>
+	<% } %>
+<% } %>

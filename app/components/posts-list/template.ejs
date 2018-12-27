@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="/css/cards-list.css">
+
+<% if(user.adminMode) { %>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label>Тип публикации:</label>
+			<select class="js-change-fragment-target form-control" data-fragment-id="<%= fragment.id -%>" name="target-post">
+				<option value="">Не выбрано</option>
+				<% for (let target of postTargets ) { %>
+					<option value="<%= target.id -%>" <%= currentTarget == target.id ? "selected" : "" -%>><%= target.title -%></option>
+				<% } %>
+			</select>
+		</div>
+		<div class="form-group col-md-6">
+			<label>Добавить URL для публикаций: <small>(например: /posts)</small></label>
+			<input type="text" class="js-fragment-url-input form-control mb-2" value="<%= fragment.settings.url || "" -%>"  data-fragment-id="<%= fragment.id -%>" placeholder="URl...">
+			<button class="btn js-fragment-set-url">Добавить</button>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<% var disabledCatOptions = dynamicCategory ? 'disabled' : ''; %>
+		<div class="form-group col-md-6">
+			<label>Категория для публикаций:</label>
+			<select class="js-fragment-update-settings form-control" data-event="change" data-target="category" data-fragment-id="<%= fragment.id -%>">
+				<option <%= disabledCatOptions -%> value="">Все категории</option>
+				<% for (let category of postCategories ) { %>
+					<option value="<%= category.id -%>" <%= currentCategory == category.id ? "selected" : "" -%> <%= disabledCatOptions -%>><%= category.title -%></option>
+				<% } %>
+			</select>
+		</div>
+		<div class="form-group col-md-6">
+			<form id="js-post-cat-add" data-target-id="<%= currentTarget -%>">
+				<label>Добавить новую категорию:</label>
+				<input name="catName" class="form-control mb-2" type="text" value="">
+				<button class="btn">Добавить</button>
+			</form>
+		</div>
+		<div class="form-group col-md-6">
+			<span>Отображение даты публикации:</span>
+			<% if(fragment.settings.showPublishedTime == '1') { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showPublishedTime" data-event="change" value="0" checked>
+			<% } else { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showPublishedTime" data-event="change" value="1">
+			<% } %>
+		</div>
+		<div class="form-group col-md-6">
+			<span>Отображение картинки:</span>
+			<% if(fragment.settings.showImage == 1 || 'showImage' in fragment.settings === false) { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showImage" data-event="change" value="0" checked>
+			<% } else { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showImage" data-event="change" value="1">
+			<% } %>
+		</div>
+		<div class="form-group col-md-6">
+			<span>Отображать описание:</span>
+			<% if(fragment.settings.showDescription == 1 || 'showDescription' in fragment.settings === false) { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showDescription" data-event="change" value="0" checked>
+			<% } else { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showDescription" data-event="change" value="1">
+			<% } %>
+		</div>
+		<div class="form-group col-md-6">
+			<span>Отображать пагинацию:</span>
+			<% if(fragment.settings.showPagination == '1') { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showPagination" data-event="change" value="0" checked>
+			<% } else { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="showPagination" data-event="change" value="1">
+			<% } %>
+		</div>
+		<div class="form-group col-md-6">
+			<span>Количество отображаемых постов:</span>
+			<input class="js-fragment-update-settings" type="text" value="<%= fragment.settings.countPosts || '' -%>" data-fragment-id="<%= fragment.id -%>" data-target="countPosts" data-event="change">
+		</div>
+		<div class="form-group col-md-6">
+			<span>Сортировка по убыванию:</span>
+			<% if(fragment.settings.orderByDesc == '1') { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="orderByDesc" data-event="change" value="0" checked>
+			<% } else { %>
+				<input type="checkbox" class="js-fragment-update-settings" data-fragment-id="<%= fragment.id -%>" data-target="orderByDesc" data-event="change" value="1">
+			<% } %>
+		</div>
+		<div class="form-group col-md-12">
+			<button class="btn w-100 js-posts-add" data-target="<%= fragment.settings.target -%>" data-category="<%= fragment.settings.category -%>">Добавить публикацию</button>
+		</div>
+	</div>
+<% } %>
+
+<div class="cards">
+	<% posts.map(n => { %>
+		<div class="cards__item">
+            <% if(user.adminMode) { %>
+                <div class="admin-control-container">
+                    <button data-id="<%= n.id -%>" class="btn cards-delete js-post-delete">Удалить</button>
+                    <% if(n.public) { %>
+						<button data-id="<%= n.id -%>" data-value="0" class="btn cards-publicate js-post-togglePublication">Снять с публикации</button>
+					<% } else { %>
+						<button data-id="<%= n.id -%>" data-value="1" class="btn cards-publicate js-post-togglePublication">Публиковать</button>
+					<% } %>
+					<label class="btn cards-change-photo mt-2">
+						<input type="file" class="js-post-upload-mainphoto" data-id="<%= n.id -%>" id="post-upload-mainphoto" style="display: none">
+                    	<span>Изменить фото</span>
+					</label>
+                </div>
+            <% } %>
+			<% if(fragment.settings.showImage == 1 || 'showImage' in fragment.settings === false) { %>
+            	<div class="cards__img-wrapp">
+					<% if (!n.video) { %>
+						<a href="<%= n.alias || fragment.settings.url + '/' + n.id -%>" class="cards__img-link">
+							<img class="cards__img" src="<%= n.main_photo -%>" alt="<%=n.title%>">
+						</a>
+					<% } else { %>
+						<%- n.video %>
+					<% } %>
+            	</div>
+			<% } %>
+            <div class="cards__title-wrap">
+                <h2 class="cards__title">
+					<% if(user.adminMode) { %>
+						<input class="cards-title-edit js-post-update input-text" data-id="<%= n.id -%>" data-target="title" type="text" value="<%=n.title%>">
+					<% } else { %>
+						<a href="<%= n.alias || fragment.settings.url + '/' + n.id -%>" class="cards__title-link">
+							<span><%= n.title %></span>
+						</a>
+					<% } %>
+                </h2>
+            </div>
+			<% if(fragment.settings.showDescription == 1 || 'showDescription' in fragment.settings === false) { %>
+				<div class="cards__content-wrapp">
+					<div class="cards__content">
+						<p><%- Helpers.replaceLineBreaks(Helpers.trimByWords(n.text, 100)) -%></p>
+						<a href="<%= n.alias || fragment.settings.url + '/' + n.id -%>" class="btn cards__content-link text-center">Читать далее</a>
+					</div>
+				</div>
+			<% } %>
+			<% if(fragment.settings.showPublishedTime == '1') { %>
+				<div class="cards-meta-wrapp">
+					<div class="cards__content text-right">
+						<span>Опубликовано: <%= Helpers.formatDate(n.published, 'dd MMMM yyyy в hh:mm') -%></span>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	<% }) %>
+</div>
+<% if(fragment.settings.showPagination == 1) { %>
+	<%- pagination.render() -%>
+<% } %>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/posts-list.js" defer></script>
+<% } %>

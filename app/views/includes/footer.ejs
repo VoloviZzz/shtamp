@@ -1,0 +1,74 @@
+<footer class="document-footer">
+<div class="container-fluid">
+<div class="menu">
+	<div class="logo-wrapper">
+
+	</div>
+
+	<div class="menu-center">
+		<div class="logo-wrapper">
+			<div class="logo-file">
+				<a href="/"><img class="logo" alt="Логотип letaindex" height="30" src="<%= Helpers.replaceImageIfNotExist(siteConfig.get("siteLogo")) -%>"></a>
+				<% if(user.adminMode) { %>
+					<label class="js-siteLogo-edit-btn edit-btn">
+						<span>+</span>
+						<input class="js-siteLogo-file d-none" type="file">
+					</label>
+				<% } %>
+			</div>
+
+			<%# <button class="toggle-menu btn"></button> %>
+		</div>
+		<div class="footer-list-div">
+			<%- include("./header-menu") -%>
+		</div>
+	</div>
+
+	<div class="btn btn-info open-menu-list">
+		<i class="fa fa-align-justify"></i>
+	</div>
+
+	<div class="menu-right">
+		<% if(siteConfig.get("showCart") === "1") { %>
+			<div>
+				<a class="shopping-cart-link" href="/cart">
+					<i class="fa fa-shopping-cart fa-lg"></i>
+					<span
+						class="badge shopping-cart-badge"
+						id="js-shoppingCart-goodsCount"
+						style="<%= session.shoppingCart.totalCountGoods < 1 ? "display: none" : "" -%>"><%= session.shoppingCart.totalCountGoods -%></span>
+				</a>
+			</div>
+		<% } %>
+
+		<% if(!user.id) { %>
+			<div>
+				<a href="/login">Вход</a>
+			</div>
+		<% } else { %>
+			<div>
+				<a href="/my"><%= user.clientName %></a>
+			</div>
+			<div>
+				<a href="/logout">Выйти</a>
+			</div>
+		<% }%>
+	</div>
+</div>
+</div>
+</footer>
+	<script src="/vendors/jquery/jquery.min.js"></script>
+	<script src="/vendors/ckeditor/ckeditor.js"></script>
+	<script src="/vendors/ace/ace.js"></script>
+	<script src="/vendors/ace/ext-textarea.js"></script>
+	<script src="/vendors/bootstrap/dist/js/popper.min.js"></script>
+	<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/js/application.js"></script>
+	<% if(!!user.adminMode === true) { -%>
+		<script src="/admins/js/admin.js"></script>
+	<% } -%>
+	<% if(user.admin) { -%>
+		<script src="/admins/js/toggle-admin.js"></script>
+	<% } %>
+</body>
+</html>

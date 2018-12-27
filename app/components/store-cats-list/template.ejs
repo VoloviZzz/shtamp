@@ -1,0 +1,69 @@
+
+<style>
+	* {
+	}
+	
+	.btn-block {
+		display: block;
+	}
+	
+	
+	/* sm */
+	
+	.sm-container {
+		background: #fff;
+		border:1px solid #000;
+		margin: -1px;
+	}
+	.sm-container h2 {
+		margin: 30px;
+	}
+	.sm-cats li {
+		padding: 30px;
+		width: 25%;
+	}
+	.sm-cats-img img {
+		max-height: 240px;
+	}
+	.sm-cats li p {
+	}
+</style>
+
+<div class="sm-container">
+	<h2>Товары и услуги по категориям</h2>
+	<ul class="items-list sm-cats"><%
+
+		cats.map((c, index) => {
+		
+			c.desc = typeof c.description !== "undefined" ? c.description : "описание отсутствует";
+			c.href = "/store-cat/" + c.id;
+
+			%><li>
+				<h4 class="sm-cats-title">
+					<a href="<%=c.href%>"><%=c.title%></a>
+				</h4>
+				<div class="items-list-img-cnt sm-cats-img">
+					<div>
+						<a href="<%=c.href%>">
+							<img src="<%=c.img%>" />
+						</a>
+					</div>
+				</div>
+				<p><%=c.desc%></p>
+				<a class="btn btn-block items-list-btn" href="<%=c.href%>">Подробнее</a>
+			</li><%
+			
+			if(user.adminMode) {
+			}
+			else {
+			}
+			
+			%><%
+
+		});
+	%></ul>
+</div>
+
+<script>
+	//setTimeout(() => { location.reload(); }, 5000);
+</script>

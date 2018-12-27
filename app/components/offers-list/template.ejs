@@ -1,0 +1,102 @@
+<style>
+	.right-list {
+    text-align: center;
+	}
+	.right-list li {
+    position: relative;
+    text-align: center;
+    margin: 0 auto 30px 50px;
+    display: inline-grid;
+    width: 20%;
+    box-shadow: 0 0 25px #000;
+	}
+	.right-list li h4 {
+		font-size: 20px;
+		font-weight: 500;
+	}
+	.right-list li > a {
+		display: block;
+	}
+	.right-list li > a img {
+		width: 96%;
+		display: block;
+		margin: 10px auto;
+	}
+	.right-list li p {
+	}
+	.right-list li .btn {
+		margin: 10px auto 30px auto;
+	}
+  .right-list li .control-block{
+    position: absolute;
+    display: grid;
+    transform: translate(-100%,0%);
+  }
+  .control-block .control {
+    margin: 0 0 0 0 !important;
+  }
+</style>
+<div style="text-align: center;">
+  <div class="hidden-edit-block" style="display:none">
+    	<h2>Редактировать предложение № <span></span></h2>
+      <br>
+    		<div class="input-group">
+    			<label>
+    				<span>Заголовок:</span>
+    				<input type="text" class="input-text edit-title" style="width: auto;">
+    			</label>
+    		</div>
+        <div class="input-group">
+    			<img onclick="$('#edit-img-input-file').click()" style="width: 300px;" src="" alt="Изображение предложения" class="edit-img-btn">
+          <input style="display:none" type="file" id="edit-img-input-file">
+    		</div>
+    		<div class="input-group">
+    			<label>
+    				<span>Описание:</span>
+    				<input type="text" class="input-text edit-desc" style="width: auto;">
+    			</label>
+    		</div>
+        <div class="input-group">
+    			<label>
+    				<span>Ссылка:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    				<input type="text" class="input-text edit-link" style="width: auto;">
+    			</label>
+    		</div>
+    		<div class="input-group">
+          <button class="btn save-edited-offer"><i class="fa fa-edit"></i> Редактировать</button>
+    			<button class="btn close-edited-offer"><i class="fa fa-remove"></i></button>
+    		</div>
+        <hr>
+        <br>
+  </div>
+  <div class="btn add">
+    <i class="fa fa-plus"></i> Добавить
+  </div>
+</div>
+<br>
+<hr>
+<br>
+<ul class="right-list">
+<%
+offers.forEach((o, i) => {
+  %><li id="offer<%=o.id%>" <%if(o.active == 0){%>style="background-color:#f7cdcd;"<%}%>>
+    <h4>
+      <a class="main-title" href="<%= o.link %>"><%= o.title %></a>
+    </h4>
+    <a href="<%= o.link %>">
+      <div>
+        <img src="<%= o.img %>" />
+      </div>
+    </a>
+    <p><%= o.desc %></p>
+    <a class="btn" href="<%= o.link %>">Подробнее</a>
+    <div class="control-block" data-id="<%= o.id %>" data-active="<%= o.active %>">
+      <div class="btn btn-danger control remove"><i class="fa fa-remove"></i></div>
+      <div class="btn control edit"><i class="fa fa-edit"></i></div>
+      <div class="btn control active"><i class="fa fa<%if(o.active != 0){%>-check<%}%>-square-o"></i></div>
+    </div>
+  </li><%
+});
+%>
+<ul>
+<script src="/js/offers-list.js" defer></script>

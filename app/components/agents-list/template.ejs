@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/css/cards-list.css">
+<link rel="stylesheet" href="/css/agents.css">
+<% if(!!user.adminMode === true) { %>
+	<div>
+		<span>URL для ссылок:</span>
+		<input value="<%= fragment.settings.url -%>" type="text" placeholder="/example" class="js-fragment-update-settings" data-event="change" data-target="url" data-fragment-id="<%= fragment.id -%>">
+	</div>
+	<br>
+<% } %>
+<div class="cards">
+	<% agents.map(n => { %>
+		<article class="cards__item">
+        <% if(user.adminMode) { %>
+            <div class="admin-control-container">
+                <button data-id="<%= n.id -%>" class="btn js-agents-delete">Удалить</button>
+                <% if(n.public) { %>
+				<button data-id="<%= n.id -%>" data-value="0" class="btn js-agents-togglePublication">Снять с публикации</button>
+			<% } else { %>
+				<button data-id="<%= n.id -%>" data-value="1" class="btn js-agents-togglePublication">Публиковать</button>
+			<% } %>
+			<label class="btn cards-change-photo">
+				<input type="file" class="js-agents-upload-mainphoto" data-id="<%= n.id -%>" id="post-upload-mainphoto" style="display: none">
+                	<span>Изменить фото</span>
+			</label>
+            </div>
+        <% } %>
+        <div class="cards__img-wrapp">
+			<a href="<%= fragment.settings.url -%>/<%= n.id -%>" class="cards__img-link">
+				<img class="cards__img" src="<%= n.main_photo -%>" alt="<%=n.title%>">
+			</a>
+        </div>
+        <div class="cards__title-wrap">
+            <h2 class="cards__title">
+			<% if(user.adminMode) { %>
+				<input class="cards-title-edit js-agents-update input-text" data-id="<%= n.id -%>" data-target="title" type="text" value="<%=n.title%>">
+			<% } else { %>
+				<a href="<%= fragment.settings.url -%>/<%= n.id -%>" class="cards__title-link">
+					<span><%= n.title %></span>
+				</a>
+			<% } %>
+            </h2>
+        </div>
+        <div class="cards__content-wrapp">
+            <div class="cards__content">
+				<p><%- Helpers.trimStr(n.text, 999) -%></p>
+				<a class="btn cards__content-link text-center" href="<%= fragment.settings.url -%>/<%= n.id -%>">Читать далее</a>
+            </div>
+        </div>
+    </article>
+	<% }) %>
+</div>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/agents-list.js" defer></script>
+<% } %>

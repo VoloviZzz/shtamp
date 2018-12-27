@@ -1,0 +1,31 @@
+<% if(user.adminMode) { %>
+	<section>
+		<div class="form-group">
+			<h2>Выбрать используемое меню из списка</h2>
+			<select class="js-routesList-setMenu form-control" data-target="menu_id" data-id="<%= route.id -%>" style="width: 100%">
+				<option selected value="null">Не выбрано</option>
+				<% menuGroups.forEach((m) => { %>
+					<option value="<%= m.id -%>" <%= route.menu_id == m.id ? 'selected' : '' %>><%= m.title -%></option>
+				<% })%>
+			</select>
+		</div>
+	</section>
+<% } %>
+<%- include('./menu-list.ejs', { menuTree, user }) -%>
+<% if(user.adminMode) { %>
+	<section>
+		<% if(!!route.menu_id === false) { %>
+			<h2>Создать новое меню</h2>
+			<div class="form-group">
+				<input type="text" name="menu-item-title" class="form-control mb-2" id="js-menuGroup-add--text" placeholder="Название">
+				<button class="btn w-100 js-menuGroup-add" data-route-id="<%=route.id%>">Добавить</button>
+			</div>
+		<% } else { %>
+			<div class="form-group">
+				<input type="text" name="menu-item-title" class="form-control mb-1" id="js-menuItem-add--text" placeholder="Название элемента меню">
+				<input type="text" name="menu-item-title" class="form-control mb-2" id="js-menuItem-add--href" placeholder="URL">
+				<button class="btn w-100 js-menuItem-add" data-route-id="<%= route.id -%>" data-menu-id="<%= route.menu_id -%>">Добавить</button>
+			</div>
+		<% } %>
+	</section>
+<% } %>

@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/css/c_tabs.css">
+<link rel="stylesheet" href="/css/orders-list.css">
+<div class="tabs-wrapper">
+	<ul class="tabs-titles-wrap">
+		<li class="tab active tab-all">Новые</li>
+		<li class="tab tab-all">В работе</li>
+		<li class="tab tab-all">Завершенные</li>
+	</ul>
+	<div class="tabs-content-wrap">
+		<div class="tab-content active">
+			<%- include('./v-orders-list.ejs', { orders: orders.newOrders }) -%>
+		</div>
+		<div class="tab-content">
+			<%- include('./v-orders-list.ejs', { orders: orders.inWorkOrders }) -%>
+		</div>
+		<div class="tab-content">
+			<%- include('./v-orders-list.ejs', { orders: orders.finishedOrders }) -%>
+		</div>
+	</div>
+</div>

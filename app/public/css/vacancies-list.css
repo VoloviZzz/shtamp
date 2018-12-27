@@ -1,0 +1,32 @@
+.vacancies-item:not(:first-child) {
+    margin-top: 15px;
+}
+
+.vacancies-item {
+    border: 1px #c3c3c3 solid;
+    padding-bottom: 15px;
+}
+
+.vacancies-item__title {
+    text-align: center;
+    background: #eaeaea;
+    border: 1px #c3c3c3 solid;
+    padding: 7px;
+    margin-bottom: 15px;
+}
+
+.vacancies-item__more {
+	text-align: center;
+}
+
+.vacancies-item__text img {
+	max-width: 100%;
+	display: block;
+	margin: 10px auto;
+}
+
+@media (min-width: 976px) {
+	.vacancies-item__text img {
+		max-width: 50%;
+	}
+}

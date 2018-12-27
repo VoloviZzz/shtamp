@@ -1,0 +1,20 @@
+ALTER TABLE `connected_crm` CHANGE `crm_id` `crm_id` INT(11) NULL DEFAULT NULL COMMENT 'айди соединения в программе';
+ALTER TABLE `goods_pos` CHANGE `crm_id` `connect_id` INT(11) NULL DEFAULT NULL COMMENT 'Номер подключения (crm) откуда пришли товары';
+
+ALTER TABLE `photos` ADD `connect_id` INT NULL DEFAULT NULL COMMENT 'Номер коннекта сайта с программой. нужно для различия фото, отправленных с разных программ' AFTER `path`, ADD `crm_photo_id` INT NULL DEFAULT NULL COMMENT 'id фото в программе' AFTER `connect_id`;
+
+
+ALTER TABLE `goods_pos` ADD `recycled` INT NOT NULL DEFAULT '0' COMMENT 'Утилизированный или нет' AFTER `contract_price`;
+ALTER TABLE `goods_pos` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+INSERT INTO `components` (`id`, `title`, `ctrl`, `block_id`, `static`, `once`, `styles`, `scripts`, `default_config`, `created`) VALUES (NULL, 'Форма вызова агента', 'agent-call-form', '2', '0', '0', NULL, NULL, NULL, NOW());
+
+UPDATE `routes` SET url = CONCAT(url, '/:params') WHERE dynamic = 1;
+DROP TRIGGER IF EXISTS `add_views_count_to_visit`;
+
+ALTER TABLE `routes_aliases`
+  DROP `target`,
+  DROP `target_id`;
+
+  ALTER TABLE `routes_aliases` ADD `alias` VARCHAR(255) NULL DEFAULT NULL AFTER `route_id`;
+  ALTER TABLE `routes_aliases` ADD `params` VARCHAR(255) NULL DEFAULT NULL AFTER `title`;

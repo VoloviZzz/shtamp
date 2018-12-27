@@ -1,0 +1,65 @@
+
+<link rel="stylesheet" href="/css/reviews-list.css">
+
+<% if(user.adminMode) { %>
+
+	<%- include('./settings.ejs') -%>
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">Все</a>
+			<a class="nav-item nav-link" id="nav-unpublished-tab" data-toggle="tab" href="#nav-unpublished" role="tab" aria-controls="nav-unpublished" aria-selected="false">Неопубликованные (<%= reviewsNotPublished.length -%>)</a>
+		</div>
+	</nav>
+
+<% } %>
+	
+<div class="tab-content" id="nav-tabContent">
+	<div class="tab-pane show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+		<% if(reviews.length > 0) { %>
+			<%- include('./reviews-list') -%>
+		<% } else { %>
+			<% if(fragment.settings.targetType == '0') { %>
+				<div class="text-center">
+					<h3>
+						<% if(user.adminMode) { %>
+							<b>Отсутствует категория отзывов</b>
+						<% } else { %>
+							<b>В разделе ведутся технические работы</b>
+						<% } %>
+					</h3>
+				</div>
+			<% } else { %>
+				<h2>Оставьте отзыв. Ваш отзыв будет первым</h2>
+			<% } %>
+		<% } %>
+		<%- pagination.render() -%>
+		<% if(fragment.settings.targetType != 0) { -%>
+			<% if((fragment.settings.onlyRegister != 0 && user.id) || fragment.settings.onlyRegister == 0) { -%>
+				<div class="reviews-add-wrapper" id="js-reviews-add-wrapper" data-target-id="<%= targetId -%>" data-target-type="<%= fragment.settings.targetType -%>">
+					<textarea class="input-text new-reviews-text" id="add-review-text" name="reviews-text"></textarea>
+					<button class="btn new-reviews-button btn-inverse">Добавить</button>
+				</div>
+			<% } else { %>
+				<div class="text-center">
+					<h3>
+						<b>Добавлять отзывы могут только зарегистрированные пользователи</b>
+					</h3>
+				</div>
+			<% } %>
+		<% } %>
+	</div>
+	<% if(user.adminMode) { %>
+		<div class="tab-pane" id="nav-unpublished" role="tabpanel" aria-labelledby="nav-unpublished-tab">
+			<% if(user.adminMode) { %>
+				<div class="tab-content not-modered-reviews">
+					<%- include('./reviews-list', { reviews: reviewsNotPublished }) -%>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>
+
+<script src="/js/reviews-list.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/reviews-list.js" defer></script>
+<% } %>

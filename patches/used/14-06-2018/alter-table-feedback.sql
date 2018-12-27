@@ -1,0 +1,1 @@
+ALTER TABLE `feedback` ADD `client_id` INT NULL DEFAULT NULL AFTER `id`;

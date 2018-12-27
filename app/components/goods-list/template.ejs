@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/goods-list.css">
+<input type="hidden" id="js-shop-cat-id" value="<%= currentCat.id -%>">
+<div class="text-right admin-control-container">
+	<% if(user.adminMode) { %>
+		<% if(currentCat.public == '1') { %>
+			<button class="btn js-goodsCategories-togglePublic" data-id="<%= currentCat.id -%>" value="0">Скрыть категорию</button>
+		<% } else { %>
+			<button class="btn js-goodsCategories-togglePublic" data-id="<%= currentCat.id -%>" value="1">Показать категорию</button>
+		<% } %>
+		<% if(tpl == 'cats-list') { %>
+			<button class="btn js-goodsCategories-add" data-parent-id="<%= currentCat.id -%>" data-level="<%= currentCat.level + 1 -%>">Добавить категорию</button>
+		<% } else if(data.length == 0) { %>
+			<button class="btn js-goodsCategories-add" data-parent-id="<%= currentCat.id -%>" data-level="<%= currentCat.level + 1 -%>">Добавить категорию</button>
+			<button class="btn js-goodsPositions-add" data-cat-id="<%= currentCat.id -%>">Добавить товар</button>
+		<% } else { %>
+			<button class="btn js-goodsPositions-add" data-cat-id="<%= currentCat.id -%>">Добавить товар</button>
+		<% } %>
+	<% } %>
+	<% if(user.adminMode) { %>
+		<div class="admin-control-container text-left">
+			<div>
+				<span class="fs-bold">Установить коренвой url для категорий:</span>
+				<input value="<%= fragment.settings.categoriesRootUrl -%>" type="text" class="js-fragment-update-settings" data-event="change" data-fragment-id="<%= fragment.id -%>" data-target="categoriesRootUrl">
+			</div>
+			<div>
+				<span class="fs-bold">Установить коренвой url для товаров:</span>
+				<input value="<%= fragment.settings.positionsRootUrl -%>" type="text" class="js-fragment-update-settings" data-event="change" data-fragment-id="<%= fragment.id -%>" data-target="positionsRootUrl">
+			</div>
+		</div>
+	<% } %>
+</div>
+<div style="padding: 20px 0px; border-bottom: #c3c3c3 solid 1px; margin-bottom: 20px">
+	<% if(user.adminMode) { %>
+		<textarea class="js-goodsCategories-upd js-ckeditor-edit" name="cat-desc-update" data-target='description' data-id="<%= currentCat.id -%>"><%= currentCat.description -%></textarea>
+	<% } else { %>
+		<%- currentCat.description || '' -%>
+	<% } %>
+</div>
+<section>
+	<form id="js-shop-search-form">
+		<div class="d-flex justify-content-end mb-1">
+			<div>
+				<input class="form-control form-control-sm" type="text" name="searchQuery">
+			</div>
+			<div>
+				<button class="btn btn-sm ml-1" style="height: 31px">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+	</form>
+</section>
+<section id="js-load-content">
+	<%- include(`./${tpl}.ejs`) -%>
+</section>
+<script src="/js/goods-list.js" defer></script>

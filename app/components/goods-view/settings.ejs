@@ -1,0 +1,21 @@
+<div class="admin-control-container">
+	<div class="text-right" style="width: 100%">
+		<label>
+			<span>установить алиас для товара:</span>
+			<select class="js-good-change" data-target="alias_id" data-id="<%=position.id -%>">
+				<option value="0">Не выбрано</option>
+				<% aliases.forEach(alias => { %>
+					<option <%= position.alias_id == alias.id ? 'selected' : '' -%> value="<%= alias.id -%>"><%= alias.alias -%></option>
+				<% }) %>
+			</select>
+		</label>
+		<label>
+			<span>Позиция является:</span>
+			<select class="js-good-toggleService" data-target="service" data-id="<%= position.id -%>">
+				<option <%= position.service == 0 ? 'selected' : '' -%> value="0">Товаром</option>
+				<option <%= position.service == 1 ? 'selected' : '' -%> value="1">Услугой</option>
+			</select>
+		</label>
+		<button class="btn js-goodsPosition-delete" data-id="<%= position.id -%>">Удалить товар</button>
+	</div>
+</div>

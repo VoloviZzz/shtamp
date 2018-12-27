@@ -1,0 +1,61 @@
+<style>
+	.right-list {
+	}
+	.right-list li {
+		text-align: center;
+		margin: 0 auto 30px auto;
+		display: block;
+		width: 96%;
+	}
+	.right-list li h4 {
+		font-size: 20px;
+		font-weight: 500;
+	}
+	.right-list li > a {
+		display: block;
+	}
+	.right-list li > a img {
+		width: 96%;
+		display: block;
+		margin: 10px auto;
+	}
+	.right-list li p {
+	}
+	.right-list li .btn {
+		margin: 10px auto 30px auto;
+	}
+</style><%
+
+
+%><ul class="right-list"><%
+
+	
+	
+	if (typeof offers !== "undefined" && offers !== null && offers.length > 0) {
+	
+		offers.forEach((o, i) => {
+			if(o.active != 0){
+			%><li>
+				<h4>
+					<a href="<%= o.link %>"><%= o.title %></a>
+				</h4>
+				<a href="<%= o.link %>">
+					<div>
+						<img src="<%= o.img %>" />
+					</div>
+				</a>
+				<p><%= o.desc %></p>
+				<%
+				if(o.link){
+					%>
+						<a class="btn" href="<%= o.link %>">Подробнее</a>
+					<%
+				}
+				%>
+			</li><%
+			}
+		});
+
+	}
+
+%></ul>

@@ -1,0 +1,45 @@
+
+<style>
+	
+	.srp-container {
+		background: #fff;
+		border:1px solid #000;
+		margin: -1px;
+	}
+	.srp-container h2 {
+		margin: 30px;
+	}
+	.srp-item {
+		width: 25%;
+		padding: 30px;
+	}
+	
+</style>
+
+<div class="srp-container">
+	<h2>Случайные позиции</h2>
+	<ul class="items-list goods-list srp-list"><%
+		
+		for (var i = 1; i <= 4; i++) {
+			
+			%><li class="srp-item">
+				<h4>
+					<a href="">Позиция</a>
+				</h4>
+				<div class="goods-list-price">77 700 <span class="fa fa-rouble"></span></div>
+				<div class="items-list-img-cnt">
+					<div>
+						<img src="/img/components/goods-view/1.jpg" />
+					</div>
+				</div>
+				<p>Описание для данной конкретной товарной позиции, немного увеличенное, чтобы не было слишком пустым</p>
+				<small>Есть в наличии</small>
+				<a href="" class="btn btn-block">Подробнее</a>
+			</li><%
+			
+		}
+		
+	%></ul>
+</div>
+<script>
+</script>

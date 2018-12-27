@@ -1,0 +1,25 @@
+<% var level = level|| 0;%>
+
+<ul class="section-menu fs-regular">
+	<% for(let id in menuTree) { %>
+		<% var s = menuTree[id]%>
+		<li class="section-menu-item">
+			<% if(user.adminMode) { %>
+				<div style="border: 1px #c3c3c3 solid; padding: 10px">
+					<input class="input-text js-menuItem-edit" data-id="<%= s.id%>" data-target="title" value="<%= s.title%>">
+					<input class="input-text js-menuItem-edit" data-id="<%= s.id%>" data-target="href" value="<%= s.href%>">
+				</div>
+			<% } else { %> 
+				<a href="<%= s.href %>" style="width: 100%; padding-left: <%= 20 * level%>px">
+					<p><%=s.title%></p>
+				</a>
+			<% } %>
+			<% if(user.adminMode) { %>
+				<button class="btn js-menuItem-delete" data-menu-id="<%=s.id%>">У</button>
+			<% } %>
+			<% if(!!menuTree[id]['childs'] === true) { %>
+				<%- include('./aside-menu_template.ejs', {menuTree: menuTree[id]['childs'], level: level + 1}) %>
+			<% } %>
+		</li>
+	<% } %>
+</ul>

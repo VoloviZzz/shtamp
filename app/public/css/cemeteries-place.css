@@ -1,0 +1,118 @@
+.personaly-wrapper {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	        flex-flow: row wrap;
+}
+
+.place-left {
+	width: 100%;
+	padding: 0px 10px;
+}
+
+.place-right {
+	width: 100%;
+	padding: 0px 10px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-flow: column wrap;
+	    -ms-flex-flow: column wrap;
+	        flex-flow: column wrap;
+}
+
+.info-name {
+	font-weight: bold;
+}
+
+.info-name-wrapp {
+	padding: 7px;
+}
+
+table {
+	margin: auto;
+	border-collapse: collapse;
+}
+
+.attributes-table tr:nth-child(2n + 1) {
+	background-color: #f3f3f3;
+}
+
+.action-btn.btn {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.block-name {
+	margin: 20px 0px;
+	text-align: center;
+}
+
+.block-body {
+	border: 1px #000 solid;
+	padding: 7px;
+	display: inline-block;
+	width: 100%;
+}
+
+.personaly {
+	padding: 0;
+	border: 0px;
+}
+
+.personaly-table tr {
+	border: 1px solid #c3c3c3;
+	margin: 5px 3px;
+	width: 100%;
+}
+
+.personaly-table td > div {
+	padding: 10px;
+}
+
+.action-block {
+	text-align: center;
+	border-top: 1px #c3c3c3 solid;
+	margin: 10px 0px;
+}
+
+.personaly-img-wrapp img {
+	width: 75px;
+	height: 75px;
+}
+
+.action-block .action-btn {
+	margin-bottom: 15px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.personaly-table tr td:not(:first-child) {
+		display: block;
+	}
+}
+
+@media (max-width: 767px) {
+	.personaly-table {
+		min-width: 100%;
+	}
+
+	.personaly-table td {
+		display: block;
+	}
+}
+
+/*// Large devices (desktops, 992px and up) */
+@media (min-width: 992px)  {
+	.place-left, .place-right {
+		width: 50%;
+	}
+}

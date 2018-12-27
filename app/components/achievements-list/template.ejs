@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/vendors/baguettebox.js/dist/baguetteBox.min.css">
+<section>
+	<div class="container-fluid">
+		<% if(user.adminMode) { %>
+		<div class="form-row">
+			<div class="form-group col-lg-12 col-xl-6">
+				<form id="js-set-ach-url" data-fragment-id="<%= fragment.id -%>" data-target="urlPage">
+					<div class="form-group">
+						<label for="setAchUrl">URL для пагинации:</label>
+						<input type="text" name="urlPage" class="form-control mb-2" id="setAchUrl" aria-describedby="urlHelp" value="<%= fragment.settings.urlPage -%>">
+						<button class="btn">Добавить</button>
+					</div>
+				</form>
+			</div>
+			<div class="form-group col-lg-12 col-xl-6">
+				<label>Количество на странице:</label>
+				<input type="text" class="form-control js-fragment-update-settings mb-2" data-fragment-id="<%= fragment.id -%>" data-target="countOnPage" data-event="change" value="<%= fragment.settings.countOnPage -%>">
+			</div>
+		</div>
+		<% } %>
+		<div class="row mb-2">
+		<% achievements.map((a, i) => { %>
+			<div class="col-xl-6 col-lg-12">
+				<% if(user.adminMode) { %>
+					<button data-id="<%= a.id -%>" class="btn js-achievements-delete mb-2">Удалить</button>
+				<% } %>
+				<% if(user.adminMode) { %>
+					<div class="form-group">
+						<input type="text" class="form-control js-achievements-update" data-target="title" data-id="<%= a.id -%>" value="<%= a.title -%>">
+					</div>
+				<% } else { %>
+					<h3 class="text-center"><%= a.title %></h3>
+				<% } %>
+
+				<% if(user.adminMode) { %>
+				<div class="form-group text-center">
+					<label for="imgUpload">Добавить фото:</label>
+					<input type="file" id="imgUpload" name="achievement-img" data-id="<%= a.id -%>" class="js-achievements-upload-img">
+				</div>
+				<% } %>
+				<div class="form-group text-center baguetteBox">
+					<a href="<%= a.img -%>" title="<%= a.title %>">
+						<img style="width: auto; max-height: 300px;" src="<%= a.img -%>" alt="МП КПРУ. Достижения">
+					</a>
+				</div>
+				<% if(user.adminMode) { %>
+					<textarea rows="3" class="form-control js-achievements-update mb-2" data-target="text" data-id="<%= a.id -%>"><%= a.text -%></textarea>
+				<% } else { %>
+					<p class="text-center"><%= a.text %></p>
+				<% } %>
+			</div>
+		<% }) -%>
+		</div>
+		<% if(user.adminMode) { %>
+			<button class="btn js-achievements-add">Добавить</button>
+		<% } %>
+	</div>
+	<% if(pagination.countPages > 1) { -%>
+		<div class="pagination">
+			<a class="pagination__to-begin pagination__action-link" href="?page=1">в начало</a>
+			<% for(let i = pagination.left; i < pagination.right; i++) { %>
+				<a class="pagination-item <%= pagination.currentPage == i ? `pagination-item__active` : ``%>" href="?page=<%= i -%>"><%= i -%></a>
+			<% } %>
+			<a class="pagination__to-end pagination__action-link" href="?page=<%= pagination.countPages -%>">в конец</a>
+		</div>
+	<% } -%>
+</section>
+	<script src="/vendors/baguettebox.js/dist/baguetteBox.min.js"></script>
+	<script src="/js/achievements-list.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/achievements-list.js" defer></script>
+<% } %>

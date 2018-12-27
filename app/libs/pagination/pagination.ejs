@@ -1,0 +1,9 @@
+<% if(pagination.urls.length > 1) { %>
+	<div class="pagination">
+		<a class="pagination__to-begin pagination__action-link" href="?<%= pagination.paramName -%>=1">в начало</a>
+		<% pagination.urls.forEach(({page, url}) => { -%>
+			<a class="pagination-item <%=pagination.currentPage == page ? `pagination-item__active` : ``%>" href="?<%= url -%>"><%= page -%></a>
+		<% }) -%>
+		<a class="pagination__to-end pagination__action-link" href="?<%= pagination.paramName -%>=<%= pagination.countPages -%>">в конец</a>
+	</div>
+<% } %>

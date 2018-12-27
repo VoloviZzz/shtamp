@@ -1,0 +1,56 @@
+<section>
+	<h1>Управление сторонними счётчиками на сайте</h1>
+	<form action="/api/metrics/add" method="POST">
+		<button class="btn">Добавить счётчик</button>
+	</form>
+	
+	<h2>Список текущий счётчиков:</h2>
+	<% metrics.forEach(metric => { -%>
+		<div class="my-2">
+			<button data-id="<%= metric.id -%>" class="btn bg-delete my-2 js-metrics-delete">Удалить</button>
+			<textarea data-id="<%= metric.id -%>" class="form-control js-metrics-change"><%= metric.code -%></textarea>
+		</div>
+	<% }) -%>
+</section>
+
+<script>
+	 document.addEventListener("DOMContentLoaded", function(event) {
+		$('.js-metrics-change').change(function(e) {
+			var $this = $(this);
+			var code = $this.val();
+			var id = $this.data('id');
+
+			var postData = {
+				code: code,
+				id: id
+			};
+
+			$.post('/api/metrics/update', postData).done(function(result) {
+				if(result.status !== 'ok') {
+					console.log(result);
+					return alert(result.message);
+				}
+
+				alert('Код счётчика обновлён');
+			})
+		});
+		
+		$('.js-metrics-delete').click(function(e) {
+			var $this = $(this);
+			var id = $this.data('id');
+
+			var postData = {
+				id: id
+			};
+
+			$.post('/api/metrics/delete', postData).done(function(result) {
+				if(result.status !== 'ok') {
+					console.log(result);
+					return alert(result.message);
+				}
+
+				location.reload();
+			})
+		})
+	});
+</script>

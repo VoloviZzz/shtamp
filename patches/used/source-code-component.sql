@@ -1,0 +1,1 @@
+INSERT INTO `components` (`id`, `title`, `ctrl`, `block_id`, `static`, `once`, `styles`, `scripts`, `default_config`, `created`) VALUES (NULL, '\"Исходный код\"', 'source-code', NULL, '0', '0', NULL, NULL, NULL, CURRENT_TIMESTAMP);

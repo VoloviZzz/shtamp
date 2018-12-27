@@ -1,0 +1,11 @@
+<% if(user.admin) { %>
+	<div class="admin-panel">
+		<a href="/admin" title="Перейти в админ. панель">
+			<span class="fa fa-cogs"></span>
+		</a>
+		<span style="margin-left: 25px; border-left: 1px #c3c3c3 solid; padding-left: 10px;" id="toggle-admin-mode">Переключение
+			админ. режима</span>
+		<span style="margin-left: 25px; border-left: 1px #c3c3c3 solid; padding-left: 10px; cursor: pointer" data-toggle="modal" data-target="#js-routeSettings-modal">Открыть
+			настройки маршрута</span>
+	</div>
+<% } %>

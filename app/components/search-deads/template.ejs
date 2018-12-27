@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="/css/search-deads.css">
+<% if(user.adminMode) { %>
+	<section class="my-2">
+		<h3>Настройки поиска захоронений:</h3>
+		<form action="/api/search-deads-settings/index" method="post">
+			<div class="form-group">
+				<span>url:</span>
+				<input type="text" name="searchDeadsUrl" class="form-control" value="<%= siteConfig.get('searchDeadsUrl') -%>">
+			</div>
+			<div class="form-group">
+				<span>api key:</span>
+				<input type="text" name="searchDeadsApiKey" class="form-control" value="<%= siteConfig.get('searchDeadsApiKey') -%>">
+			</div>
+			<div class="form-group">
+				<span>api loc code:</span>
+				<input type="text" name="searchDeadsApiLocCode" class="form-control" value="<%= siteConfig.get('searchDeadsApiLocCode') -%>">
+			</div>
+			<button class="btn my-2">Сохранить</button>
+		</form>
+	</section>
+<% } %>
+<div class="scroll-content" id="app-search" data-function="default">
+    <div id="how-seach__info" class="text-indent_p text-margin-bottom-p">
+        <p>На сегодняшний день поиск захоронений работает по всем кладбищам города Магнитогорска. База захоронений обновляется на ежедневном уровне, поэтому здесь Вы сможете найти захоронения произведённые до вчерашнего дня.</p>
+        <div class="text-center">
+            <h3>Внимание! Как правильно искать захоронения</h3>
+        </div>
+        <p>Не заполняйте сразу все поля поиска. Для начала заполните поле "Фамилия" и нажмите кнопку "Поиск", в 90% случаев необходимое захоронение будет в списке первых 20 результатов. Если же результатов слишком много - заполните поле "Имя" и повторите поиск. Таким образом, заполняя по одному полю, Вы сможете найти нужное захоронение намного быстрее, чем заполнив сразу все поля.</p>
+        <p>Данные о захороненных заносились в базу с надписей на памятниках, из-за чего возможны неточности в написании из-за плохой читаемости надписи или ошибки оператора, поэтому если Вы не уверены как точно написаны данные на памятнике - введите их частично и не ставьте галочку "Точное совпадение". В большинстве случаев для поиска достаточно указать по две-три буквы фамилии, имени и отчества.</p>
+        <p>Если Вы не нашли захоронение, но уверены, что оно существует - воспользуйтесь <a href="#">формой сообщения об отсутствующем захоронении</a>. Наши сотрудники на постоянной основе занимаются поиском отсутствующих захоронений, и, когда захоронение будет найдено - Вы будете уведомлены об этом.</p>
+    </div>
+   	<div id="search" class="search menu-sections menu-sections__default" style="display: block">
+		<div class="search-fullname-container">
+			<div class="search__fio-wrapp">
+				<div class="search-input-wrapp">
+					<input id="search-fio" 
+						class="search__fio"
+						type="text" 
+						placeholder="Введите ФИО умершего"
+						<% if (typeof fullname !== "undefined") { %>
+							value="<%=fullname -%>"
+						<% } %>
+				 	/>
+				<button id="search-clear-str" class="btn search-buttons__button search__settings" title="Очистить"><i class="fa fa-close fa-2x"></i></button>
+				<button id="show-advanced" class="btn search-buttons__button search__settings"><i class="fa fa-sliders fa-2x"></i></button>
+			</div>
+		</div>
+		<div class="search__buttons">
+			<button id="find-graves" class="btn search-buttons__button search__search-button">Найти</button>
+		</div>
+	</div>
+	<div class="advanced_search">
+		<div class="advanced_fio advanced-group">
+			<div class="advanced_f">
+				<label>
+					<span>Фамилия </span>
+					<input id="search-f" class="input-text js-advanced-item" type="text" placeholder="Фамилия">
+				</label>
+			</div>
+			<div class="advanced_i">
+				<label>
+					<span>Имя </span>
+					<input id="search-i" class="input-text js-advanced-item" type="text" placeholder="Имя">
+				</label>
+			</div>
+			<div class="advanced_o">
+				<label>
+					<span>Отчество </span>
+					<input id="search-o" class="input-text js-advanced-item" type="text" placeholder="Отчество">
+				</label>
+			</div>
+		</div>
+		<div class="advanced_info advanced-group">
+			<div class="advanced_place">
+				<label>
+					<span>Номер участка</span>
+					<input id="search-p" class="input-text js-advanced-item" type="number" placeholder="Номер участка">
+				</label>
+			</div>
+			<div class="advanced_grave">
+				<label>
+					<span>Номер захоронения</span>
+					<input id="search-g" class="input-text js-advanced-item" type="number" placeholder="Номер захоронения">
+				</label>
+			</div>
+		</div>
+		<div class="advanced-group advanced-cemetery">
+			<label>
+				<span>Кладбище</span>
+				<select id="search-cemetery" class="input-text js-advanced-item">
+					<option value="" selected>Не выбрано</option>
+				</select>
+			</label>
+		</div>
+		<div class="advanced-group advanced-date">
+			<label>
+				<span>Дата рождения</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-day-birthday" style="width:5em;" placeholder="ДД">
+			</label>
+			<label>
+				<span>&nbsp;</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-month-birthday" style="width:5em;" placeholder="ММ">
+			</label>
+			<label>
+				<span>&nbsp;</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-year-birthday" style="width:7em;" placeholder="ГГГГ">
+			</label>
+			
+			<label>
+				<span>Дата смерти</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-day-death" style="width:5em;" placeholder="ДД">
+			</label>
+			<label>
+				<span>&nbsp;</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-month-death" style="width:5em;" placeholder="ММ">
+			</label>
+			<label>
+				<span>&nbsp;</span>
+				<input class="js-advanced-item input-text" type="number" name="" id="search-year-death" style="width:7em;" placeholder="ГГГГ">
+			</label>
+		</div>
+	</div>
+	<div class="search__results">
+		<div>
+			<div class="search__results-list" id="search-list"></div>
+			<div class="text-center">
+				<button class="btn" id="search-more-button" style="display:none;" data-part="0">Показать ещё</button>
+			</div>
+		</div>
+	</div>
+	<div class="search-info"<% if (typeof fullname !== "undefined") { %> style="display:none;<% } %>>
+		<div class="text-center">
+			<h3>Введите ФИО умершего</h3>
+			<p>Введите ФИО человека, захоронение которого Вы хотите найти, и нажмите кнопку "Найти"</p>
+		</div>
+	</div>
+	<div class="search-error" style="color:red; display:none;">
+		<div class="text-center">
+			<h3>Произошла ошибка</h3>
+			<p>Попробуйте выполнить поиск через некоторое время</p>
+		</div>
+	</div>
+</div>
+</div>
+<script src="/js/search-deads.js" defer></script>

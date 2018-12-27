@@ -1,0 +1,73 @@
+
+.code-editor{
+    position: relative;
+    background-color: #404040;
+    width: 100%;
+    height: 500px;
+    user-select: none;
+}
+.file-list{
+    position: absolute;
+    min-width: 20%;
+    height: 100%;
+    background-color: #292929;
+    color: #b3b3b3;
+    overflow: auto;
+    z-index: 1;
+}
+.edit-file{
+    background-color: #3c3b3b;
+}
+.directory:hover{
+    background-color: #101010;
+}
+.hidden{
+    display: none;
+}
+.seleced-editors{
+    height: 5%;
+    width: 100%;
+}
+.show-editor{
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    background-color: #585858;
+    width: 80%;
+    height: 95%;
+}
+.show-editor span1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #3c3c3c;
+    transform: translate(-50%,-50%);
+    font-size: 5em;
+}
+.seleced-editors{
+    position: absolute;
+    top: 0%;
+    left: 19.5%;
+    background-color: #585858;
+    width: 80.5%;
+    height: 5%;
+    border-bottom: solid 3px #3c3b3b;
+}
+.seleced-editors .open{
+    background-color: #949494;
+}
+.seleced-editors .file{
+    position: relative;
+    display: inline-block;
+    min-width: 15%;
+    height: 100%;
+    transform: skew(-20deg);
+    padding: 0 5px 0 15px;
+    text-align: center;
+}
+.seleced-editors .file:hover{
+    background-color: #696969;
+}
+.js-ace-editor{
+    height: 100%;
+}

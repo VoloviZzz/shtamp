@@ -1,0 +1,45 @@
+<style>
+	.flowers li {
+		width: 33%;
+		min-height: 2em;
+		outline: 1px dashed silver;
+		display: inline-block;
+		vertical-align: top;
+		text-align: center;
+		background-size: contain !important;
+		background-position: center center !important;
+		background-repeat: no-repeat !important;
+		margin: 1em 0 2em 0;
+		position: relative;
+		height: 253px;
+	}
+</style>
+<div style="max-width:1024px;margin:0 auto;">
+<div id="assign_text" style="text-indent:3em;">
+	<div class="pl_header">Заказ возложения цветов на место захоронения</div>
+	<p>Чтобы заказать услугу по возложению цветов на могилу - выберите понравившийся Вам венок и оплатите заказ удобным Вам способом.</p>
+	<p>После оплаты заказа наши сотрудники доставят и установят венок на указанное место захоронения, а Вам будет предоставлен фотоотчет о выполненной работе. Также на странице захоронения будет обновлена фотография.</p>
+	<p><strong>Стоимость услуги</strong> возложения цветов на одно захоронение - <i style="font-size:1.25em;">200 рублей</i>. Время выполенения - <strong>в течение суток</strong> с момента оплаты.</p>
+</div>
+<div id="flowers-list">
+	<div class="pl_header">Выберите цветы</div>
+	<% for(var cat_id in flowers) { %>
+		<% var cats = flowers[cat_id] %>
+		<div class="content-head" style="text-align:center"><%= cats.name -%></div>
+		<ul class="flowers">
+			<% for(var key of Object.keys(cats['position'])) { %>
+				<% goods = cats['position'][key]; %>
+				<% free_count = goods['count'] - (count_reserv[key] || 0); %>
+				<% if(free_count < 1) continue; %>
+				
+				<li style="background:url(<%= flowersUrl + goods.photo -%>);" onclick="flowerMods(<%= key -%>);">
+					<div style="position: absolute; width: 100%; left: 0; bottom: -1.75em; text-align: center;">
+						<a href="javascript:void(0);"><%= goods.name -%></a>
+					</div>
+					<b style="position:absolute;top:.5em;right:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;"><%= goods['r_price'] -%> руб.</b>
+					<b style="position:absolute;bottom:.5em;left:.5em;border:1px solid silver;padding:.25em;background:white;border-radius:.25em;">В наличии <%= free_count -%> шт.</b>
+				</li>
+			<% } %>
+		</ul>
+	<% } %>
+</div>

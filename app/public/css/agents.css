@@ -1,0 +1,10 @@
+.cards__img-wrapp {
+        max-height:400px;
+        height:400px;
+    }
+@media (min-width: 425px) and (max-width: 991px) {
+	.cards__img-wrapp {
+		max-height:800px;
+		height:800px;
+	}
+}

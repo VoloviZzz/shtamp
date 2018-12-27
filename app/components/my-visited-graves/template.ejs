@@ -1,0 +1,75 @@
+<% if(visitedGraves.length < 1) { %>
+	<div class="text-center">
+		<h3>Посещаемые захоронения отсутствуют</h3>
+	</div>
+<% } %>
+<% visitedGravesCards.map(g => { %>
+	<% g.rel = g.rel || {}; %>
+	<div class="place-item search-result__item">
+			<div class="place-img-wrapp search__img-wrapp">
+				<% if (g.rel) { %>
+					<img 
+						class="<% if (g.mainphoto.orientation == 6) { %>img90<% } %>" 
+						src="<%=imagesPath%><%=g.mainphoto.photo_preview%>" 
+					/>
+				<% }
+				else { %>
+					<img src="<%= imageNotFound %>" />
+				<% } %>
+			</div><%
+			%><div class="place__pairs search__pairs-wrapp">
+				<div class="place__pair place__title search__pair search__title">
+					<div>
+						<div class="fs-regular dead-name noinit">
+							<h1><%=g.surname%></h1>
+							<h2><%=g.firstname%> <%=g.patronymic%></h2>
+						</div>
+					</div>
+					<h3><%=g.born_day%>.<%=g.born_month%>.<%=g.born_year%> - <%=g.die_day%>.<%=g.die_month%>.<%=g.die_year%></h3>
+				</div><%
+				%><div class="place__info">
+					<div class="place__pair place-general search__pair">
+						<div>
+							<span class="place__info-name">Кладбище:</span>
+							<span><a href="/cemetery/<%=g.cemetery%>"><%=g.cemetery_name%></a></span>
+						</div>
+						<div>
+							<span class="place__info-name">Квартал:</span>
+							<span>
+								<% if (g.area) { %>
+									<%= g.area_name %>
+								<% }
+								else { %>
+									без квартала
+								<% } %>
+							</span>
+						</div>
+						
+						<% if (g.place) { %>
+							<div>
+								<span class="place__info-name">Участок:</span>
+								<span><a href="/place/<%=g.place%>">66-3435-<%=g.place%></a></span>
+							</div>
+						<% }
+						else { %>
+							<div>
+								<b>Одиночное захоронение</b>
+							</div>
+						<% } %>
+						
+					</div><%
+					
+					%><div class="place__buttons search-result_buttons">
+						<div>
+							<a href="/person/<%= g.id %>" class="btn">Открыть</a>
+						</div>
+						<% if (g.place) { %>
+							<div>
+								<a href="/place/<%= g.place %>" class="btn">Страница участка</a>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+<% }) %>

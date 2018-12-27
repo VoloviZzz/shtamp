@@ -1,0 +1,19 @@
+.js-routes-list-add-route {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.js-route-edit-form {
+    display: none;
+}
+
+td.js-edit-form--show .js-route-edit-form {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.js-edit-form--show {
+	width: 100%;
+	background: #f9f9f9;
+}

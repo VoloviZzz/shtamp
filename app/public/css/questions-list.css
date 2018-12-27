@@ -1,0 +1,33 @@
+.default-list {
+    margin: 0;
+    list-style-type: decimal;
+    list-style-position: inside;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.question {
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px #c3c3c3 solid;
+    padding: 5px 35px;
+    display: none;
+    word-wrap: break-word;
+}
+
+.text-indent.question {
+    text-indent: 0;
+}
+
+.answer span {
+    cursor: pointer;
+}
+
+.answer.show-question .question {
+    display: block;
+}
+
+.answer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `goods_cats` ADD `title_bottom` VARCHAR(255) NULL DEFAULT NULL COMMENT 'Короткое название категории' AFTER `title`;

@@ -1,0 +1,63 @@
+<br />
+<br />
+
+<div class="reviews-list-wrapp">
+	<ul class="reviews-list">
+		<% reviews.map(r => { %>
+			
+			<%# CASE: чтобы для клиентов написавших отзыв выводились показывались их отзывы %>
+			<% if(user.adminMode === false) { %>
+				<% if(r.published == 0 && r.client_id != user.id) return false; %>
+			<% } %>
+			
+			<%# CASE: Не знаю для чего оно тут было %>
+			<%# if(!r.by_client_retail_id && !r.clientName) return false; %>
+			
+			<li class="reviews-item js-reviews-item" data-id="<%= r.id %>">
+				<% if(user.adminMode) { %>
+					<div class="text-right">
+						<% if(r.published == "0") { %>
+							<button class="btn js-reviews-togglePublished" data-value="1" data-id="<%= r.id -%>">Опубликовать</button>
+						<% } else { %>
+							<button class="btn js-reviews-togglePublished" data-value="0" data-id="<%= r.id -%>">Снять с публикации</button>
+						<% } %>
+						<button class="btn js-reviews-delete" data-id="<%= r.id -%>">Удалить</button>
+					</div>
+				<% } %>
+				<div class="review-wrapp">
+					<div class="reviews-wrap-items">
+						<div style="margin-right: 10px;border: 1px #000 solid;">
+							<img style="width: 75px;height: 100%;display: block;" src="<%= Helpers.replaceImageIfNotExist(r.clientAvatar, '/img/no-photo-img.png') -%>">
+						</div>
+						<div style="flex: 1;">
+							<div class="reviews-title">
+								<div>
+									<span class="reviews-name">
+										<span class="fa fa-user"></span>
+										<% if (r.by_client_retail_id) { %>
+											<%= r.by_client_name %>
+											<span style="color:red;" title="Данный отзыв был добавлен на сайт ритуальным агентом по просьбе клиента">
+												<span class="fa fa-handshake-o"></span>
+												<span class="fa fa-question-circle"></span>
+											</span>
+										<% }
+										else { %>
+											<%= r.clientName || `Анонимный отзыв` -%>
+										<% } %>
+									</span>
+									<% if(r.published == 0 && r.client_id == user.id) { %>
+										<span>(Отзыв находится на модерации)</span>
+									<% } %>
+								</div>
+								<span class="reviews-time"><%=Helpers.formatDate(r.created, "dd MMMM yyyy, hh:mm")%></span>
+							</div>
+							<div class="reviews-text">
+								<%- Helpers.replaceLineBreaks(r.text) -%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		<% }) %>
+	</ul>
+</div>

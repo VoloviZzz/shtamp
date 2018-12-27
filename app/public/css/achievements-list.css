@@ -1,0 +1,47 @@
+.section-content .text-margin-bottom {
+	margin-left: 40px;
+	margin-right: 20px;
+	font-weight: 400;
+}
+
+.achievement-item {
+	width: 50%;
+	padding: 10px;
+	text-align: center;
+	min-width: 320px;
+}
+
+.achievement-item img {
+	width: 300px;
+	cursor: pointer;
+}
+
+.achievements-block {
+	height: 85%;
+}
+
+.achievements-wrapper {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-flow: row wrap;
+	    -ms-flex-flow: row wrap;
+	        flex-flow: row wrap;
+}
+
+
+@media (max-width: 767px) {
+	.achievements-wrapper {
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+	}
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+       	<meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <meta charset="utf-8">
+        <meta content="yes" name="apple-mobile-web-app-capable" />
+        <meta name="description" content="<%= route.meta.description || route.seo_description %>">
+        <meta name="keywords" content="<%= route.meta.keywords || route.seo_keywords %>">
+        <title><%= route.meta.title || route.title -%> <%= ` - ` + siteConfig.get("appendTitle") -%></title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&amp;subset=cyrillic">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700,900&amp;subset=cyrillic">
+		<link rel="stylesheet" href="/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/static.max.css">
+		<link rel="stylesheet" href="/css/static_deUro.css">
+		<link rel="shortcut icon" href="<%= siteConfig.get("favicon") -%>">
+		<% if(user.admin) { %>
+			<link rel="stylesheet" href="/admins/css/admin.css">
+		<% } %>
+    </head>
+    <body>
+		<%- include('./admin-panel.ejs') -%>
+		<%- include('./route-settings-modal') -%>
+        <header class="document-header">
+			<div class="container-fluid">
+				<div class="menu">
+          <div class="logo-wrapper">
+
+          </div>
+
+					<div class="menu-center">
+            <div class="logo-wrapper">
+  						<div class="logo-file">
+  							<a href="/"><img class="logo" alt="Логотип letaindex" height="30" src="<%= Helpers.replaceImageIfNotExist(siteConfig.get("siteLogo")) -%>"></a>
+  							<% if(user.adminMode) { %>
+  								<label class="js-siteLogo-edit-btn edit-btn">
+  									<span>+</span>
+  									<input class="js-siteLogo-file d-none" type="file">
+  								</label>
+  							<% } %>
+  						</div>
+
+  						<button class="toggle-menu btn"></button>
+  					</div>
+            <div class="header-list-div">
+  						<%- include("./header-menu") -%>
+            </div>
+					</div>
+
+          <div class="btn btn-info open-menu-list">
+            <i class="fa fa-align-justify"></i>
+          </div>
+
+					<div class="menu-right">
+						<% if(siteConfig.get("showCart") === "1") { %>
+							<div>
+								<a class="shopping-cart-link" href="/cart">
+									<i class="fa fa-shopping-cart fa-lg"></i>
+									<span
+										class="badge shopping-cart-badge"
+										id="js-shoppingCart-goodsCount"
+										style="<%= session.shoppingCart.totalCountGoods < 1 ? "display: none" : "" -%>"><%= session.shoppingCart.totalCountGoods -%></span>
+								</a>
+							</div>
+						<% } %>
+
+						<% if(!user.id) { %>
+							<div>
+								<a href="/login">Вход</a>
+							</div>
+						<% } else { %>
+							<div>
+								<a href="/my"><%= user.clientName %></a>
+							</div>
+							<div>
+								<a href="/logout">Выйти</a>
+							</div>
+						<% }%>
+					</div>
+				</div>
+			</div>
+		</header>

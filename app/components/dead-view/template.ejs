@@ -1,0 +1,424 @@
+<link rel="stylesheet" href="/vendors/baguettebox.js/dist/baguetteBox.min.css">
+<link rel="stylesheet" href="/vendors/flexSlider/flexslider.css">
+<link rel="stylesheet" href="/css/cemeteries-place.css">
+<link rel="stylesheet" href="/css/dead-view.css">
+<style>
+	.MyWindow {
+		background: #fff;
+		position: absolute;
+		width: calc(100% - 20px);
+		overflow: auto;
+		height: calc(100% - 20px);
+	}
+
+	.flowers li {
+		width: 33%;
+		min-height: 2em;
+		outline: 1px dashed silver;
+		display: inline-block;
+		vertical-align: top;
+		text-align: center;
+		height: 253px;
+		background-size: contain !important;
+		background-position: center center !important;
+		background-repeat: no-repeat !important;
+	}
+</style>
+<div id="info" class="menu-sections menu-sections__default">
+    <div class="personaly-wrapper">
+        <div style="width: 100%; text-align: center;">
+            <h1>
+                <% if(g.rat_unknown == 1) { %>
+                    Неопознанное захоронение
+                <% }
+                else if(g.rat_noname == 1) { %>
+                    Безымянное захоронение
+                <% } %>
+            </h1>
+        </div>
+        <div class="person-left place-left">
+            <section>
+                <div class="block-name">
+                    <h3>Фотографии захоронения</h3>
+                </div>
+
+                <% if (g.surveys) { %>
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <% for (sid in g.surveys) {
+                                var survey = g.surveys[sid];
+                                
+                                for (pid in survey.rels) {
+                                    var photo = survey.rels[pid]; %>
+                                    <li class="baguetteBoxOne">
+                                        <a href="<%= imagesPath + photo.photo_prod %>">
+                                            <img 
+                                                src="<%=imagesPath + photo.photo_prod%>"
+													<% switch (photo.orientation) {
+														case 3:
+															%> class="img90"<%
+														break;
+														case 6:
+															%> class="img90"<%
+														break;
+														case 8:
+															%> class="img90"<%
+														break;
+														case 20:
+															%> class="img180"<%
+														break;
+														case 30:
+															%> class="img270"<%
+														break;
+													} %>
+											 />
+                                        </a>
+                                    </li>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                <% } else { %>
+                     Фотографии отсутствуют
+                <% } %>
+            </section>
+        </div>
+        <div class="body-info place-right">
+            <section>
+                <div class="text-center block-name">
+                    <h3>Информация о захоронении</h3>
+                </div>
+                <table class="attributes-table">
+                    <tbody>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Номер захоронения</span>
+                            </td>
+                            <td>#66-3435-<%=g.number%></td>
+                        </tr>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Тип</span>
+                            </td>
+                            <td><%=g.place ? "Захоронение в участке" : "Одиночное захоронение"%></td>
+                        </tr>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Кладбище</span>
+                            </td>
+                            <td><%=g.cemetery_name%></td>
+                        </tr>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Квартал</span>
+                            </td>
+                            <td>
+                                <% if (g.area) { %>
+                                    <%=g.area_name%>
+                                <% }
+                                else { %>
+                                    <span>без квартала</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% if (g.place) { %>
+                            <tr>
+                                <td class="info-name-wrapp">
+                                    <span class="info-name">Участок</span>
+                                </td>
+                                <td><a href="/place/<%=g.place%>">&66-3435-<%=g.placeNumber%></a></td>
+                            </tr>
+                        <% }%>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Дата рождения</span>
+                            </td>
+                            <td><%=g.born_day%>.<%=g.born_month%>.<%=g.born_year%></td>
+                        </tr>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Дата смерти</span>
+                            </td>
+                            <td><%=g.die_day%>.<%=g.die_month%>.<%=g.die_year%></td>
+                        </tr>
+                        <tr>
+                            <td class="info-name-wrapp">
+                                <span class="info-name">Координаты</span>
+                            </td>
+
+                            <% if(typeof g.mainphoto == "undefined") g.mainphoto = {} %>
+                            <td>
+                                <%=typeof g.mainphoto.latitude != "undefined" ?  g.mainphoto.latitude : ""%>, <%=typeof g.mainphoto.longitude != "undefined" ?  g.mainphoto.longitude : ""%>    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="action-block">
+                <div class="block-name">
+                    <h3>Дополнительно</h3>
+                </div>
+                <% if(g.place) { %>
+                    <div>
+                        <a class="btn action-btn" href="/place/<%=g.place%>">Перейти на страницу участка</a>
+                    </div>
+                <% } %>
+                <div>
+                    <% if(!!user.id == true) { %>
+                        <% if(visitGrave) { %>
+                            <btn id="js-del-visited" data-id="<%= g.id -%>" class="btn action-btn del-visited">Убрать из посещаемых</btn>
+                        <% } else { %>
+                            <btn id="js-add-visited" data-id="<%= g.id -%>" class="btn action-btn add-visited">Добавить в посещаемые</btn>
+                        <% } %>
+                    <% } else { %>
+                        <btn class="btn action-btn btn-disabled" disabled>Добавить в посещаемые</btn>
+                        <p><b>Для того, чтобы добавить захоронение в посещаемые, Вам необходимо авторизоваться на сайте</b></p>
+                    <% } %>
+                </div>
+            </section>
+            <section class="action-block">
+                <div class="block-name">
+                    <h3>Дополнительные услуги</h3>
+                </div>
+                <div>
+                    <button onclick="ordAssign()" class="btn action-btn">Заказать возложение цветов</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div id="orders-list">
+	<% if(entrusting.length > 0) { %>
+		<div class="pl_header">Ваши заказы / возложение цветов /</div>
+		<table id="orders" class="tbl" style="font-weight:normal;font-size:1.25em;">
+			<tr>
+				<th>Номер</th>
+				<th>Дата создания</th>
+				<th>Возлагаемые цветы</th>
+				<th>Количество</th>
+				<th>Сумма заказа</th>
+				<th>Статус оплаты</th>
+				<th>Статус выполнения</th>
+				<th>Действия</th>
+			</tr>
+			<% for(var e of entrusting) { %>
+				<tr id="ord<%= e['id'] -%>">
+					<td>#<%= e['id'] -%></td>
+					<td><%= Helpers.formatDate(e['time'], 'dd MMMM yyyy') -%></td>
+					<td><%= goods[e['mods']]['name'] -%> / #<%= e['mods'] -%></td>
+					<td><%= e['count'] -%> шт.</td>
+					<td><%= e['amount'] -%> руб.</td>
+					<td>
+						<% switch(e.istat) {
+							case 'new': %>
+								<%= 'Не оплачен' -%>
+								<% del = `<a href="javascript:void(0);" onclick="delOrder('${e['id']}');">Удалить</a>` -%>
+								<% pay = `<a href="javascript:void(0);" onclick="invoicePay('${e['invoice']}');">Оплатить</a>` %>
+							<% break; %>
+							<% case 'expect': %>
+								<%= 'Ожидает оплаты' -%>
+							<% break; %>
+							<% case 'paid': %>
+								<%= 'Оплачен' -%>
+							<% break; %>
+						<% } %>
+					</td>
+					<td>
+						<% switch(e.status) {
+							case 0: %>
+								<%= e['istat'] == 'paid' ? 'Подготовка' : 'Ожидает оплаты'; -%>
+							<% break; %>
+							<% case 1: %>
+								<%= 'В работе' -%>
+							<% break; %>
+							<% case 2: %>
+								<%= 'Выполнен' -%>
+							<% break; %>
+						<% } %>
+					</td>
+					<td class="btns"><%- del -%> <%- pay -%></td>
+				</tr>
+			<% } %>
+		</table>
+	<% } %>
+</div>
+<div id="memory" class="menu-sections">
+    <% if(!!user.id === false) { %>
+        <p style="text-align: center; margin: 10px; font-size: 120%;">
+            <b>Для того, чтобы добавлять записи в книгу памяти, Вам необходимо авторизоваться на сайте</b>
+        </p>
+    <% } %>
+    <div class="person-section-content person-memory">
+        <div class="person-biography">
+            <%- include('./memory-biographies.ejs') -%>
+        </div>
+        <div class="person-necrology">
+            <%- include('./memory-necrologues.ejs') -%>
+        </div>
+		<div class="person-photo">
+			<%- include('./memory-photos.ejs') -%>
+		</div>
+    </div>
+</div>
+<div id="coord" class="menu-sections">
+    <section>
+        <div class="block-name">
+            <h3>Расположение места захоронения</h3>
+        </div>
+        <div id="map" class="setResponsiveHeight" style="width:100%; min-height:250px; border: 1px solid #000;"></div>
+        <div id="grave-data" style="display:none;"><%=JSON.stringify(g)%></div>
+    </section>
+</div>
+<script>
+    window.onload = () => {
+
+        initMap();
+
+        $('a[href="#coord"]').on('click', () => {
+            setPhotoSize('.setResponsiveHeight');
+            initMap();
+        });
+
+        function initMap() {
+            setTimeout(() => {
+                var roadsTypes = {
+                    0 : {name : 'пешеходная без покрытия', strokeColor : 'blue', strokeWeight : 1, },
+                    1 : {name : 'пешеходная с покрытием', strokeColor : 'blue', strokeWeight : 2, },
+                    10 : {name : 'автомобильная без покрытия', strokeColor : 'green', strokeWeight : 3, },
+                    11 : {name : 'автомобильная с покрытием', strokeColor : 'green', strokeWeight : 5, },
+                };
+
+                var 
+                    grave = JSON.parse($('#grave-data').text()),
+                    cemetery = grave.cemeteryData,
+                    point = grave.mainphoto,
+                    center = cemetery.center.split(','),
+                    map = new google.maps.Map(
+                        $('#map')[0],
+                        {
+                            zoom: 16,
+                            center: {lat: Number(center[0]), lng: Number(center[1])}
+                        }
+                    );
+                if (cemetery.outline) {
+                    cemetery.outline = JSON.parse(cemetery.outline);
+                    cemetery.outline.forEach(part => {
+                        var coord = [];
+                        part.forEach(point => {
+                            coord.push(new google.maps.LatLng(point[0], point[1]));
+                        });
+                        var polygon = new google.maps.Polygon({
+                            paths : coord,
+                            strokeColor : 'red',
+                            fillColor : '#fff',
+                            strokeWeight : 2,
+                        });
+                        polygon.setMap(map);
+                    });
+                }
+				
+                if (cemetery.roads) {
+                    for (id in cemetery.roads) {
+                        var road = cemetery.roads[id],
+                            points = JSON.parse(road.points),
+                            path = [];
+                        points.forEach(p => {
+                            path.push({ lat : p[0], lng : p[1] });
+                        });
+                        
+                        var line = new google.maps.Polyline({
+                            path: path,
+                            geodesic: true,
+                            strokeColor: roadsTypes[road.type].strokeColor,
+                            strokeOpacity: 1.0,
+                            strokeWeight: roadsTypes[road.type].strokeWeight,
+                            zIndex: 100,
+                        });
+
+                        line.setMap(map);
+                    }
+                }
+				
+				if (cemetery.areas) {
+					for (id in cemetery.areas) {
+						var area = cemetery.areas[id],
+							outline = JSON.parse(area.outline),
+							coord = [],
+							center = area.center ? area.center.split(',') : false;
+						outline.forEach(point => {
+							var p = new google.maps.LatLng(point[0], point[1]);
+								coord.push(p);
+						});
+						var polygon = new google.maps.Polygon({
+                            paths : coord,
+							strokeColor : 'rgba(128,128,128,0.2)',
+							fillColor : 'grey',
+							strokeWeight : 10,
+							zIndex : 50,
+                        });
+                        polygon.setMap(map);
+
+						if (center) {
+							new MapLabel({
+								text: area.name,
+								position: new google.maps.LatLng(center[0], center[1]),
+								map: map,
+								fontSize: 16,
+								minZoom : 15,
+								maxZoom : 17,
+							});
+							new MapLabel({
+								text: area.name,
+								position: new google.maps.LatLng(center[0], center[1]),
+								map: map,
+								fontSize: 24,
+								minZoom : 18,
+							});
+						}
+					}
+				}
+				
+				if (cemetery.entrances) {
+					var entrs = JSON.parse(cemetery.entrances);
+					entrs.forEach(e => {
+						var coord = e.coord.split(',');
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(parseFloat(coord[0]), parseFloat(coord[1])),
+							map : map,
+							icon : '/img/map_icons/entry' + e.type + '.png',
+							title : e.name,
+						});
+					});
+				}
+				
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(point.latitude, point.longitude),
+                    map: map,
+                });
+                
+                var contentString = '<h1 class="text-center">' + grave.surname + ' ' + grave.firstname + ' ' + grave.patronymic + '</h1><h3 class="text-center">' + grave.born_day + '.' + grave.born_month + '.' + grave.born_year + ' - ' + grave.die_day + '.' + grave.die_month + '.' + grave.die_year + '</h3><h4 class="text-center">' + point.latitude.toFixed(6) + ',' + point.longitude.toFixed(6) + '</h4>';
+
+                var infowindow = new google.maps.InfoWindow({
+                  content: contentString,
+                  maxWidth: 200
+                });
+                
+                //marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                //});
+                
+            }, 0);
+        }
+    };
+</script>
+<script>
+	var dead_id = <%= g.id -%>;
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwz7Whv_9Vs1rF3lPqyLsRlxarfSiFs8g"></script>
+<script src="/js/maplabel.js"></script>
+<script src="/vendors/flexSlider/jquery.flexslider.js" defer></script>
+<script src="/vendors/baguettebox.js/dist/baguetteBox.min.js" defer></script>
+<script src="/js/cemeteries-person.js" defer></script>
+<% if(user.adminMode) { %>
+	<script defer src="/admins/js/cemeteries-person.js"></script>
+<% } %>

@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/css/shops-list.css">
+<section>
+	<div class="map-yandex">
+		<!--<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4744011d5fe5b89cb747635576a0b9e591a824f2540798302f69ee16b2d92a7b&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>-->
+		<div style="z-index: 0; width:100%; height:400px; overflow: hidden;" id="map"></div>
+		<script type="text/javascript" src="/vendors/leaflet/dist/leaflet.js"></script>
+		<script type="text/javascript" src="/vendors/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+		<script src="/js/map.js"></script>
+		<script>
+		window.onload = () => {
+
+			$('.description').each(function () {
+				var desc = $(this).text().split(' ');
+				var lit_count = 0;
+				var description = '';
+				desc.every(function(text){
+					lit_count += text.length;
+					if(lit_count > 50){
+						description += text+'...';
+						return false;
+					}else {
+						description += text+' ' ;
+						return true
+					}
+				});
+				$(this).text(description);
+			})
+
+
+			var map = new Map('map', 11, 53.402709, 59.027477);
+			map.setCenter('53.402709, 59.027477');
+
+
+			$('.shops-item').each((i, item) => {
+				item = $(item);
+				var id = item.data('id'),
+					coord = item.data('coord'),
+					title = item.data('title'),
+					addr = item.data('addr');
+
+				if (coord !== "") {
+					coord = coord.split(',');
+					var contentString = '\
+						<h1 class="text-center">' + (title !== "" ? title : "Магазин без названия") + '</h1>\
+						<h4 class="text-center" style="color:grey;">' + (addr !== "" ? addr : "адрес не указан") + '</h4>\
+						<h5 class="text-center" style="color:grey;">' + coord.join(', ') + '</h5>\
+						<h5 class="text-center"><a href="/shop-page/' + id + '" class="btn">Открыть</a></h5>\
+					';
+					map.addMarker(coord[0], coord[1], contentString);
+
+				}
+			});
+
+
+		};
+		</script>
+		<link rel="stylesheet" href="/vendors/leaflet/dist/leaflet.css">
+
+	</div>
+		<% if(user.adminMode) { %>
+			<div class="mt-1 text-right admin-control-container">
+				<button class="btn js-add-shopItem">Добавить магазин</button>
+			</div>
+		<% } %>
+	<div class="shops-items">
+		<% shops.forEach((shop) => { %>
+			<div class="shops-item" data-id="<%= shop.id -%>" data-coord="<%= shop.coords %>" data-title="<%= shop.title -%>" data-addr="<%= shop.address -%>">
+				<% if(user.adminMode) { %>
+					<div class="pl-1 pr-1 pt-1">
+						<button data-id="<%= shop.id -%>" class="btn w-100 js-delete-shopItem">Удалить из списка</button>
+					</div>
+				<% } %>
+				<a class="page-link" href="<%= shop.alias || `/shop-page/` + shop.id -%>">
+					<h1 class="shops-item__title"><%= shop.title -%></h1>
+				</a>
+				<a class="shops-item__image" href="<%= shop.alias || `/shop-page/` + shop.id -%>">
+					<img class="setResponsiveHeight" src="<%= Helpers.replaceImageIfNotExist(shop.prod_path) -%>" alt="">
+				</a>
+				<div class="shops-item__text description text-margin-bottom-p text-indent">
+					<%- Helpers.replaceLineBreaks(Helpers.trimStr(shop.text, 175)) -%>
+				</div>
+				<div class="shops-item__text text-margin-bottom-p text-indent">
+					<span class="shops-item__adress"><span class="font-weight-bold">Адрес:</span> <%= shop.address -%></span>
+					<span class="shops-item__phone"><span class="font-weight-bold">Телефон:</span> <%= shop.phones -%></span>
+				</div>
+				<div class="shops-item__more">
+					<a class="page-link" href="<%= shop.alias || `/shop-page/` + shop.id -%>">Подробнее...</a>
+				</div>
+			</div>
+		<% }) %>
+	</div>
+</section>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/shops-list.js" defer></script>
+<% } %>

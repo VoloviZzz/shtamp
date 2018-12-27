@@ -1,0 +1,9 @@
+<% if(user.admin) { %>
+	<section>
+		<h2>Настройка robots.txt</h2>
+		<form method="POST" action="/api/robots/update">
+			<textarea class="form-control" name="value"><%= siteConfig.get('robotsValue') -%></textarea>
+			<button class="btn my-2">Сохранить</button>
+		</form>
+	</section>
+<% } %>

@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="/vendors/slick/slick.css">
+<link rel="stylesheet" href="/css/slider.init.css">
+<link rel="stylesheet" href="/vendors/slick/slick-theme.css">
+
+<div class="slider-container">
+	<div class="my-slider slider-for">
+		<% slides.map((s, index) => { %>
+		<div class="my-item">
+			
+			<div class="slider-info__container" style="background-image: url(<%= s.img %>)">
+				<div class="slider-info">
+					<div class="slider-info__wrapper">
+						<% if(user.adminMode) { %>
+							<input style="margin-bottom: 20px" type="text" class="js-slide-upd input-text" data-event-name="input" data-target="title" data-id="<%= s.id -%>" data-fragment-id="<%= fragment.id -%>" value="<%= s.title -%>">
+						<% } else { %> 
+							<h2><%= s.title %></h2>
+						<% } %>
+						<% if(user.adminMode) { %>
+							<div>
+								<textarea style="min-width: 100%; max-width: 100%; min-height: 150px" class="js-slide-upd js-ckeditor-edit" data-target="description" data-id="<%= s.id -%>" data-fragment-id="<%= fragment.id -%>"><%- s.description -%></textarea>
+							</div>
+						<% } else { %> 
+							<div class="text-center">
+								<%- s.description %>
+							</div>
+						<% } %>
+						<% if(user.adminMode) { %>
+							<div>
+								<label>Добавить фото
+								<input class="js-slide-addSlidePhoto" data-target="img" data-fragment-id="<%= fragment.id -%>" data-slide-id="<%= s.id -%>" type="file" style="display: none;">
+								</label>
+							</div>
+						<% } %>
+						<div class="slider-action">
+							<% s.moreBtnText = 'moreBtnText' in s === false ? 'Подробнее' : s.moreBtnText %>
+							<% if( ('moreBtnText' in s && s.moreBtnText != '') || 'moreBtnText' in s === false ) { %>
+								<a href="<%= s.href %>" class="btn"><%= s.moreBtnText  -%></a>
+							<% } %>
+							<% if(user.adminMode) { %>
+								<div>
+									<label>
+										<span>Текст для кнопки:</span>
+										<input type="text" 
+											class="js-slide-upd"
+											data-target="moreBtnText" 
+											value="<%= s.moreBtnText -%>" 
+											data-fragment-id="<%= fragment.id -%>" 
+											data-id="<%= s.id -%>">
+									</label>
+								</div>
+							<% } %>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% }) %>
+		<% if(user.adminMode === true) { %>
+			<div class="my-item">
+				<div class="slider-info__container">
+					<div class="slider-item"></div>
+				</div>
+			</div>
+		<% } %>
+	</div>
+	<div class="my-slider slider-nav">
+		<% slides.map((s, index) => { %>
+		<div class="my-item">
+			<div class="container-item__container" style="background-image: url(<%= s.img_bottom || s.img %>)">
+				<% if(user.adminMode === true) { %>
+					<div style="position: absolute;right: 10px;font-weight: bold;top: 5px;cursor: pointer;">
+						<span class="slide-show-settings js-slide-delete" data-id="<%=s.id %>" data-fragment-id="<%= fragment.id -%>">Удалить</span>
+						<label>
+						Добавить фото
+						<input type="file" class="js-slide-addSlidePhoto" data-target="img_bottom" data-fragment-id="<%= fragment.id -%>" data-slide-id="<%= s.id -%>" style="display: none">
+						</label>
+					</div>
+					<% if(index > 0) { %>
+						<button class="btn js-slide-moveSlide" 
+							data-fragment-id="<%= fragment.id -%>" 
+							data-current-position="<%= index -%>" 
+							data-id="<%= s.id -%>" 
+							data-vector="-1"
+							style="position: absolute; top: 50%; left: 0px">&larr;</button>
+					<% } %>
+					<% if(index < slides.length -1) { %>
+						<button class="btn js-slide-moveSlide" 
+							data-fragment-id="<%= fragment.id -%>"
+							data-current-position="<%= index -%>" 
+							data-id="<%= s.id -%>" 
+							data-vector="1"
+							style="position: absolute; top: 50%; right: 0px">&rarr;</button>
+					<% } %>
+				<% } %>
+				<div class="carousel-link__container">
+					<% if(user.adminMode) { %>
+					<div style="font-size: 15px; max-width: 50%; padding: 0 3px">
+						<span>Заголовок:</span>
+						<input type="text" class="js-slide-upd"  data-event-name="input" data-target="title_bottom" data-id="<%= s.id -%>" data-fragment-id="<%= fragment.id -%>" value="<%= s.title_bottom || s.title -%>">
+					</div>
+					<div style="font-size: 15px; max-width: 50%; padding: 0 3px">
+						<span>Адрес:</span>
+						<input type="text" class="js-slide-upd"  data-event-name="input" data-target="href" data-id="<%= s.id -%>" data-fragment-id="<%= fragment.id -%>" value="<%= s.href -%>">
+					</div>
+					<% } else { %>
+						<a href="<%= s.href %>"><%= s.title_bottom || s.title %></a>
+					<% } %>
+				</div>
+			</div>
+		</div>
+		<% }) %>
+		<% if(user.adminMode === true) { %>
+				<div class="my-item">
+					<div class="container-item__container js-slide-add" data-fragment-id="<%= fragment.id -%>">
+						<div class="carousel-item"></div>
+						<div class="carousel-link__container">
+							<a href="#">Добавить</a>
+						</div>
+					</div>
+				</div>
+			<% } %>
+	</div>
+
+	<div class="mobile-nav">
+		<ul class="accordeon-menu">
+			<% slides.map((s, index) => { %>
+	    	<li class="accordeon-menu__item">
+	        <div class="accordeon-menu__item-content <%= index == 0 ? 'accordeon-menu__item--active' : '' -%>" style="background-image: url(<%= s.img || s.img_bottom %>)">
+	        	<div class="slider-info">
+	        		<div class="slider-info__wrapper">
+	        			<h2><%= s.title %></h2>
+	        			<div class="text-center">
+	        				<%- s.description %>
+	        			</div>
+	        			<div class="slider-action">
+	        				<% s.moreBtnText = 'moreBtnText' in s === false ? 'Подробнее' : s.moreBtnText %>
+									<% if( ('moreBtnText' in s && s.moreBtnText != '') || 'moreBtnText' in s === false ) { %>
+										<a href="<%= s.href %>" class="btn"><%= s.moreBtnText  -%></a>
+									<% } %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="accordeon-menu__item-link"><%= s.title_bottom || s.title %></button>
+				</li>	
+			<% }) %>	
+		</ul>
+	</div>
+</div>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.js"></script>
+<script defer type="text/javascript" src="/vendors/slick/slick.min.js"></script>
+<script defer type="text/javascript" src="/js/slider.init.js"></script>

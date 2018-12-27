@@ -1,0 +1,88 @@
+.shops-items {
+    margin-top: 15px;
+}
+
+.shops-item {
+    padding-bottom: 10px;
+    border: 1px solid #c0c0c0;
+    margin-bottom: 10px;
+}
+
+.shops-item__title {
+    font-size: 22px;
+    text-align: center;
+    padding: 7px;
+    margin-bottom: 5px;
+}
+
+.shops-item__more {
+    padding-top: 10px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.shops-item__text img {
+	max-width: 100%;
+	display: block;
+    margin: 10px auto;
+}
+
+.shops-item__text {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.shops-item__adress {
+    display: block;
+}
+
+.shops-item__phone {
+    display: block;
+}
+
+.shops-item__image {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.shops-item__image img {
+    max-height: 250px;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    .shops-items {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+    }
+
+    .shops-item:not(:nth-child(3n)) {
+        margin-right: 5px;
+    }
+
+    .shops-item {
+        width: -webkit-calc((100% / 3) - 5px);
+        width: calc((100% / 3) - 5px);
+        margin-bottom: 5px;
+    }
+}
+
+@media (min-width: 976px) {
+	.shops-item__text img {
+		max-width: 50%;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .shops-item__image img {
+        width: 100%;
+    }
+
+}

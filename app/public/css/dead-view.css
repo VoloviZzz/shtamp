@@ -1,0 +1,139 @@
+.person-top {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-flow: row wrap;
+}
+
+.person-memory, .person-media {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-flow: row wrap;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+        -ms-flex-align: baseline;
+            align-items: baseline;
+}
+
+.person-section {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #c3c3c3;
+}
+
+.person-biography, .person-necrology, .person-photo, .person-video {
+    padding: 10px;
+    border: 1px solid #c3c3c3;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 575px) {
+    .person-biography, .person-necrology, .person-photo, .person-video {
+        width: 100%;
+        min-height: auto;
+    }
+}
+
+.add-video > div, .add-photo > div {
+    min-height: 200px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border: 4px #c3c3c3 dashed;
+    cursor: pointer;
+}
+
+.biography-text {
+    border-bottom: 1px #c3c3c3 solid;
+}
+
+.biography-text:not(:last-child) {
+    margin-bottom: 21px;
+}
+
+.biography-author {
+    text-align: right;
+    font-weight: bold;
+}
+
+.form-add-memory {
+    padding: 10px;
+    border: 1px #000 solid;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.form-title {
+    margin-bottom: 10px;
+}
+
+.form-body textarea {
+    margin-bottom: 10px;
+}
+
+.form-send-btn {
+    width: 100%;
+    margin: auto;
+}
+
+embed {
+    width: 100%;
+}
+
+object {
+    width: 100%;
+}
+
+.memory-book__title {
+    background: rgb(144, 144, 144);
+    padding: 7px;
+    color: #fff;
+    margin: 0px 0px 20px !important;
+}
+
+img.memory-photos--item {
+	width: 300px;
+}
+
+.dead-view-memory-photos {
+	display: inline-block;
+	vertical-align: top;
+}

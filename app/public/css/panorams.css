@@ -1,0 +1,6 @@
+.panorams{
+ transition: .2s;
+}
+.hidden-edit-block .input-group{
+    display: block !important;
+}

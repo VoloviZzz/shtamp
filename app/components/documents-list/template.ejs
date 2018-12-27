@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="/css/documents-list.css">
+<div class="menu-sections menu-sections__default">
+	<div class="documents-container">
+		<% if(user.adminMode) { %>
+			<div class="admin-control-container">
+				<button class="btn js-documents-add">Добавить новый документ</button>
+			</div>
+		<% } %>
+		<% documents.map(d => { %>
+			<div class="documents-item">
+				<% if(user.adminMode) { %>
+					<div class="admin-control-container">
+						<button data-id="<%= d.id %>" class="btn js-documents-delete">Удалить</button>
+						<% if(d.published) { %>
+							<button value="0" data-id="<%= d.id %>" class="btn js-documents-toggle-public">Снять с публикации</button>
+						<% }
+						else { %>
+							<button value="1" data-id="<%= d.id %>" class="btn js-documents-toggle-public">Опубликовать</button>
+						<% } %>
+					</div>
+				<% } %>
+				<% if(user.adminMode) { %>
+					<div>
+						<input data-id="<%= d.id %>" class="input-text js-documents-title-update" type="text" value="<%= d.title %>">
+					</div>
+				<% }
+				else { %>
+					<h1 class="documents-item__title"><%= d.title %></h1>
+				<% } %>
+				<div class="documents-item__text text-margin-bottom-p text-indent">
+					<%- Helpers.replaceLineBreaks(Helpers.trimStr(d.text, 200)) %>
+				</div>
+				<div class="documents-item__more">
+					<a class="page-link" href="/document/<%= d.id %>">Подробнее</a>
+				</div>
+			</div>
+		<% }) %>		
+	</div>
+</div>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/documents-list.js" defer></script>
+<% } %>

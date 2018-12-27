@@ -1,0 +1,111 @@
+<% if (typeof graves !== "undefined") {
+	var part = part || 0;
+	if (part == 0) { %>
+		<div class="text-center">Найдено результатов: <b class="search-results-count"><%= count %></b></div><br />
+	<% } %>
+	<% for (id in graves) {	
+		var g = graves[id],
+		number = String(g.place);
+
+		g.rel = g.rel || {}; %>
+			
+		<div class="place-item search-result__item">
+			<div class="place-img-wrapp search__img-wrapp">
+				<% if (g.rel) { %>
+					<img class="<% if (g.rel.orientation == 6) { %>img90<% } %>" src="<%= imagesPath %><%= g.rel.photo_preview %>" />
+				<% } else { %>
+					<img src="" />
+				<% } %>
+			</div>
+			<div class="place__pairs search__pairs-wrapp">
+				<div class="place__pair place__title search__pair search__title">
+					<div>
+						<h1 class="fs-regular dead-name noinit"><%=g.surname%> <%=g.firstname%> <%=g.patronymic%></h1>
+					</div>
+					<div>
+						<span class="fs-regular"><%=g.born_day%>.<%=g.born_month%>.<%=g.born_year%> - <%=g.die_day%>.<%=g.die_month%>.<%=g.die_year%></span>
+					</div>
+				</div><%
+				%><div class="place__info">
+					<div class="place__pair place-general search__pair">
+						<div>
+							<span class="place__info-name">Кладбище:</span>
+							<span><a href="/cemetery/<%=g.cemetery%>"><%= g.cemetery_name -%></a></span>
+						</div>
+						<div>
+							<span class="place__info-name">Квартал:</span>
+							<span>
+								<% if (g.area) { %>
+									<%= g.area_name %>
+								<% }
+								else { %>
+									без квартала
+								<% } %>
+							</span>
+						</div>
+						
+						<% if (g.place) { %>
+						
+							<div>
+								<span class="place__info-name">Участок:</span>
+								<span><a href="/place/<%=g.place%>">66-3435-<%= g.place %></a></span>
+							</div>
+							
+						<% }
+						else { %>
+							<div>
+								<b>Одиночное захоронение</b>
+							</div>
+						<% } %>
+						
+						<% if (g.place && typeof g.near !== "undefined") { %>
+							<div class="place__pair search__pair place__arow">
+								<div>
+									<span class="place__info-name">Захоронены рядом</span>
+								</div>
+								<div class="place-arow__body">
+									
+									<div class="hidden-graves"></div>
+									
+									<% for (id in g.near) {
+										
+										var n = g.near[id]; %>
+									
+										<div class="place-graves">
+											<div>
+												<a href="/person/<%= n.id %>" target="_blank">
+													<p><span class="fa fa-user"></span> <%= n.surname %> <%= n.firstname %> <%= n.patronymic %></p>
+												</a>
+											</div>
+										</div>
+									
+									<% } %>
+									
+								</div>
+							</div>
+						<% } %>
+					
+					</div>
+					
+					<div class="place__buttons search-result_buttons">
+						<div>
+							<a href="/person/<%= g.id %>" class="btn">Открыть</a>
+						</div>
+						
+						<% if (g.place) { %>
+						
+							<div>
+								<a href="/place/<%= g.place %>" class="btn">Страница участка</a>
+							</div>
+						
+						<% } %>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	<% } %>
+<% } else { %>
+	<h3>Ничего не найдено</h3>
+	<p>Проверьте правильность набранной строки и повторите поиск</p>
+<% } %>

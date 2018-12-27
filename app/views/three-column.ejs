@@ -1,0 +1,40 @@
+<%- include('./includes/header') -%>
+
+<main class="document-content section-wrapper section-wrapper-3col">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-xl col-lg col-md-12 col-md-12 order-lg-1 order-xl-1 section-menu h-100">
+                <p class="section-title section-title-menu">Меню</p>
+                <div class="row h-100">
+                    <div class="col section-content">
+                        <nav>
+                            <%- include('./includes/fragments-container', { block_id: 1 }) -%>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl col-lg col-md-12 order-lg-2 order-xl-2 section-center h-100">
+				<% if(route.show_title) { %>
+                    <p class="section-title text-center"><%= route.title -%></p>
+                <% } %>
+                <div class="row h-100">
+                    <div class="col section-content">
+                        <%- include('./includes/fragments-container', { block_id: 2 }) -%>
+                    </div>  
+                </div>
+            </div>
+            <div class="col-xl col-lg col-md-12 order-lg-3 order-xl-3 section-right h-100">
+                <div class="section-right-inside h-100">
+                    <p class="section-title">Акции и предложения</p>
+                    <div class="row h-100">
+                        <div class="col section-content">
+                            <%- include('./includes/fragments-container', { block_id: 3 }) -%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('./includes/footer') -%>

@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="/css/goods-view.css">
+<link rel="stylesheet" href="/vendors/baguettebox.js/dist/baguetteBox.min.css">
+<link rel="stylesheet" href="/vendors/flexSlider/flexslider.css">
+<div>
+	<% if(user.adminMode) { %>
+		<%- include("./settings") -%>
+	<% } %>
+	<div>
+		<% try { %>
+			<%- include("./goods.ejs") -%>
+		<% } catch(error) { %>
+			<pre><%= error.message -%></pre>
+		<% } %>
+	</div>
+</div>
+
+<style>
+	.btn-block {
+		display: block;
+	}
+		
+	.similar-list li {
+		width: 25%;
+		padding: 30px;
+	}
+	
+</style>
+
+<section class="similar-positions">
+	<h3>Похожие позиции</h3>
+	<ul class="items-list goods-list similar-list"><%
+		
+		similarPositions.forEach(pos => {
+		
+			var img = pos.preview_path ? pos.preview_path : "/img/image-not-found.jpg";
+			
+			%><li>
+				<h4>
+					<a href="<%= pos.id -%>"><%- pos.title -%></a>
+				</h4>
+				<div class="goods-list-price">
+					<% if(pos.float_price) { %>
+						<span style="font-weight: bold">От</span>
+						<span style="font-weight: bold"><%= Helpers.formatPrice(pos.price) %> руб.</span>
+					<% } else if(pos.contract_price) { %>
+						<span style="font-weight: bold">Договорная</span>
+					<% } else { %>
+						<span style="font-weight: bold"><%= Helpers.formatPrice(pos.price) %> руб.</span>
+					<% } %>
+					<span class="fa fa-rouhle"></span>
+				</div>
+				<div class="items-list-img-cnt">
+					<div>
+						<img src="<%= img -%>" alt="">
+					</div>
+				</div>
+			</li><%
+		})
+		
+	%></ul>
+</section>
+
+<script src="/vendors/baguettebox.js/dist/baguetteBox.min.js" defer></script>
+<script src="/vendors/flexSlider/jquery.flexslider-min.js" defer></script>
+<script src="/js/goods-view.js" defer></script>
+<% if(user.adminMode) { %>
+	<script src="/admins/js/goods-view.js" defer></script>
+<% } %>

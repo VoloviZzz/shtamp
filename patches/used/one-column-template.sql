@@ -1,0 +1,1 @@
+INSERT INTO `templates` (`id`, `title`, `name`, `created`) VALUES (NULL, 'Одноколоночный макет страницы', 'one-column', CURRENT_TIMESTAMP);

@@ -1,0 +1,1 @@
+CREATE TABLE `metrics` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(255) NULL DEFAULT 'Новая метрика' COMMENT 'человекопонятный заголовок' , `code` TEXT NULL DEFAULT NULL COMMENT 'Код счётчика' , `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;

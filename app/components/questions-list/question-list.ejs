@@ -1,0 +1,31 @@
+<ol class="default-list">
+	<% questions.map(q => { %>
+		<li class="js-answer answer">
+			<span class="js-question-text show-question-button"><%- q.question -%></span>
+			<div class="text-indent question">
+				<% if(user.adminMode) { %>
+					<input type="text" class="form-control my-2 js-question-updateQuestion" data-id="<%= q.id -%>" value="<%= q.question -%>">
+					<textarea class="form-control js-question-updateAnswer w-100" data-id="<%= q.id -%>"><%- q.answer -%></textarea>
+				<% } else { %>
+					<%- Helpers.replaceLineBreaks(q.answer) -%>
+				<% } %>
+			</div>
+		</li>  
+		<% if(user.adminMode) { %>
+			<div class="text-right">
+				<select class="form-control js-change-category" name="categories" data-id="<%= q.id -%>">
+					<option value="0">Без категории</option>
+					<% catsArray.forEach(c => { %>
+						<option <%= q.category_id == c.id ? 'selected' : '' -%> value="<%= c.id -%>"><%= c.title -%></option>
+					<% }) %>
+				</select>
+				<% if(q.public == '0') { %>
+					<button data-id="<%= q.id -%>" data-value="1" class="btn js-question-togglePusblished mt-2">Опубликовать</button>
+				<% } else { %>
+					<button data-id="<%= q.id -%>" data-value="0" class="btn js-question-togglePusblished mt-2">Снять с публикации</button>
+				<% } %>
+				<button data-id="<%= q.id -%>" class="btn js-question-delete mt-2">Удалить</button>
+			</div>
+		<% } %>  
+	<% }) %>
+</ol>

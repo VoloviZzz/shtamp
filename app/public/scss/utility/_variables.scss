@@ -1,0 +1,25 @@
+// Переменные SCSS
+
+// Основные цвета
+
+$white:    #fff;
+$black:    #000;
+
+$body-bg:                   $white; // Цвет body
+
+// Ссылки по умолчанию
+
+$link-color:                $black; // Цвет ссылок
+$link-decoration:           none; // 
+$link-hover-color:          #f36c2a; // Цвет ссылок при наведеннии
+$link-hover-decoration:     underline; //
+
+// Выпадающее меню по умолчанию
+
+$dropdown-min-width:  12rem; // Минимальная ширина
+$dropdown-bg:         $white; // Цвет
+
+// Шрифт по умолчанию
+
+$font-family-base: 'Roboto', sans-serif; /// Тип шрифта
+$font-size-base: 1rem; // Размер шрифта

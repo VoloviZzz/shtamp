@@ -1,0 +1,50 @@
+.order-item {
+	border-collapse: collapse;
+}
+
+.order-item tr:nth-child(2n-1) {
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+.order-item__number {
+	width: 2.8%;
+	text-align: center;
+}
+
+.order-item__more-details {
+	padding-left: 9.15%;
+}
+
+.order-item__burial-place span,
+.order-item__goods-amount,
+.order-item__total-amount,
+.order-item__total-paid {
+	font-weight: 500;
+	text-align: center;
+}
+
+
+.title-helper__burial-place,
+.title-helper__goods-amount,
+.title-helper__total-amount,
+.title-helper__total-paid, {
+	text-align: center;
+}
+
+.order-item__burial-place {
+	padding-left: 17px;
+	text-align: center;
+}
+
+.order-item__more-details {
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.more-order-details {
+	padding: 15px 61px;
+	border: 1px solid #cccccc;
+	-webkit-border-radius: 4px;
+	        border-radius: 4px;
+}

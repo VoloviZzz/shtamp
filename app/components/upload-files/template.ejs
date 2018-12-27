@@ -1,0 +1,47 @@
+<section>
+	<h1>Загрузка файлов в public</h1>
+	<form class="js-uploadFiles-form" action="/api/files/upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" class="form-control-file">
+		<button class="btn my-2">Загрузить</button>
+	</form>
+</section>
+<section>
+	<h1>Загруженные файлы</h1>
+	<% files.forEach(file => { %>
+		<div>
+			<a href="<%= file.url -%>"><%= file.path -%></a>
+			<small class="d-block font-weight-bold">Дата загрузки: <%= Helpers.formatDate(file.created, 'dd-MM-yyyy в hh:mm') -%></small>
+		</div>
+	<% }) %>
+</section>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function (e) {
+		$('.js-uploadFiles-form').submit(function (e) {
+			e.preventDefault();
+
+			var fd = new FormData();
+			const file = this.elements.file.files[0];
+
+			fd.append('file', file);
+
+			$.ajax({
+				url: '/api/files/upload',
+				data: fd,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function (result) {
+					if (result.status !== 'ok') {
+						console.log(result);
+						return alert(result.message);
+					}
+
+					location.reload();
+				}
+			});
+
+			return false;
+		})
+	})
+</script>

@@ -5,8 +5,9 @@
 
 	</div>
 
+
 	<div class="menu-center">
-		<div class="logo-wrapper">
+    <div class="logo-wrapper">
 			<div class="logo-file">
 				<a href="/"><img class="logo" alt="Логотип letaindex" height="30" src="<%= Helpers.replaceImageIfNotExist(siteConfig.get("siteLogo")) -%>"></a>
 				<% if(user.adminMode) { %>
@@ -16,12 +17,15 @@
 					</label>
 				<% } %>
 			</div>
-
-			<%# <button class="toggle-menu btn"></button> %>
 		</div>
-		<div class="footer-list-div">
+    <div class="header-list-div">
 			<%- include("./header-menu") -%>
-		</div>
+    </div>
+    <div class="adress">
+      <p style="color: #888"><i class="fa fa-map-marker"></i> Пр. К. Маркса, 96</p>
+      <p><i style="color:#000;" class="fa fa-phone"></i> <span><a style="color: #f00;" href="tel:89030900073">8 (903) 090-0073</a>, </span><a href="tel:434307">43-43-07</a></p>
+      <p style="color: #888"><i class="fa fa-envelope-o"></i><a  style="color: #888;" href="mailto:emax2008@yandex.ru">emax2008@yandex.ru</a></p>
+    </div>
 	</div>
 
 	<div class="btn btn-info open-menu-list">

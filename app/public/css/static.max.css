@@ -1,7 +1,5 @@
 
-*,:after,:before {
-box-sizing:inherit;
-}
+*,:after,:before {box-sizing:inherit;}
 
 html {
 font-family:sans-serif;
@@ -76,12 +74,7 @@ sup {
 top:-.5em;
 }
 
-a {
-color:#000;
-text-decoration:none;
-background-color:transparent;
--webkit-text-decoration-skip:objects;
-}
+a {color:#000;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects;position:  relative;}
 
 a:hover {
 color:#f36c2a;
@@ -2749,8 +2742,8 @@ padding-top:20px;
   transition:transform .5s;
   height: 95px;
   z-index:6;
-  color:#fff;
-  background-color: #4294ec;
+  color: #353535;
+  background-color: #ffffff;
  }
 
 .document-header--hidden {
@@ -2795,12 +2788,7 @@ font:2em arial;
     margin-top: 25px;
 }
 
-.document-header .menu-center .menu-list .menu-item .menu-text {
-display:flex;
--ms-flex-direction:column;
-flex-direction:column;
-padding-right:10px;
-}
+.document-header .menu-center .menu-list .menu-item .menu-text {display:flex;-ms-flex-direction:column;flex-direction:column;padding-right:10px;color: #767f98;}
 
 .document-header .menu-center .menu-list .menu-item .submenu {
 display:none;
@@ -2820,12 +2808,7 @@ white-space:nowrap;
 color:#fff;
 }
 
-.document-header .menu-right {
-display:flex;
--ms-flex-pack:end;
-justify-content:flex-end;
-padding-top:10px;
-}
+.document-header .menu-right {display:flex;-ms-flex-pack:end;justify-content: flex-start;padding-top:10px;text-align: left;/* margin-right: 148px; */}
 
 .document-header .badge {
 position:absolute;
@@ -2911,7 +2894,7 @@ padding-right:0;
   height: 95px;
   z-index:6;
   color:#fff;
-  background-color: #4294ec;
+  background-color: #ffffff;
  }
 
 .document-footer--hidden {
@@ -3257,9 +3240,7 @@ color:#6c757d!important;
 margin-right:10px;
 }
 
-.document-header .menu-center .menu-list .menu-item .menu-text a,.document-header .menu-right div a,.document-footer a {
-color:#fff;
-}
+.document-header .menu-center .menu-list .menu-item .menu-text a,.document-header .menu-right div a,.document-footer a {color: #40475a;}
 
 .document-header .menu-center .menu-list .menu-item .menu-text a:hover,.document-header .menu-center .menu-list .menu-item .submenu li a:hover,.document-header .menu-right div a:hover,.document-footer a:hover {
 color:#f36c2a;

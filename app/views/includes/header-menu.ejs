@@ -1,5 +1,5 @@
 <div class="menu-list">
-	<% HeaderRows.forEach(r => { -%>
+	<% HeaderRows.forEach(function (r, i) {-%>
 		<% if (user.adminMode) { -%>
 			<div class="js-headerMenu-item menu-item">
 				<div class="js-link-wrapper menu-text">
@@ -88,6 +88,15 @@
 					<% }) -%>
 				</ul>
 			</div>
+			<%console.log(HeaderRows.length);%>
+			<%console.log(i);%>
+			<%if (i != HeaderRows.length-1) {%>
+			<div class="menu-item dot">
+				<div class="menu-text">
+				♦
+				</div>
+			</div>
+		<%}%>
 		<% } %>
 	<% }); %>
 </div>

@@ -1,3 +1,4 @@
+appearance: none;
 @media screen and (max-width:479px) {
     .logo{
         display: none;
@@ -387,7 +388,7 @@
     }
     .header h1{
         font-size: 4em;
-        font-family:initial;
+        font-family:serif;
         text-align: left;
     }
     .header .btn1{
@@ -442,6 +443,8 @@
   text-align: center;
   }
   .goods .goods-block{
+    text-align:  center;
+    display: inline-flex;
     margin: 20px 0;
   }
   .goods .goods-block .first-good{
@@ -473,7 +476,7 @@
   .goods .goods-block .first-good .rotate span{
     position: absolute;
     top: 50%;
-    font-family:initial;
+    font-family:serif;
     font-size: 1.5em;
     left: 50%;
     width: 100%;
@@ -529,7 +532,7 @@
  }
   .goods .good-line span{
     color: #fff;
-    font-family: initial;
+    font-family: serif;
     font-size: 1.7em;
     position: absolute;
     top: 50%;
@@ -610,7 +613,7 @@
     height: 70%;
     z-index: 2;
     text-align: center;
-    font-family: initial;
+    font-family: serif;
   }
   .map .q-form .btn{
     width: 80%;
@@ -714,7 +717,7 @@
   font-size: 3vw;
   white-space: nowrap;
   width: 30%;
-  font-family:initial;
+  font-family:serif;
   z-index: 5;
 /*   padding: 15px; */
 }

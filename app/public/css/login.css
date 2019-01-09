@@ -8,7 +8,21 @@
     display: -ms-flexbox;
     display: flex;
 }*/
-
+.admin-panel{
+    display: none !important;
+}
+.open-menu-list{
+    display: none !important;
+}
+.second_mobile{
+    display: none !important;
+}
+.fourth_mobile{
+    display: none !important;
+}
+.fifth_mobile{
+  display: none;
+}
 .login-wrapper {
     background-color: #fff;
     width: 100%;
@@ -37,10 +51,14 @@
 @media (min-width: 767px) {
     .login-wrapper {
         margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
         width: 400px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
-        border: 1px #c3c3c3 solid;
+        border: 1px #767f98 solid;
     }
 
     .login-body__agreement {
@@ -56,6 +74,7 @@
 }
 
 .login-body__register-button {
+    background-color: #767f98;
     padding: 13px;
 }
 
